@@ -1,0 +1,7 @@
+.full_width {
+    width: 100%;
+}
+
+:host ::ng-deep .p-dropdown.p-component.p-dropdown-clearable {
+    width: 100% !important;
+}

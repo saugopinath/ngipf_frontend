@@ -1,0 +1,127 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <form [formGroup]="addContact" class="flex w-9 mx-auto flex-column justify-content-center align-items-center p-5 gap-2">
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Mobile NO.</label>
+                            <input pInputText formControlName="mobileno" id="mobileno" type="text" />
+                            <small class="text-blue-600">10 digit No only</small>
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Email ID:<span class="text-red-700">*</span></label>
+                            <input pInputText formControlName="emailId" id="emailId" type="text" />
+                        </div>
+                    </div>
+                </div>
+                <h3 class="align-items-left justify-content-left text-blue-600">Present Address</h3>
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Line1:</label>
+                            <input pInputText formControlName="line1" id="line1" type="text" />
+                            <small class="text-500">House No.,Street Name</small>
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Line2:</label>
+                            <input pInputText formControlName="line2" id="line2" type="text" />
+                            <small class="text-500">City,Town,Village</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>State</label>
+                            <input pInputText formControlName="state" id="state" type="text" />
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>District</label>
+                            <input pInputText formControlName="district" id="district" type="text" />
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Pin Code:</label>
+                            <input pInputText formControlName="pinCode" id="pinCode" type="text" />
+                            <small class="text-500">6 Digit Only</small>
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>As on/with Effective Date</label>
+                            <p-calendar formControlName="selectedAED" dateFormat="dd.mm.yy" placeholder="" [showIcon]="true"></p-calendar>
+                        </div>
+                    </div>
+                </div>
+                <div class="field-checkbox justify-content-left align-items-left">
+                    <p-checkbox formControlName="checked" [binary]="true" inputId="binary"></p-checkbox>
+                    <label class="text-xl font-italic" for="binary">Permanent Address same As Present Addresss</label>
+                </div>
+                <h3 class="align-items-left justify-content-left text-blue-600">Permanent Address</h3>
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Line1:</label>
+                            <input pInputText formControlName="line1" id="line1" type="text" />
+                            <small class="text-500">House No.,Street Name</small>
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Line2:</label>
+                            <input pInputText formControlName="line2" id="line2" type="text" />
+                            <small class="text-500">City,Town,Village</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>State</label>
+                            <input pInputText formControlName="state" id="state" type="text" />
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>District</label>
+                            <input pInputText formControlName="district" id="district" type="text" />
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Pin Code:</label>
+                            <input pInputText formControlName="pinCode" id="pinCode" type="text" />
+                            <small class="text-500">6 Digit Only</small>
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>As on/with Effective Date</label>
+                            <p-calendar formControlName="selectedAED" dateFormat="dd.mm.yy" placeholder="" [showIcon]="true"></p-calendar>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="flex flex-wrap gap-2 align-items-center justify-content-center">
+                <button pButton pRipple label="View Past Record"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="flex justify-content-between w-full px-4">
+    <p-button label="Back" (onClick)="prevPage()" icon="pi pi-angle-left"></p-button>
+    <p-button label="Next" (onClick)="nextPage()" icon="pi pi-angle-right" iconPos="right"></p-button>
+</div>

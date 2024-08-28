@@ -1,0 +1,36 @@
+<p-divider align="left" type="solid">
+    <div class="inline-flex align-items-center">
+        <i class="pi pi-file mr-2"></i>
+        <b>Sanction Details</b><span *ngIf="sanctionStatus === true" class="text-danger">*</span>
+    </div>
+</p-divider>
+<form [formGroup]="parentFormName" class="px-4">
+    <div class="col-md-12">
+        <div class="amount_main d-flex justify-content-between">
+            <div class="amount-rt">
+                <div class="flex justify-content-between flex-wrap">
+                    <div class="flex flex-column align-items-start justify-content-center mr-1">
+                        <label for="sanctionNo" class="font-medium">Sanction No</label>
+                        <p-inputNumber formControlName="sanctionNo" [useGrouping]="false"></p-inputNumber>
+                        <smart-error [control]="this.parentFormName.controls.sanctionNo"></smart-error>
+                    </div>
+                    <div class="flex flex-column align-items-start justify-content-center mx-1">
+                        <label for="sanctionAmt" class="font-medium">Sanction Amount</label>
+                        <p-inputNumber formControlName="sanctionAmt" mode="currency" inputId="sanctionAmt" currency="INR" currencyDisplay="symbol" locale="en-IN" [minFractionDigits]="0" [maxFractionDigits]="0" (onBlur)="sanctionAmt()"> </p-inputNumber>
+                        <smart-error [control]="this.parentFormName.controls.sanctionAmt"></smart-error>
+                    </div>
+                    <div class="flex flex-column align-items-start justify-content-center mx-1">
+                        <label class="font-medium">Sanction Date</label>
+                        <p-calendar [showIcon]="true" inputId="icon" formControlName="sanctionDate" dateFormat="dd-mm-yy"></p-calendar>
+                        <smart-error [control]="this.parentFormName.controls.sanctionDate"></smart-error>
+                    </div>
+                    <div class="flex flex-column align-items-start justify-content-center ml-1">
+                        <label class="font-medium">Sanction By</label>
+                        <input pInputText type="text" formControlName="sanctionBy" />
+                        <smart-error [control]="this.parentFormName.controls.sanctionBy"></smart-error>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

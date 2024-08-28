@@ -1,0 +1,101 @@
+<p-divider align="left" type="solid">
+    <div class="inline-flex align-items-center">
+        <i class="pi pi-bitcoin mr-2"></i>
+        <b>BT Details</b>
+    </div>
+</p-divider>
+
+<div class="p-4">
+    <div class="flex justify-content-between flex-wrap mb-4">
+        <div class="p-2">
+            <strong>Gross Amount : {{ parentFormName.getRawValue().gross_amount }}</strong>
+        </div>
+        <div class="p-2">
+            <strong>Net Amount : {{ parentFormName.getRawValue().net_amount }}</strong>
+        </div>
+        <div class="p-2">
+            <strong>Total BT Amount : {{ parentFormName.getRawValue().BTAmount }}</strong>
+        </div>
+        <div class="p-2">
+            <strong>Treasury BT Amount : {{ totalTreasuryBt }}</strong>
+        </div>
+        <div class="p-2">
+            <strong>AG BT Amount : {{ totalAgBt }}</strong>
+        </div>
+    </div>
+
+    <form [formGroup]="btForm" class="flex justify-content-between flex-wrap mb-4">
+        <div class="flex flex-column align-items-start justify-content-center">
+            <label class="font-medium">BT Sl. No.</label>
+            <p-dropdown [options]="btCodeArray" [virtualScroll]="true" [virtualScrollItemSize]="30" panelStyleClass="p_virtual_dropdown" styleClass="p_virtual_dropdown" formControlName="btSlNo" optionLabel="desc" [filter]="true" filterBy="btSerial" [showClear]="true" placeholder="Select BT" [showClear]="true" (onChange)="onBtCodeSelectionChange()">
+                <ng-template let-item pTemplate="item">
+                    <div class="ui-helper-clearfix" style="position: relative; height: 25px" pTooltip="{{ item.desc }}" tooltipPosition="right">
+                        <span style="font-size: 14px; margin-top: 4px">{{ item.btSerial }} : {{ item.desc ?? item.desc }}</span>
+                    </div>
+                </ng-template>
+            </p-dropdown>
+            <span class="block" style="color: red">
+                <smart-error [control]="errorControl.btSlNo"></smart-error>
+            </span>
+        </div>
+
+        <div class="flex flex-column align-items-start justify-content-center">
+            <label class="font-medium">By-Transfer Head</label>
+            <input pInputText type="text" formControlName="btHead" />
+        </div>
+
+        <div class="flex flex-column align-items-start justify-content-center">
+            <label class="font-medium">By-Transfer Description</label>
+            <input pInputText type="text" formControlName="btDesc" />
+        </div>
+
+        <div class="flex flex-column align-items-start justify-content-center">
+            <label class="font-medium">BT Type </label>
+            <input pInputText type="text" formControlName="btType" />
+        </div>
+
+        <div class="flex flex-column align-items-start justify-content-center">
+            <label class="font-medium">Amount</label>
+            <input pInputText type="number" formControlName="amount" />
+        </div>
+
+        <div class="flex flex-column align-items-start justify-content-center">
+            <button pButton icon="pi pi-plus" label="" class="flex p-button-raised" (click)="addBTArray()"></button>
+        </div>
+    </form>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered w-full">
+            <thead>
+                <tr style="text-align: center">
+                    <th class="t_cell">BT Sl. No.</th>
+                    <th class="t_cell">BT Head</th>
+                    <th class="t_cell">BT Description</th>
+                    <th class="t_cell">BT Type</th>
+                    <th class="t_cell">Amount</th>
+                    <th class="t_cell">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let bti of btInputArray; let rowIndex = index" style="text-align: center">
+                    <td class="t_cell">{{ bti.btSlNo.btSerial }} : {{ bti.btSlNo.type }}</td>
+                    <td class="t_cell">{{ bti.btHead }}</td>
+                    <td class="t_cell">{{ bti.btDesc }}</td>
+                    <td class="t_cell">{{ bti.btType }}</td>
+                    <td class="t_cell">{{ bti.amount }}</td>
+
+                    <td class="t_cell">
+                        <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="btInputArray.splice(rowIndex, 1)"></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="t_cell" colspan="13">Total BT Deduction :- {{ totalBtAmount }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="flex justify-content-center flex-wrap">
+    <button pButton type="button" icon="pi pi-send" iconPos="right" label="Save" class="flex p-button-raised" (click)="savePayeeforBT($event)"></button>
+</div>

@@ -1,0 +1,89 @@
+<div class="grid fadein animation-duration-500">
+    <div class="col-12 md:col-6 align-items-center justify-content-center column-gap-4 row-gap-6">
+        <p-card class="card-1 ml-20  mt-90">
+            <ng-template pTemplate="header">
+                <div class="flex align-items-center justify-content-center ml-20">
+                    <img src="assets/layout/images/employee.png" alt="employee" class="w-3rem h-3rem mr-1 mt-2" />
+                    <span class="text-primary font-bold ml-2 mt-2 font-bold text-xl">
+                        Initiate
+                        <button pButton type="button" class="p-button-raised p-button-rounded" icon=" pi pi-external-link"(click)="initiateClick()"></button>
+                    </span>
+                </div>
+            </ng-template>
+            <div class="ml-8">Facility to initiate the Interest Calculation Process</div>
+        </p-card>
+    </div>
+    <div class="col-12 md:col-6 align-items-center justify-content-center column-gap-4 row-gap-6">
+        <p-card class="card-1 ml-20 mt-90">
+            <ng-template pTemplate="header">
+                <div class="flex align-items-center justify-content-center ml-20">
+                    <img src="assets/layout/images/employee.png" alt="employee" class="w-3rem h-3rem mr-1 mt-2" />
+                    <span class="text-primary font-bold ml-2 mt-2 font-bold text-xl">
+                        Interest Generation master
+                        <button pButton type="button" class="p-button-raised p-button-rounded" icon=" pi pi-external-link"(click)="MasterClick()" ></button>
+                    </span>
+                </div>
+            </ng-template>
+            <div class="ml-8">This functionality will be used to define how annual interest will be credited to NGIPF Administrator-Through TR-43 Bill generation or through Interest Credit Statement to AGWB
+            </div>
+        </p-card>
+
+        
+     </div> 
+
+    
+     <div class="col-12 md:col-6 align-items-center justify-content-center column-gap-4 row-gap-6">
+        <p-card class="card-1 ml-20 mt-90">
+            <ng-template pTemplate="header">
+                <div class="flex align-items-center justify-content-center ml-20">
+                    <img src="assets/layout/images/employee.png" alt="employee" class="w-3rem h-3rem mr-1 mt-2" />
+                    <span class="text-primary font-bold ml-2 mt-2 font-bold text-xl">
+                        Final Payment
+                        <button pButton type="button" class="p-button-raised p-button-rounded" icon=" pi pi-external-link" (click)="FinalPaymentClick()"></button>
+                    </span>
+                </div>
+            </ng-template>
+            <div class="ml-8"> Interest Credit Bill Final Payment</div>
+        </p-card>
+    </div>
+        <div class="col-12 md:col-6 align-items-center justify-content-center column-gap-4 row-gap-6">
+            <p-card class="card-1 ml-20 mt-90">
+                <ng-template pTemplate="header">
+                    <div class="flex align-items-center justify-content-center ml-20">
+                        <img src="assets/layout/images/employee.png" alt="employee" class="w-3rem h-3rem mr-1 mt-2" />
+                        <span class="text-primary font-bold ml-2 mt-2 font-bold text-xl">
+                            Bill/Statement Summary
+                            <button pButton type="button" class="p-button-raised p-button-rounded" icon=" pi pi-external-link"(click)="summaryClick()"></button>
+                        </span>
+                    </div>
+                </ng-template>
+                <div class="ml-8">Summary of Interest Credit Bill </div>
+            </p-card>
+        </div>
+
+            <div class="grid">
+                <div class="col-12">
+                    <div class=" flex-wrap gap-2 align-items-center justify-content-center">
+                        <p-card class="card-1 ml-20  mt-90">
+                            <ng-template pTemplate="header">
+                                <div class="flex align-items-center justify-content-center ml-20">
+                                    <img src="assets/layout/images/loan.png" alt="loan" class="w-3rem h-3rem mr-1 mt-2" />
+                                    <span class="text-primary font-bold ml-2 mt-2 font-bold text-xl">
+                                       Final Payment Interest Statement 
+                                        <button pButton type="button" class="p-button-raised p-button-rounded" icon=" pi pi-external-link"(click)="FinalPaymentClick()"></button>
+                                    </span>
+                                </div>
+                            </ng-template>
+                            <div class="ml-1">null</div>
+                        </p-card>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-2 align-items-center justify-content-center">
+                    <button pButton pRipple label="Back" onclick="history.back()"></button>
+                </div>
+                
+            </div>
+            
+            
+

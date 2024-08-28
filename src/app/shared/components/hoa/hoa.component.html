@@ -1,0 +1,249 @@
+<!-- <p-inputMask [(ngModel)]="val" mask="99-9999-999-999-99-999" placeholder="99-9999-999-999-99-999" slotChar="_"></p-inputMask> -->
+
+<form [formGroup]="parentFormName">
+    <div class="row">
+        <div class="col-md-12 mb-2 mt-2">
+            <p-divider align="left" type="solid">
+                <div class="inline-flex align-items-center">
+                    <i class="pi pi-file"></i>
+                    <span>{{ parentFormName.getRawValue().billId }}</span>
+                </div>
+            </p-divider>
+
+            <div class="px-2 md:px-4">
+                <div class="row">
+                    <div class="p-fluid formgrid grid">
+                        <div class="field col-12 md:col-4">
+                            <label><b>Payment Mode</b></label>
+                            <p-selectButton [options]="payModeOptions" formControlName="paymentMode" optionLabel="name" (onChange)="PaymentModeChange.emit('')"></p-selectButton>
+                        </div>
+
+                        <div class="field col-12 md:col-4" *ngIf="stateData?.tr === '21'">
+                            <label><b>Bill Mode</b></label>
+                            <p-selectButton [options]="billModeOptions" formControlName="billMode" optionLabel="name"></p-selectButton>
+                        </div>
+
+                        <div class="field col-12 md:col-4">
+                            <label><b>Bill No</b></label>
+                            <input pInputText type="text" formControlName="billNo" placeholder="Enter Bill No." />
+                            <smart-error [control]="this.parentFormName.controls.billNo"></smart-error>
+                        </div>
+
+                        <div class="field col-12 md:col-4">
+                            <label><b>Bill Date</b></label>
+                            <p-calendar [showIcon]="true" [focusTrap]="true" inputId="icon" formControlName="billDate" placeholder="Enter Bill Date" dateFormat="dd-mm-yy"></p-calendar>
+                            <smart-error [control]="this.parentFormName.controls.billDate"></smart-error>
+                        </div>
+
+                        <div class="field col-12 md:col-4" *ngIf="this.trConfigObjGetter.GemNonGem_PresentsInTR.includes(stateData?.tr)">
+                            <label><b>Gem Non-Gem</b></label>
+                            <p-selectButton [options]="gemNonGemOptions" formControlName="gemNonGem" optionLabel="name" (onChange)="PaymentModeChange.emit('')"></p-selectButton>
+                        </div>
+
+                        <div class="field col-12 md:col-4" *ngIf="this.trConfigObjGetter.uploadFilePresentInTR.includes(stateData?.tr) && this.parentFormName.value.gemNonGem.value === 0">
+                            <label><b>Upload File Type</b></label>
+                            <p-dropdown [options]="ufType" formControlName="uFType" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select Upload File Type" (onChange)="setUploadFileType($event)">
+                                <ng-template let-item pTemplate="item">
+                                    <div class="ui-helper-clearfix" style="position: relative; height: 25px" pTooltip="{{ item.name }}" tooltipPosition="right">
+                                        <span style="font-size: 14px; margin-top: 4px">{{ item.name }}</span>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                            <smart-error [control]="this.parentFormName.controls.uFType"></smart-error>
+                        </div>
+
+                        <div class="field col-12 md:col-4" *ngIf="this.trConfigObjGetter.iFile_location.includes(stateData?.tr) && this.parentFormName.value.uFType?.name === 'Integrated'">
+                            <label><b>Integrated File Location</b></label>
+                            <p-dropdown [options]="iFileLocation" formControlName="iFileLocation" optionLabel="name" [filter]="true" filterBy="colNameInJson" [showClear]="true" placeholder="Select Integrated File Location">
+                                <ng-template let-item pTemplate="item">
+                                    <div class="ui-helper-clearfix" style="position: relative; height: 25px" pTooltip="{{ item.name }}" tooltipPosition="right">
+                                        <span style="font-size: 14px; margin-top: 4px">{{ item.name }}</span>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                            <smart-error [control]="this.parentFormName.controls.iFileLocation"></smart-error>
+                        </div>
+
+                        <div class="field col-12 md:col-4" *ngIf="this.trConfigObjGetter.service_provider.includes(stateData?.tr)">
+                            <label><b>Service Provider</b></label>
+                            <p-dropdown [options]="serviceProvider" formControlName="serviceProvider" (onChange)="onServiceProviderSelect($event)" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select Service Provider">
+                                <ng-template let-item pTemplate="item">
+                                    <div class="ui-helper-clearfix" style="position: relative; height: 25px" pTooltip="{{ item.name }}" tooltipPosition="right">
+                                        <span style="font-size: 14px; margin-top: 4px">{{ item.name }}</span>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                            <smart-error [control]="this.parentFormName.controls.serviceProvider"></smart-error>
+                        </div>
+
+                        <div class="field col-4 md : col-4" *ngIf="activeHoaData[0]?.isSna">
+                            <label><b>Grant Type</b></label>
+                            <p-dropdown [options]="grantTypeList" formControlName="grantType" placeholder="Grant Type" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true">
+                                <ng-template let-item pTemplate="item">
+                                    <div class="ui-helper-clearfix" style="position: relative; height: 25px" pTooltip="{{ item.name }}" tooltipPosition="right">
+                                        <span style="font-size: 14px; margin-top: 4px">{{ item.name }}</span>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                            <smart-error [control]="this.parentFormName.controls.grantType"></smart-error>
+                        </div>
+
+                        <!-- <div class="field col-12 md:col-4" *ngIf="this.trConfigObjGetter.service_provider.includes(stateData?.tr) && !!this.parentFormName.value.serviceProvider">
+                            <label><b>Consumer</b></label>
+                            <p-dropdown [options]="consumerList" formControlName="consumer" optionLabel="consumerId" [filter]="true" filterBy="consumerId" [showClear]="true" placeholder="Select Service Provider">
+                                <ng-template let-item pTemplate="item">
+                                    <div class="ui-helper-clearfix" style="position: relative; height: 25px" pTooltip="{{ item.consumerId }} : {{ item.consumerName }}" tooltipPosition="right">
+                                        <span style="font-size: 14px; margin-top: 4px">{{ item.consumerId }} : {{ item.consumerName }} (Connection Type: {{ item.connectionType }})</span>
+                                        <p-badge [value]="item.spApiData.length"></p-badge>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                                <smart-error [control]="this.parentFormName.controls.consumer"></smart-error>
+                        </div> -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="p-fluid p-formgrid grid">
+                        <div class="field col-3" *ngIf="ClaimForIsActive">
+                            <p-dropdown [options]="ClaimForListarray" formControlName="claimFor" optionLabel="claimFor" [filter]="true" filterBy="claimFor" [showClear]="true" placeholder="Claim For" (onChange)="onClaimForSelect($event)" (onClear)="onClaimForClear($event)">
+                                <ng-template let-item pTemplate="item">
+                                    <div class="ui-helper-clearfix" style="position: relative; height: 25px" pTooltip="{{ item.claimFor }}" tooltipPosition="right">
+                                        <span style="font-size: 14px; margin-top: 4px">{{ item.claimFor }} - {{ item.demand }} - {{ item?.deptName }} - {{ item.detailHead }} - {{ item.formCode }} - {{ item.majorHead }} - {{ item.minorHead }} - {{ item.schemeHead }}</span>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                            <smart-error [control]="this.parentFormName.controls.claimFor"></smart-error>
+                        </div>
+
+                        <div class="field col-3" *ngIf="gissIsActive">
+                            <p-dropdown [options]="ClaimForListarray" formControlName="claimFor" optionLabel="claimFor" [filter]="true" filterBy="claimFor" [showClear]="true" placeholder="GISS" [showClear]="true">
+                                <ng-template let-item pTemplate="item">
+                                    <div class="ui-helper-clearfix" style="position: relative; height: 25px" pTooltip="{{ item.claimFor }}" tooltipPosition="right">
+                                        <span style="font-size: 14px; margin-top: 4px">{{ item.claimFor }} - {{ item.demand }} - {{ item?.deptName }} {{ item.demandCode }} - {{ item.majorHead }} - {{ item.subMajorHead }} - {{ item.minorHead }} - {{ item.schemeHead }} - {{ item.detailHead }} - {{ item.subDetailHead }}</span>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                            <smart-error [control]="this.parentFormName.controls.claimFor"></smart-error>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-------------- New Code for Hoa Section-------------- -->
+
+        <div class="col-md-12 mt-2">
+            <p-divider align="left" type="solid">
+                <div class="inline-flex align-items-center">
+                    <i class="pi pi-user mr-2"></i>
+                    <b>Head of Account</b>
+                </div>
+            </p-divider>
+
+            <div class="px-4">
+                <div class="row" *ngIf="!(parentFormName.getRawValue().__inModifyMode || ClaimForIsActive || gissIsActive)">
+                    <div class="p-fluid p-formgrid grid">
+                        <div class="field col">
+                            <p-dropdown [options]="demandCodeList" formControlName="demand" optionLabel="demandCode" [filter]="true" [showClear]="true" filterBy="demandCode" placeholder="Select Demand Code" (onChange)="getMajorHeadByDemandId()">
+                                <ng-template let-item pTemplate="item">
+                                    <div class="ui-helper-clearfix" style="position: relative; height: 25px" pTooltip="{{ item.demandCode }}" tooltipPosition="right">
+                                        <span style="font-size: 14px; margin-top: 4px">{{ item.demandCode }} : {{ item.name ?? item.code }}</span>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                            <smart-error [control]="this.parentFormName.controls.demand"></smart-error>
+                        </div>
+
+                        <div class="field col">
+                            <p-dropdown [options]="majorHeadList" formControlName="major_head" optionLabel="code" [filter]="true" [showClear]="true" filterBy="code" placeholder="Select Major Head" (onChange)="getSubMajorHeadByMajorHeadId()">
+                                <ng-template let-item pTemplate="item">
+                                    <div class="ui-helper-clearfix" style="position: relative; height: 25px" pTooltip="{{ item.code }}" tooltipPosition="right">
+                                        <span style="font-size: 14px; margin-top: 4px">{{ item.code }} : {{ item.name ?? item.code }}</span>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                            <smart-error [control]="this.parentFormName.controls.major_head"></smart-error>
+                        </div>
+
+                        <div class="field col">
+                            <p-dropdown [options]="subMajorHeadList" formControlName="sub_major_head" optionLabel="code" [filter]="true" [showClear]="true" filterBy="code" placeholder="Select Sub Major Head" (onChange)="getMinorHead()">
+                                <ng-template let-item pTemplate="item">
+                                    <div class="ui-helper-clearfix" style="position: relative; height: 25px" pTooltip="{{ item.code }}" tooltipPosition="right">
+                                        <span style="font-size: 14px; margin-top: 4px">{{ item.code }} : {{ item.name ?? item.code }}</span>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                            <smart-error [control]="this.parentFormName.controls.sub_major_head"></smart-error>
+                        </div>
+
+                        <div class="field col">
+                            <p-dropdown [options]="minorHeadList" formControlName="minor_head" optionLabel="code" [filter]="true" [showClear]="true" filterBy="code" placeholder="Select Minor Head" (onChange)="getSubHead()">
+                                <ng-template let-item pTemplate="item">
+                                    <div class="ui-helper-clearfix" style="position: relative; height: 25px" pTooltip="{{ item.code }}" tooltipPosition="right">
+                                        <span style="font-size: 14px; margin-top: 4px">{{ item.code }} : {{ item.name ?? item.code }}</span>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                            <smart-error [control]="this.parentFormName.controls.minor_head"></smart-error>
+                        </div>
+
+                        <div class="field col">
+                            <p-dropdown [options]="subHeadList" formControlName="sub_head" optionLabel="code" [filter]="true" [showClear]="true" filterBy="code" placeholder="Select Sub Head" (onChange)="getDetailHead()">
+                                <ng-template let-item pTemplate="item">
+                                    <div class="ui-helper-clearfix" style="position: relative; height: 25px" pTooltip="{{ item.code }}" tooltipPosition="right">
+                                        <span style="font-size: 14px; margin-top: 4px">{{ item.code }} : {{ item.name ?? item.code }}</span>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                            <smart-error [control]="this.parentFormName.controls.sub_head"></smart-error>
+                        </div>
+
+                        <div class="field col">
+                            <p-dropdown [options]="votedCharged" formControlName="votedCharged" optionLabel="name" [filter]="true" [showClear]="true" filterBy="code" placeholder="Select Voted or Chrged"> </p-dropdown>
+                            <smart-error [control]="this.parentFormName.controls.votedCharged"></smart-error>
+                        </div>
+
+                        <div class="field col">
+                            <p-dropdown [options]="detailHeadList" formControlName="detailed_head" optionLabel="code" [filter]="true" [showClear]="true" filterBy="code" placeholder="Select Detail Head" (onChange)="readingEntireHoa()">
+                                <ng-template let-item pTemplate="item">
+                                    <div class="ui-helper-clearfix" style="position: relative; height: 25px" pTooltip="{{ item.code }}" tooltipPosition="right">
+                                        <span style="font-size: 14px; margin-top: 4px">{{ item.code }} : {{ item.name ?? item.code }}</span>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                            <smart-error [control]="this.parentFormName.controls.detailed_head"></smart-error>
+                        </div>
+                    </div>
+                </div>
+                <div class="row modify_highlight" *ngIf="parentFormName.getRawValue().__inModifyMode || ClaimForIsActive || gissIsActive">{{ parentFormName.getRawValue().demand }}-{{ parentFormName.getRawValue().major_head }}-{{ parentFormName.getRawValue().sub_major_head }}-{{ parentFormName.getRawValue().minor_head }}-{{ parentFormName.getRawValue().sub_head }}-{{ parentFormName.getRawValue().votedCharged }}-{{ parentFormName.getRawValue().detailed_head }}</div>
+            </div>
+        </div>
+
+        <div class="col-md-12 mt-1" *ngIf="activeHoaData[0]?.isSna">
+            <p-divider align="left" type="solid">
+                <div class="inline-flex align-items-center">
+                    <i class="pi pi-file"></i>
+                    <b>SNA Details</b>
+                </div>
+            </p-divider>
+            <div class="px-4">
+                <div class="row">
+                    <div class="p-fluid p-formgrid grid">
+                        <div class="field col">{{ activeHoaData[0]?.activehoaPfmsMappings[0]?.goiSchemeName }}</div>
+                        <div class="field col">
+                            <p-dropdown [options]="snaList" formControlName="centralBeneficiaryType" placeholder="CSS Beneficiary Type" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true">
+                                <ng-template let-item pTemplate="item">
+                                    <div class="ui-helper-clearfix" style="position: relative; height: 25px" pTooltip="{{ item.name }}" tooltipPosition="right">
+                                        <span style="font-size: 14px; margin-top: 4px">{{ item.name }}</span>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                            <smart-error [control]="this.parentFormName.controls.centralBeneficiaryType"></smart-error>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

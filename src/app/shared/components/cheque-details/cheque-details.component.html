@@ -1,0 +1,107 @@
+<p-divider align="left" type="solid">
+    <div class="inline-flex align-items-center">
+        <i class="pi pi-bitcoin mr-2"></i>
+        <b>Cheque Details</b>
+    </div>
+</p-divider>
+
+<div class="p-4">
+    <div class="flex justify-content-between flex-wrap mb-4">
+        <div class="p-2">
+            <strong>Bill No : {{ parentFormName.getRawValue().billNo }}</strong>
+        </div>
+        <div class="p-2">
+            <strong>Bill Date : {{ parentFormName.getRawValue().billDate | date : "dd/MM/YYYY" }}</strong>
+        </div>
+        <div class="p-2">
+            <strong>Gross Amount : {{ parentFormName.getRawValue().gross_amount }}</strong>
+        </div>
+        <div class="p-2">
+            <strong>Net Amount : {{ parentFormName.getRawValue().net_amount }}</strong>
+        </div>
+        <div class="p-2">
+            <strong>Total Beneficiary Amount : {{ ecsAmt }}</strong>
+        </div>
+        <div class="p-2">
+            <strong>Pay Mode : {{ payMode }}</strong>
+        </div>
+    </div>
+
+    <form class="flex justify-content-between flex-wrap" [formGroup]="chequeForm">
+        <div class="flex flex-column align-items-start justify-content-center col-4">
+            <label class="font-medium">Payee Name</label>
+            <input pInputText type="text" formControlName="payeename" placeholder="Payee Name" class="full_width" />
+            <span class="block" style="color: red">
+                <smart-error [control]="errorControl.payeename"></smart-error>
+            </span>
+        </div>
+
+        <div class="flex flex-column align-items-start justify-content-center col-4">
+            <label class="font-medium">Amount</label>
+            <input pInputText type="number" formControlName="amount" placeholder="Amount" class="full_width" />
+            <span class="block" style="color: red">
+                <smart-error [control]="errorControl.amount"></smart-error>
+            </span>
+        </div>
+
+        <div class="flex flex-column align-items-start justify-content-center col-4">
+            <label class="font-medium">Pay Mode</label>
+            <p-dropdown [options]="payModeArray" formControlName="paymode" optionLabel="name" [filter]="true" [showClear]="true" placeholder="Pay Mode" [showClear]="true" (onChange)="onBtCodeSelectionChange()" class="full_width">
+                <ng-template let-item pTemplate="item">
+                    <div class="ui-helper-clearfix" style="position: relative; height: 25px" pTooltip="{{ item.name }}" tooltipPosition="right">
+                        <span style="font-size: 14px; margin-top: 4px">{{ item.name }} : {{ item.name ?? item.name }}</span>
+                    </div>
+                </ng-template>
+            </p-dropdown>
+            <span class="block" style="color: red">
+                <smart-error [control]="errorControl.paymode"></smart-error>
+            </span>
+        </div>
+    </form>
+    <div class="flex flex-column align-items-end justify-content-center" style="margin-bottom: 15px">
+        <button pButton icon="pi pi-plus" label="" class="flex p-button-raised" (click)="addToChequeArray()"></button>
+    </div>
+
+    <table class="table table-striped table-bordered w-full">
+        <thead>
+            <tr style="text-align: center">
+                <th class="t_cell">Sr. No.</th>
+                <th class="t_cell">Payee Name</th>
+                <th class="t_cell">Amount</th>
+                <th class="t_cell">Pay Mode</th>
+                <th class="t_cell">Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let index of chequeTableArray; let rowIndex = index" style="text-align: center">
+                <td class="t_cell">
+                    {{ rowIndex + 1 }}
+                </td>
+                <td class="t_cell">
+                    {{ index.payeename }}
+                </td>
+                <td class="t_cell">
+                    {{ index.amount }}
+                </td>
+                <td class="t_cell">
+                    {{ payMode }}
+                </td>
+                <td class="t_cell">
+                    <button pButton icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="chequeTableArray.splice(rowIndex, 1)"><i class="fa fa-times"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="14" class="t_cell">
+                    <strong>Total Amount :- {{ totalChequeAmt }}</strong>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <div class="flex justify-content-center flex-wrap">
+        <button pButton type="button" icon="pi pi-send" iconPos="right" label="Save" class="flex p-button-raised" (click)="saveCheque()"></button>
+    </div>
+</div>

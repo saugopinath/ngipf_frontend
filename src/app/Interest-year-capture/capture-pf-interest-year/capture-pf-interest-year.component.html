@@ -1,0 +1,293 @@
+<div class="grid">
+  <div class="col-12">
+      <div class="card">
+          <div class="flex align-items-center">
+              <i class="pi pi-angle-double-right mr-2"></i>
+              <h5>Capture PF Interest Year by DPPG</h5>
+          </div>
+
+          <form [formGroup]="capturePfInterestYearForm" class="flex w-9 flex-column justify-content-center align-items-center p-5 gap-2">
+              <div class="flex justify-content-center gap-2 w-full">
+                  <div class="field flex-1">
+                      <div class="flex-column flex gap-2">
+                          <label>Debit Head Of Account<span class="text-red-700">*</span></label>
+                          <input pInputText formControlName="DebitHeadOfAccount" id="debit_head_of_account" type="text" />
+                          <small *ngIf="isInvalidAndTouched('DebitHeadOfAccount')" class="p-error"> Debit Head Of Account is required. </small>
+                      </div>
+                  </div>
+
+                  <div class="field flex-1">
+                      <div class="flex-column flex gap-2">
+                          <label>Search By<span class="text-red-700">*</span></label>
+                          <select pInputText formControlName="Search_By" id="Search_By">
+                              <option value="" disabled>Select</option>
+                              <option value="option1">Head Of Account & Treasury</option>
+                              <option value="option2">Head Of Account</option>
+                              <option value="option3">Treasury</option>
+                          </select>
+                          <small *ngIf="isInvalidAndTouched('Search_By')" class="p-error"> Search By is required. </small>
+                      </div>
+                  </div>
+              </div>
+              <div class="flex justify-content-center gap-2 w-full">
+                  <div class="field flex-1">
+                      <div class="flex-column flex gap-2">
+                          <label>Operator Name<span class="text-red-700">*</span></label>
+                          <input pInputText formControlName="OperatorName" id="OperatorName" type="text" />
+                          <small *ngIf="isInvalidAndTouched('OperatorName')" class="p-error"> Operator Name is required. </small>
+                      </div>
+                  </div>
+
+                  <div class="flex-row flex justify-content-center gap-2 w-full" *ngIf="showTreasury">
+                      <div class="field flex-1">
+                          <div class="flex-column flex gap-2">
+                              <label>Treasury<span class="text-red-700">*</span></label>
+                              <p-dropdown [options]="dropdownItemTreasuryname" formControlName="Treasury" optionLabel="trName" placeholder="select Treasury name"></p-dropdown>
+                              <small *ngIf="isInvalidAndTouched('Treasury')" class="p-error"> Treasury is required. </small>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="field flex-1" *ngIf="showHeadOfAccount">
+                      <div class="flex-column flex gap-2">
+                          <label>Head Of Account<span class="text-red-700">*</span></label>
+                          <p-dropdown [options]="dropdownItemHeadOfAccount" formControlName="HeadOfAccount" optionLabel="hoaName" placeholder="Select"></p-dropdown>
+                          <small *ngIf="isInvalidAndTouched('HeadOfAccount')" class="p-error"> Head Of Account is required. </small>
+                      </div>
+                  </div>
+              </div>
+              <div class="flex justify-content-center gap-2 w-full">
+                  <div class="field flex-1">
+                      <div class="flex-column flex gap-2">
+                          <label>Status<span class="text-red-700">*</span></label>
+                          <p-dropdown [options]="dropdownItemStatusType" formControlName="Status" optionLabel="name" placeholder="Select"></p-dropdown>
+                          <small *ngIf="isInvalidAndTouched('Status')" class="p-error"> Status is required. </small>
+                      </div>
+                  </div>
+                  <div class="field flex-1"></div>
+              </div>
+          </form>
+
+          <div class="flex flex-wrap gap-2 align-items-center justify-content-center">
+              <button pButton pRipple label="Back" onclick="history.back()"></button>
+              <p-button label="Reset" icon="pi pi-replay" styleClass="p-button-warning" (click)="resetForm()"></p-button>
+              <p-button label="Search" icon="pi pi-search" styleClass="p-button-info" (click)="onSearch()"></p-button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div *ngIf="showTable" class="grid">
+  <div class="col-12">
+      <div class="card">
+          <p-table [value]="capturePfInterestYear" [rows]="12" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" responsiveLayout="scroll">
+              <ng-template pTemplate="caption">
+                  <div class="flex justify-content-between flex-column sm:flex-row">
+                      <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash"></button>
+                      <span class="p-input-icon-left mb-2">
+                          <i class="pi pi-search"></i>
+                          <input pInputText type="text" placeholder="Search Keyword" class="w-full" />
+                      </span>
+                  </div>
+              </ng-template>
+              <ng-template pTemplate="header">
+                  <tr>
+                      <!-- <th style="max-width: 4rem" pFrozenColumn><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th> -->
+                      <th style="min-width: 12rem" alignFrozen="left">Credit HOA Code</th>
+                      <th style="min-width: 26rem">Treasury Name</th>
+                      <th style="min-width: 12rem">Operator Description</th>
+                      <th style="min-width: 12rem">Int Transfer</th>
+                      <th style="min-width: 12rem">Status</th>
+                      <th style="min-width: 12rem">Interest Year Upto</th>
+                      <th style="min-width: 6rem" pFrozenColumn alignFrozen="right">Action</th>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-capturePfInterestYear let-i="index">
+                  <tr class="p-selectable-row">
+                      <td style="min-width: 12rem">{{ capturePfInterestYear.creditHOACode }}</td>
+                      <td style="min-width: 26rem">{{ capturePfInterestYear.treasuryName }}</td>
+                      <td style="min-width: 12rem">{{ capturePfInterestYear.operatorDescription }}</td>
+                      <td style="min-width: 12rem">{{ capturePfInterestYear.intTransfer }}</td>
+                      <td style="min-width: 12rem">{{ capturePfInterestYear.status }}</td>
+                      <td style="min-width: 12rem">{{ capturePfInterestYear.interestYearUpto }}</td>
+
+                      <td style="min-width: 6rem" pFrozenColumn alignFrozen="right" class="flex gap-2">
+                          <button pButton type="button" class="p-button-raised p-button-rounded" icon=" pi pi-external-link" (click)="showDetailsDialog(capturePfInterestYear)"></button>
+                          <p-checkbox [binary]="true" [checked]="selectedCheckbox === i" (onChange)="onCheckboxChange(i)"></p-checkbox>
+                      </td>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="emptymessage">
+                  <tr>
+                      <td colspan="8">No Data Available</td>
+                  </tr>
+              </ng-template>
+              <!-- <ng-template pTemplate="loadingbody">
+                <tr>
+                    <td colspan="12">Loading Employee Accounts. Please wait.</td>
+                </tr>
+            </ng-template> -->
+          </p-table>
+
+          <div class="flex flex-col mt-1 align-items-center justify-content-center">
+              <div class="flex flex-wrap gap-2">
+                  <p-button label="Approve" styleClass="p-button-info" (click)="showApprovalDialog()" [disabled]="isApproveDisabled()"></p-button>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<p-dialog header="Operator Details" [(visible)]="displayDetails" [modal]="true" [style]="{ width: '50vw' }">
+  <div class="field">
+      <label>Credit HOA Code</label>
+      <p>{{ selectedCapturePfInterestYear?.creditHOACode }}</p>
+  </div>
+  <div class="field">
+      <label>HOA Description</label>
+      <p>{{ selectedCapturePfInterestYear?.hoaDescription }}</p>
+  </div>
+  <div class="field">
+      <label>PFD Admin Code</label>
+      <p>{{ selectedCapturePfInterestYear?.pfdAdminCode }}</p>
+  </div>
+  <div class="field">
+      <label>PFD Admin Description</label>
+      <p>{{ selectedCapturePfInterestYear?.pfdAdminDescription }}</p>
+  </div>
+  <div class="field">
+      <label>Treasury</label>
+      <p>{{ selectedCapturePfInterestYear?.treasury }}</p>
+  </div>
+  <div class="field">
+      <label>Last Interest Credit Bill Details</label>
+      <p>{{ selectedCapturePfInterestYear?.lastInterestCreditBillDetails }}</p>
+  </div>
+  <div class="field">
+      <label>Status</label>
+      <p>{{ selectedCapturePfInterestYear?.status }}</p>
+  </div>
+  <div class="field">
+      <label>Interest Year Upto</label>
+      <p>{{ selectedCapturePfInterestYear?.interestYearUpto }}</p>
+  </div>
+  <div class="field">
+      <label>DDO Code</label>
+      <p>{{ selectedCapturePfInterestYear?.ddoCode }}</p>
+  </div>
+  <div class="field">
+      <label>DDO Description</label>
+      <p>{{ selectedCapturePfInterestYear?.ddoDescription }}</p>
+  </div>
+  <div class="field">
+      <label>Bill No.</label>
+      <p>{{ selectedCapturePfInterestYear?.billNo }}</p>
+  </div>
+  <div class="field">
+      <label>Bill Date</label>
+      <p>{{ selectedCapturePfInterestYear?.billDate }}</p>
+  </div>
+  <div class="field">
+      <label>Bill Amount (Rs.)</label>
+      <p>{{ selectedCapturePfInterestYear?.billAmount }}</p>
+  </div>
+  <div class="field">
+      <label>Amount Credited To PFD Admin (Rs.)</label>
+      <p>{{ selectedCapturePfInterestYear?.amountCreditedToPfdAdmin }}</p>
+  </div>
+  <div class="field">
+      <label>Voucher No.</label>
+      <p>{{ selectedCapturePfInterestYear?.voucherNo }}</p>
+  </div>
+  <div class="field">
+      <label>Voucher Date</label>
+      <p>{{ selectedCapturePfInterestYear?.voucherDate }}</p>
+  </div>
+  <p-footer>
+      <button pButton type="button" label="OK" (click)="displayDetails = false"></button>
+  </p-footer>
+</p-dialog>
+
+<p-dialog header="Approval Confirmation" [(visible)]="displayApprovalDialog" [modal]="true" [style]="{ width: '50vw' }">
+  <div class="field">
+      <label>Credit HOA Code</label>
+      <p>{{ selectedCapturePfInterestYear?.creditHOACode }}</p>
+  </div>
+  <div class="field">
+      <label>HOA Description</label>
+      <p>{{ selectedCapturePfInterestYear?.hoaDescription }}</p>
+  </div>
+  <div class="field">
+      <label>PFD Admin Code</label>
+      <p>{{ selectedCapturePfInterestYear?.pfdAdminCode }}</p>
+  </div>
+  <div class="field">
+      <label>PFD Admin Description</label>
+      <p>{{ selectedCapturePfInterestYear?.pfdAdminDescription }}</p>
+  </div>
+  <div class="field">
+      <label>Treasury</label>
+      <p>{{ selectedCapturePfInterestYear?.treasury }}</p>
+  </div>
+  <div class="field">
+      <label>Last Interest Credit Bill Details</label>
+      <p>{{ selectedCapturePfInterestYear?.lastInterestCreditBillDetails }}</p>
+  </div>
+  <div class="field">
+      <label>Status</label>
+      <p>{{ selectedCapturePfInterestYear?.status }}</p>
+  </div>
+  <div class="field">
+      <label>Interest Year Upto</label>
+      <p>{{ selectedCapturePfInterestYear?.interestYearUpto }}</p>
+  </div>
+  <div class="field">
+      <label>DDO Code</label>
+      <p>{{ selectedCapturePfInterestYear?.ddoCode }}</p>
+  </div>
+  <div class="field">
+      <label>DDO Description</label>
+      <p>{{ selectedCapturePfInterestYear?.ddoDescription }}</p>
+  </div>
+  <div class="field">
+      <label>Bill No.</label>
+      <p>{{ selectedCapturePfInterestYear?.billNo }}</p>
+  </div>
+  <div class="field">
+      <label>Bill Date</label>
+      <p>{{ selectedCapturePfInterestYear?.billDate }}</p>
+  </div>
+  <div class="field">
+      <label>Bill Amount (Rs.)</label>
+      <p>{{ selectedCapturePfInterestYear?.billAmount }}</p>
+  </div>
+  <div class="field">
+      <label>Amount Credited To PFD Admin (Rs.)</label>
+      <p>{{ selectedCapturePfInterestYear?.amountCreditedToPfdAdmin }}</p>
+  </div>
+  <div class="field">
+      <label>Voucher No.</label>
+      <p>{{ selectedCapturePfInterestYear?.voucherNo }}</p>
+  </div>
+  <div class="field">
+      <label>Voucher Date</label>
+      <p>{{ selectedCapturePfInterestYear?.voucherDate }}</p>
+  </div>
+  <div class="field">
+      <p-checkbox [(ngModel)]="isVerifiedAndChecked" [binary]="true" label="Verified and checked"></p-checkbox>
+  </div>
+  <p-footer>
+      <button pButton type="button" label="Cancel" (click)="displayApprovalDialog = false"></button>
+      <button pButton type="button" label="Confirm" (click)="confirmApproval()" [disabled]="!isVerifiedAndChecked"></button>
+  </p-footer>
+</p-dialog>
+
+
+
+
+
+
+
+
+
+

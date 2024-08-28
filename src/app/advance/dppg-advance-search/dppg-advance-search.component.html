@@ -1,0 +1,51 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <div class="flex align-items-center">
+                <i class="pi pi-angle-double-right mr-2"></i>
+                <h5>Advance DPPG Search</h5>
+            </div>
+
+            <form [formGroup]="searchDPPG" class="flex w-9 mx-auto flex-column justify-content-center align-items-center p-5 gap-2">
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Head Of Account<span class="text-red-700">*</span></label>
+                            <input pInputText formControlName="HOA" id="HOA" type="text" />
+                            <small *ngIf="isInvalidAndTouched('HOA')" class="p-error">Head of Account is required. </small>
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Treasury<span class="text-red-700">*</span></label>
+                            <input pInputText formControlName="treasury" id="treasury" type="text" />
+                            <small *ngIf="isInvalidAndTouched('treasury')" class="p-error"> Mention Active or not. </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>PFD Admin<span class="text-red-700">*</span> </label>
+                            <p-dropdown [options]="" formControlName="selectedItemPfdAdmin" optionLabel="name" placeholder="Select PFD Admin"></p-dropdown>
+                            <small *ngIf="isInvalidAndTouched('selectedItemPfdAdmin')" class="p-error"> PFD Admin is required. </small>
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Advance Type<span class="text-red-700">*</span> </label>
+                            <p-dropdown [options]="dropdownItemadvanceType" formControlName="selectedItemAdvanceType" optionLabel="name" placeholder="Select Advance Type"></p-dropdown>
+                            <small *ngIf="isInvalidAndTouched('selectedItemAdvanceType')" class="p-error">Advance Type is required. </small>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="flex flex-wrap gap-2 align-items-center justify-content-center">
+                <button pButton pRipple label="Back" onclick="history.back()"></button>
+                <p-button label="Reset" icon="pi pi-replay" styleClass="p-button-warning"></p-button>
+                <p-button label="Search" icon="pi pi-search" styleClass="p-button-info"></p-button>
+            </div>
+        </div>
+    </div>
+</div>

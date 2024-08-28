@@ -1,0 +1,117 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <div class="flex align-items-center">
+                <i class="pi pi-angle-double-right mr-2"></i>
+                <h5>Permission for Opening Balance Capture & PF Register Submission to DPPG</h5>
+            </div>
+
+            <form [formGroup]="PermissionForm" class="flex w-9 mx-auto flex-column justify-content-center align-items-center p-5 gap-2">
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Search By<span class="text-red-700">*</span></label>
+                            <select pInputText formControlName="Search_By" id="Search_By">
+                                <option value="" disabled>Select</option>
+                                <option value="option1">Treasury</option>
+                                <option value="option2">Head Of Account</option>
+                                <option value="option3">Head Of Account & Treasury</option>
+                            </select>
+                            <small *ngIf="isInvalidAndTouched('Search_By')" class="p-error"> Search By is required. </small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conditionally show/hide Treasury based on Search_By value -->
+                <div class="flex-row flex justify-content-center gap-2 w-full" *ngIf="showTreasury">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Treasury<span class="text-red-700">*</span></label>
+                            <input pInputText formControlName="Treasury" id="Treasury" type="text" />
+                            <small *ngIf="isInvalidAndTouched('Treasury')" class="p-error"> Treasury is required. </small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conditionally show/hide Head Of Account based on Search_By value -->
+                <div class="flex justify-content-center gap-2 w-full" *ngIf="showHeadOfAccount">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Head Of Account<span class="text-red-700">*</span></label>
+                            <input pInputText formControlName="Head_Of_Account" id="Head Of Account" type="text" />
+                            <small *ngIf="isInvalidAndTouched('Head_Of_Account')" class="p-error"> HOA is required. </small>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="flex flex-wrap gap-2 align-items-center justify-content-center">
+                <button pButton pRipple label="Back" onclick="history.back()"></button>
+                <p-button label="Reset" icon="pi pi-replay" styleClass="p-button-warning" (click)="resetForm()"></p-button>
+                <p-button label="Search" icon="pi pi-search" styleClass="p-button-info" (click)="onSearch()"></p-button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Conditionally render the table card -->
+<div *ngIf="showTable" class="grid">
+    <div class="col-12">
+        <div class="card">
+            <p-table [value]="[]" [rows]="12" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" responsiveLayout="scroll">
+                <ng-template pTemplate="caption">
+                    <div class="flex justify-content-between flex-column sm:flex-row">
+                        <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash"></button>
+                        <span class="p-input-icon-left mb-2">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" placeholder="Search Keyword" class="w-full" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="min-width: 12rem" alignFrozen="left">Operator Name</th>
+                        <th style="min-width: 26rem">Treasury</th>
+                        <th style="min-width: 12rem">Int Transfer</th>
+                        <th style="min-width: 12rem">Interest Year Upto</th>
+                        <th style="min-width: 12rem">Status</th>
+                        <th style="min-width: 12rem">Open From</th>
+                        <th style="min-width: 12rem">Permission Status</th>
+                        <th style="min-width: 12rem">Remarks</th>
+                        <th style="min-width: 6rem" pFrozenColumn alignFrozen="right">Action</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-searchEmployee>
+                    <tr class="p-selectable-row">
+                        <td style="min-width: 12rem"></td>
+                        <td style="min-width: 26rem"></td>
+                        <td style="min-width: 12rem"></td>
+                        <td style="min-width: 12rem"></td>
+                        <td style="min-width: 6rem" pFrozenColumn alignFrozen="right">
+                          <button pButton type="button" class="p-button-help" icon="pi pi-file-edit"></button>
+                      </td>
+                        <td style="min-width: 6rem" pFrozenColumn alignFrozen="right">
+                            <button pButton type="button" class="p-button-help" icon="pi pi-external-link"></button>
+                            <p-checkbox [(ngModel)]="value" [binary]="true"></p-checkbox>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">No Data Available</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="loadingbody">
+                    <tr>
+                        <td colspan="12">Loading Employee Accounts. Please wait.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <div class="flex flex-col mt-1 align-items-center justify-content-center">
+                <div class="flex flex-wrap gap-2">
+                    <p-button label="Save & Approve" icon="pi pi-cloud-upload" styleClass="p-button-info"></p-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

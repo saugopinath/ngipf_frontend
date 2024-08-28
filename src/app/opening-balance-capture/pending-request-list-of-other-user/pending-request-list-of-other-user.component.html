@@ -1,0 +1,60 @@
+<div class="grid">
+  <div class="col-12">
+      <div class="card">
+          <div class="flex align-items-center">
+              <i class="pi pi-angle-double-right mr-2"></i>
+              <h5>Pending List For Other User</h5>
+          </div>
+
+          <form [formGroup]="PendinglistForm" class="flex w-9 mx-auto flex-column justify-content-center align-items-center p-5 gap-2">
+              <div class="flex justify-content-center gap-2 w-full">
+                  <div class="field flex-1">
+                      <div class="flex-column flex gap-2">
+                          <label>Office<span class="text-red-700">*</span></label>
+                          <p-dropdown [options]="dropdownItemOfficeType" formControlName="Office" optionLabel="name" placeholder="Select"></p-dropdown>
+                          <small *ngIf="isInvalidAndTouched('Office')" class="p-error"> Office is required. </small>
+                      </div>
+                  </div>
+              </div>
+          </form>
+
+          <div class="flex flex-wrap gap-2 align-items-center justify-content-center">
+              <button pButton pRipple label="Back" onclick="history.back()"></button>
+              <p-button label="Reset" icon="pi pi-replay" styleClass="p-button-warning" (click)="confirmReset()"></p-button>
+              <p-button label="Search" icon="pi pi-search" styleClass="p-button-info"(click)=onsearch()></p-button>
+          </div>
+      </div>
+  </div>
+</div>
+<p-toast></p-toast>
+
+<p-dialog header="Success" [(visible)]="displaySuccessDialog" [modal]="true" [closable]="false">
+  <p-card>
+      <div class="p-card-header">
+          <i class="pi pi-check" style="color: #28a745;"></i> Success
+      </div>
+      <div class="p-card-body">
+          <p>Processing of your request has been initiated with report request id 1721106791986.</p>
+          <p>Your report will be available in My Report section.</p>
+      </div>
+      <div class="p-card-footer button-gap">
+          <button pButton label="Ok" icon="pi pi-check" styleClass="p-button-info" (click)="onCloseSuccessDialog()"></button>
+      </div>
+  </p-card>
+</p-dialog>
+
+<p-dialog header="Warning" [(visible)]="displayResetDialog" [modal]="true" [closable]="false">
+  <p-card>
+      <div class="p-card-header">
+          <i class="pi pi-exclamation-triangle" style="color: #ffc107;"></i> Warning
+      </div>
+      <div class="p-card-body">
+          <p>All data will be completely erased.</p>
+          <p>Do you want the form to be reset?</p>
+      </div>
+      <div class="p-card-footer button-gap">
+          <button pButton label="Cancel" icon="pi pi-times" styleClass="p-button-secondary" (click)="onCancelReset()"></button>
+          <button pButton label="Ok" icon="pi pi-check" styleClass="p-button-danger" (click)="onConfirmReset()"></button>
+      </div>
+  </p-card>
+</p-dialog>

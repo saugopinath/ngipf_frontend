@@ -1,0 +1,95 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <div class="flex align-items-center">
+                <i class="pi pi-angle-double-right mr-2"></i>
+                <h5>Transfer History</h5>
+            </div>
+            
+            <form [formGroup]="transferhistoryForm" class="flex w-full xl:w-9 xl:mx-auto flex-column justify-content-center align-items-center xl:p-5 gap-2">
+                <div class="flex justify-content-center gap-2 w-full">
+                  <div class="field flex-1 w-full">
+                    <div class="flex-column flex gap-2">
+                      <label>Head of Account<span class="text-red-700">*</span></label>
+                      <input pInputText formControlName="Head_of_Account" id="Head_of_Account" type="text" class="w-full"/>
+                      <small *ngIf="isInvalidAndTouched('Head_of_Account')" class="p-error">
+                        HOA is required.
+                      </small>
+                    </div>
+                  </div>
+                  <div class="field flex-1 w-full">
+                    <div class="flex-column flex gap-2">
+                      <label>PFD Admin<span class="text-red-700">*</span></label>
+                      <input pInputText formControlName="PFDAdmin" id="PFD_admin" type="text" class="w-full" />
+                      <small *ngIf="isInvalidAndTouched('PFDAdmin')" class="p-error">
+                        PFD Admin is required.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex-row flex justify-content-center gap-2 w-full">
+                  <div class="field flex-1 w-full">
+                    <div class="flex-column flex gap-2">
+                      <label>PF Account Number<span class="text-red-700">*</span></label>
+                      <input pInputText formControlName="PF_Acc_No" id="PF_Acc_No" type="text" class="w-full" />
+                      <small *ngIf="isInvalidAndTouched('PF_Acc_No')" class="p-error">
+                        Acc No is required.
+                      </small>
+                    </div>
+                  </div>
+                  <div class="field flex-1 w-full">
+                    <div class="flex-column flex gap-2">
+                      <label>Financial Year<span class="text-red-700">*</span></label>
+                      <p-dropdown [options]="dropdownItemYearType"formControlName="Financial_Year" class="w-full" optionLabel="Year"></p-dropdown> 
+                    </div>
+                  </div>
+                </div>
+                <div class="flex justify-content-center gap-2 w-full">
+                  <div class="field flex-1 w-full">
+                    <div class="flex-column flex gap-2">
+                      <label>Status<span class="text-red-700">*</span></label>
+                      <input pInputText formControlName="Status" id="Status" type="text" class="w-full" />
+                      <small *ngIf="isInvalidAndTouched('Status')" class="p-error">
+                        Status is required.
+                      </small>
+                    </div>
+                  </div>
+                  <div class="field flex-1 w-full">
+                    <div class="flex-column flex gap-2">
+                      <label> Treasury<span class="text-red-700">*</span></label>
+                      <input pInputText formControlName="Treasury" id="Treasury" type="text" class="w-full" />
+                      <small *ngIf="isInvalidAndTouched('Treasury')" class="p-error">
+                        Treasury is required.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1 w-full">
+                      <div class="flex-column flex gap-2">
+                        <label>Sanction Admin<span class="text-red-700">*</span></label>
+                        <input pInputText formControlName="Sanction_Admin" id="Sanction Admin" type="text" class="w-full" />
+                        <small *ngIf="isInvalidAndTouched('Sanction_Admin')" class="p-error">
+                            Sanction admin is required.
+                        </small>
+                      </div>
+                    </div>
+                    <div class="field flex-1 w-full">
+                      <div class="flex-column flex gap-2">
+                        <label> Search By<span class="text-red-700">*</span></label>
+                        <p-dropdown [options]="dropdownItemSearchType"  class="w-full" formControlName="Search_By" optionLabel="Name"></p-dropdown> 
+                      </div>
+                    </div>
+                  </div>
+              </form>
+              
+            <div class="flex flex-wrap gap-2 align-items-center justify-content-center">
+                <button pButton pRipple label="Back" onclick="history.back()"></button>
+                <p-button label="Reset" icon="pi pi-replay" styleClass="p-button-warning"></p-button>
+                <p-button label="Search" icon="pi pi-search" styleClass="p-button-info"></p-button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,47 @@
+<div class="grid fadein animation-duration-500">
+    <div class="col-12 md:col-6 align-items-center justify-content-center column-gap-4 row-gap-6">
+        <p-card class="card-1 ml-20  mt-90">
+            <ng-template pTemplate="header">
+                <div class="flex align-items-center justify-content-center ml-20">
+                    <img src="assets/layout/images/purposeMaster.png" alt="employee" class="w-3rem h-3rem mr-1 mt-2" />
+                    <span class="text-primary font-bold ml-2 mt-2 font-bold text-xl">
+                        Purpose Master
+                        <button pButton type="button" class="p-button-raised p-button-rounded" icon=" pi pi-external-link" (click)="purposeMaster()"></button>
+                    </span>
+                </div>
+            </ng-template>
+            <div class="ml-6">Define all the Purpose for Which an Advance can be Taken.</div>
+        </p-card>
+    </div>
+    <div class="col-12 md:col-6 align-items-center justify-content-center column-gap-4 row-gap-6">
+        <p-card class="card-1 ml-20  mt-90">
+            <ng-template pTemplate="header">
+                <div class="flex align-items-center justify-content-center ml-20">
+                    <img src="assets/layout/images/eligibilityMaster.png" alt="employee" class="w-3rem h-3rem mr-1 mt-2" />
+                    <span class="text-primary font-bold ml-2 mt-2 font-bold text-xl">Eligibility Master
+                        <button pButton type="button" class="p-button-raised p-button-rounded" icon=" pi pi-external-link" (click)="eligibilityMasterClick()"></button>
+                    </span>
+                </div>
+            </ng-template>
+            <div class="ml-6">Define PFP Dmin wise Advance Eligibiliy of Subscribers For the Various Types of Advances.</div>
+        </p-card>
+    </div>
+
+    <div class="col-12 md:col-6 align-items-center justify-content-center column-gap-4 row-gap-6">
+        <p-card class="card-1 ml-20 mt-90">
+            <ng-template pTemplate="header">
+                <div class="flex align-items-center justify-content-center ml-20">
+                    <img src="assets/layout/images/purposeTaggingMaster.png" alt="employee" class="w-3rem h-3rem mr-1 mt-2" />
+                    <span class="text-primary font-bold ml-2 mt-2 font-bold text-xl"
+                        >Purpose Tagging Master
+                        <button pButton type="button" class="p-button-raised p-button-rounded" icon=" pi pi-external-link" (click)="purposeTaggingMasterClick()"></button>
+                    </span>
+                </div>
+            </ng-template>
+            <div class="ml-6">Tag a Purpose with HOA and Operator Code(s) for a Single or Multiple Advance Type.Based on this Tagging the Purpose will be Avaliavle to Select during Advance Application.</div>
+        </p-card>
+    </div>
+</div>
+<button pButton pRipple label="Back" onclick="history.back()"></button>
+
+

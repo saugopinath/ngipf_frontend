@@ -1,0 +1,52 @@
+<p-confirmDialog></p-confirmDialog>
+<div style="position: fixed; height: 4rem; width: 100%; z-index: 997" class="{{layoutService.config.colorScheme === 'light' ? 'sub-nav' : 'sub-nav-dark'}}">
+    <div class="layout-topbar">
+        <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()">
+            <i class="pi pi-bars"></i>
+        </button>
+        <a class="layout-topbar-logo" routerLink="">
+            <img src="assets/layout/images/{{ layoutService.config.colorScheme === 'light' ? 'logo_mini' : 'logo_dark_mini' }}.png" alt="logo" />
+            <!-- <img src="assets/layout/images/logo.png" alt="logo" /> -->
+            <span> |NGIPF</span>
+        </a>
+
+        <button #topbarmenubutton class="p-link layout-topbar-menu-button layout-topbar-button" (click)="layoutService.showProfileSidebar()">
+            <i class="pi pi-ellipsis-v"></i>
+        </button>
+        <div
+            #topbarmenu
+            class="layout-topbar-menu"
+            [ngClass]="{
+                'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible
+            }"
+        >
+            <!-- retrive username and role from login id -->
+            <!-- <div class="layout-topbar-user-details">
+                <p-avatar label="{{ userDetais?.Name | firstLetter }}" styleClass="mr-2" size="large" [style]="{ 'background-color': '#2196F3', color: '#ffffff' }" shape="circle"></p-avatar>
+                <div class="flex flex-column flex-grow-1">
+                    <div class="flex font-semibold">{{ userDetais?.Name }}</div>
+                    <div class="flex mt-2">
+                        <span class="text-cyan-500 font-medium text-sm">{{ userDetais?.Role | uppercase }}</span>|
+                        <span class="text-gray-600 font-medium text-sm">{{ userDetais?.Level.Scope[0] | uppercase }}</span>
+                    </div>
+                </div>
+            </div> -->
+            <div class="layout-topbar-user-details">
+                <p-avatar  shape="circle" size="large" icon="pi pi-user" styleClass="mr-2" size="large" [style]="{ 'background-color': '#2196F3', color: '#ffffff' }"></p-avatar>
+                <div class="flex flex-column flex-grow-1">
+                    <div class="flex font-semibold">Chandan Kumar Rudra</div> 
+                    <div class="flex mt-2">
+                        <span class="text-cyan-500 font-medium text-sm">Designation:JD</span>|
+                        <span class="text-gray-600 font-medium text-sm">Role:DPPG NGIPF ADMIN</span>
+                    </div> 
+                </div>
+            </div>
+            <button class="p-link layout-topbar-button" (click)="logoutConfirmation($event)">
+                <i class="pi pi-power-off"></i>
+                <span>Sign</span>
+            </button>
+        </div>
+    </div>
+    <app-loading-indeterminate></app-loading-indeterminate>
+    <!-- <app-breadcrumb></app-breadcrumb> -->
+</div>

@@ -1,0 +1,135 @@
+<div class="">
+    <p-divider align="left" type="solid">
+        <div class="inline-flex align-items-center">
+            <i class="pi pi-shopping-cart mr-2"></i>
+            <b>Service Provider</b>
+        </div>
+    </p-divider>
+
+    <div class="p-4">
+        <div class="model-forms">
+            <div class="flex justify-content-between flex-wrap mb-4">
+                <div class="p-2">
+                    <span class="font-medium">Reference No : {{ parentFormName.getRawValue().refNo }}</span>
+                </div>
+                <div class="p-2">
+                    <span class="font-medium">Bill Date : {{ parentFormName.getRawValue().billDate | date : "dd/MM/YYYY" }}</span>
+                </div>
+                <div class="p-2">
+                    <span class="font-medium">Gross Amount : {{ parentFormName.getRawValue().gross_amount }}</span>
+                </div>
+                <div class="p-2">
+                    <span class="font-medium">Net Amount : {{ parentFormName.getRawValue().net_amount }}</span>
+                </div>
+            </div>
+
+            <form class="flex justify-content-around flex-wrap mb-4" [formGroup]="ServiceProviderForm">
+                <div class="flex flex-column align-items-start justify-content-center space_between">
+                    <label class="font-medium">Service Provider</label>
+                    <input pInputText placeholder="Service Provider" [disabled]="true" [value]="parentFormName.getRawValue().serviceProvider?.name" />
+                </div>
+
+                <div class="flex flex-column align-items-start justify-content-center space_between">
+                    <label class="font-medium">Connection Type</label>
+                    <p-dropdown formControlName="Connection_Type" [options]="connectionTypes" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select Connection Type" (onChange)="onConnectionTypeChange($event)">
+                        <ng-template let-item pTemplate="item">
+                            <div class="ui-helper-clearfix" style="position: relative; height: 25px" pTooltip="{{ item.name }}" tooltipPosition="right">
+                                <span style="font-size: 14px; margin-top: 4px">{{ item.id }} : {{ item.name ?? item.id }}</span>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+
+                <div class="flex flex-column align-items-start justify-content-center space_between">
+                    <label class="font-medium">Consumer ID/Qtn. Ref. No.</label>
+                    <p-dropdown formControlName="Consumer_ID_Qtn_Ref_No" [options]="consumer_ids" optionLabel="consumerName" [filter]="true" filterBy="consumerName" [showClear]="true" placeholder="Select Consumer" (onChange)="onConsumerSelect($event)">
+                        <ng-template let-item pTemplate="item">
+                            <div class="ui-helper-clearfix" style="position: relative; height: 25px" pTooltip="{{ item.consumerName }}" tooltipPosition="right">
+                                <span style="font-size: 14px; margin-top: 4px">{{ item.consumerId }} : {{ item.consumerName ?? item.consumerId }}</span>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+
+                <div class="flex flex-column align-items-start justify-content-center space_between">
+                    <label class="font-medium">Installation No.</label>
+                    <input formControlName="Installation_No" pInputText type="text" />
+                </div>
+
+                <div class="flex flex-column align-items-start justify-content-center space_between">
+                    <label class="font-medium">Application No.</label>
+                    <input formControlName="Application_No" pInputText type="text" />
+                </div>
+
+                <div class="flex flex-column align-items-start justify-content-center space_between">
+                    <label class="font-medium">Outstanding Amount</label>
+                    <input formControlName="Outstanding_Amount" pInputText type="text" />
+                </div>
+
+                <div class="flex flex-column align-items-start justify-content-center space_between">
+                    <label class="font-medium">Amouont Paid</label>
+                    <input formControlName="Amouont_Paid" pInputText type="text" />
+                </div>
+            </form>
+            <div class="mb-3">
+                <button pButton icon="pi pi-plus" label="" class="flex p-button-raised" (click)="addServiceProviderData()"></button>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <div class="table-details table-responsive">
+                <table class="table w-full" cellspacing="1">
+                    <tr style="text-align: center">
+                        <th class="t_cell">Sr. No.</th>
+                        <th class="t_cell">Service Provider</th>
+                        <th class="t_cell">Connection Type</th>
+                        <th class="t_cell">Consumer ID/Qtn. Ref. No.</th>
+                        <th class="t_cell">Installation No.</th>
+                        <th class="t_cell">Application No.</th>
+                        <th class="t_cell">Outstanding Amount</th>
+                        <th class="t_cell">Amouont Paid.</th>
+                        <th class="t_cell">Action</th>
+                    </tr>
+
+                    <tr *ngFor="let item of serviceProviderDataList; let rowIndex = index" style="text-align: center">
+                        <td class="t_cell">
+                            {{ rowIndex + 1 }}
+                        </td>
+                        <td class="t_cell">
+                            {{ item.Service_Provider }}
+                        </td>
+                        <td class="t_cell">
+                            {{ item.Connection_Type?.name }}
+                        </td>
+                        <td class="t_cell">
+                            {{ item.Consumer_ID_Qtn_Ref_No?.consumerId }}
+                        </td>
+                        <td class="t_cell">
+                            {{ item.Installation_No }}
+                        </td>
+                        <td class="t_cell">
+                            {{ item.Application_No }}
+                        </td>
+                        <td class="t_cell">
+                            {{ item.Consumer_ID_Qtn_Ref_No?.spApiData[0]?.outstandingAmount }}
+                        </td>
+                        <td class="t_cell">
+                            {{ item.Amouont_Paid }}
+                        </td>
+                        <td class="t_cell">
+                            <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="serviceProviderDataList.splice(rowIndex, 1)"></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="t_cell" colspan="14">
+                            <strong>Total Amount :- </strong>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="flex justify-content-center flex-wrap">
+        <button pButton icon="pi pi-save" label="Save" class="flex p-button-raised" [disabled]="serviceProviderDataList.length === 0" (click)="saveServiceProviderData()"></button>
+    </div>
+</div>

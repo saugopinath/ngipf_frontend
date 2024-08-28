@@ -1,0 +1,41 @@
+<div class="grid">
+  <div class="col-12">
+    <div class="card">
+      <div class="flex align-items-center">
+        <i class="pi pi-angle-double-right mr-2"></i>
+        <h5>Workflow Management</h5>
+      </div>
+
+      <form [formGroup]="workflowmanagementForm"
+        class="flex w-9 mx-auto flex-column justify-content-center align-items-center p-5 gap-2">
+        <div class="flex justify-content-center gap-2 w-full">
+          <div class="field flex-1">
+            <div class="flex-column flex gap-2">
+              <label>Office<span class="text-red-700">*</span></label>
+              <input pInputText formControlName="Office" id="office" type="text" />
+              <small *ngIf="isInvalidAndTouched('Office')" class="p-error">
+                Office is required.
+              </small>
+            </div>
+          </div>
+          <div class="field flex-1">
+            <div class="flex-column flex gap-2">
+              <label>Functionality<span class="text-red-700">*</span></label>
+              <input pInputText formControlName="Functionality" id="Functionality" type="text" />
+              <small *ngIf="isInvalidAndTouched('Functionality')" class="p-error">
+                Functonality is required.
+              </small>
+            </div>
+          </div>
+        </div>
+
+      </form>
+
+      <div class="flex flex-wrap gap-2 align-items-center justify-content-center">
+        <button pButton pRipple label="Back" onclick="history.back()"></button>
+
+        <p-button label="Search" icon="pi pi-search" styleClass="p-button-info"></p-button>
+      </div>
+    </div>
+  </div>
+</div>

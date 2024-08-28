@@ -1,0 +1,28 @@
+<p-divider align="left" type="solid">
+    <div class="inline-flex align-items-center">
+        <i class="pi pi-bitcoin mr-2"></i>
+        <b>Amount Details</b>
+    </div>
+</p-divider>
+<form [formGroup]="parentFormName" class="px-4">
+    <div class="">
+        <div class="">
+            <div class="amount-lt">
+                <div class="flex flex-row flex-wrap mt-1">
+                    <div class="flex flex-column align-items-start justify-content-center mr-1">
+                        <label for="gross_amount" class="font-medium">Gross Amount</label>
+                        <p-inputNumber placeholder="Gross Amount" formControlName="gross_amount" mode="currency" inputId="gross_amount" currency="INR" currencyDisplay="symbol" locale="en-IN" [minFractionDigits]="0" [maxFractionDigits]="0" (onBlur)="calculateNetAmt()"> </p-inputNumber>
+                    </div>
+                    <div class="flex flex-column align-items-start justify-content-center mx-1">
+                        <label for="net_amount" class="font-medium">Net Amount</label>
+                        <p-inputNumber placeholder="Net Amount" formControlName="net_amount" mode="currency" inputId="net_amount" currency="INR" currencyDisplay="symbol" locale="en-IN" [minFractionDigits]="0" [maxFractionDigits]="0" (onBlur)="calculateByTransferAmt()"> </p-inputNumber>
+                    </div>
+                    <div class="flex flex-column align-items-start justify-content-center ml-1">
+                        <label for="BTAmount" class="font-medium">BT Amount</label>
+                        <p-inputNumber placeholder="BT Amount" formControlName="BTAmount" mode="currency" inputId="BTAmount" currency="INR" currencyDisplay="symbol" locale="en-IN" [minFractionDigits]="0" [maxFractionDigits]="0" (onBlur)="calculateGrossAmt()"> </p-inputNumber>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,46 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <div class="flex align-items-center">
+                <i class="pi pi-angle-double-right mr-2"></i>
+                <h5>TR-43 for final payment</h5>
+            </div>
+
+            <form [formGroup]="FinalPaymentForm" class="flex w-9 mx-auto flex-column justify-content-center align-items-center p-5 gap-2">
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Head of Account<span class="text-red-700">*</span></label>
+                            <input pInputText formControlName="Head_of_Account" id="Head_of_Account" type="text" />
+                            <small *ngIf="isInvalidAndTouched('Head_of_Account')" class="p-error">
+                                HOA is required.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Financial Month<span class="text-red-700">*</span></label>
+                            <input pInputText formControlName="Financial_Month" id="Financial Month" type="text" />
+                            <small *ngIf="isInvalidAndTouched('Financial Month')" class="p-error">
+                                Financial Month is required.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-row flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Financial Year<span class="text-red-700">*</span></label>
+                            <p-dropdown [options]="dropdownItemYearType"  formControlName="Financial_Year" optionLabel="Year"></p-dropdown>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="flex flex-wrap gap-2 align-items-center justify-content-center">
+                <button pButton pRipple label="Back" onclick="history.back()"></button>
+                <p-button label="Search" icon="pi pi-search" styleClass="p-button-info"></p-button>
+            </div>
+        </div>
+    </div>
+</div>

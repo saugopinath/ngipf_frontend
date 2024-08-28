@@ -1,0 +1,255 @@
+<div class="">
+    <p-divider align="left" type="solid">
+        <div class="inline-flex align-items-center">
+            <i class="pi pi-bitcoin mr-2"></i>
+            <b>Payeee Details</b>
+        </div>
+    </p-divider>
+
+    <div class="p-4">
+        <div class="model-forms">
+            <div class="flex justify-content-between flex-wrap mb-4">
+                <div class="p-2">
+                    <span class="font-medium">Bill No : {{ parentFormName.getRawValue().billNo }}</span>
+                </div>
+                <div class="p-2">
+                    <span class="font-medium">Bill Date : {{ parentFormName.getRawValue().billDate | date : "dd/MM/YYYY" }}</span>
+                </div>
+                <div class="p-2">
+                    <span class="font-medium">Gross Amount : {{ parentFormName.getRawValue().gross_amount }}</span>
+                </div>
+                <div class="p-2">
+                    <span class="font-medium">Net Amount : {{ parentFormName.getRawValue().net_amount }}</span>
+                </div>
+                <div class="p-2">
+                    <span class="font-medium">Total Cheque Amount : {{ chequeAmt }}</span>
+                </div>
+                <div class="p-2">
+                    <span class="font-medium">Pay Mode : {{ payMode }}</span>
+                </div>
+            </div>
+
+            <form class="flex justify-content-start flex-wrap mb-4" [formGroup]="ecsForm">
+                <div class="flex flex-column align-items-start justify-content-center space_between">
+                    <label for="ecsPartyName" class="font-medium">Select Payee</label>
+                    <p-dropdown [options]="ecsPayeeInfo" formControlName="ecsPartyName" optionLabel="beneficiaryName" inputId="ecsPartyName" [filter]="true" filterBy="beneficiaryName" [showClear]="true" placeholder="Select Payee" (onFilter)="searchforBeneficaryName($event)" (onChange)="onECSPartyChange()">
+                        <ng-template let-item pTemplate="item">
+                            <div class="ui-helper-clearfix" style="position: relative; height: 25px" pTooltip="{{ item.accNo }}" tooltipPosition="right">
+                                <span style="font-size: 14px; margin-top: 4px">{{ item.accNo }} : {{ item.beneficiaryName ?? item.accNo }}</span>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                    <!-- <mat-form-field class="full-width" appearance="outline">
+                                        <mat-label>Beneficiary Name</mat-label>
+                                        <input matInput type="text" formControlName="ecsPartyName" placeholder="Beneficiary Name" [matAutocomplete]="partyName" (keyup)="searchforBeneficaryName($event)" />
+                                        <mat-autocomplete #partyName="matAutocomplete" placeholder="Beneficiary Name">
+                                            <mat-option *ngFor="let index of ecsPayeeInfo" [value]="index.payeeName" (onSelectionChange)="onECSPartyChange($event, index)"> {{ index.accNo }} - {{ index.payeeName }} </mat-option>
+                                        </mat-autocomplete>
+                                        <mat-error>
+                                            <smart-error [control]="errorControl.ecsPartyName"></smart-error>
+                                        </mat-error>
+                                     -->
+                </div>
+
+                <div class="flex flex-column align-items-start justify-content-center space_between">
+                    <label for="ecsPayeeCode" class="font-medium">Beneficiary Code</label>
+                    <input pInputText placeholder="Beneficiary Code" formControlName="ecsPayeeCode" inputId="ecsPayeeCode" />
+                    <!-- <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>Beneficiary Code</mat-label>
+                                        <input matInput type="text" formControlName="ecsPayeeCode" autocomplete="off" />
+                                        <mat-error>
+                                            <smart-error [control]="errorControl.ecsPayeeCode"></smart-error>
+                                        </mat-error>
+                                     -->
+                </div>
+
+                <div class="flex flex-column align-items-start justify-content-center space_between">
+                    <label for="ecsIfscCode" class="font-medium">Bank's IFSC Code</label>
+                    <p-inputMask formControlName="ecsIfscCode" inputId="ecsIfscCode" mask="aaaa9999999" placeholder="SBIN0001111"></p-inputMask>
+                    <!-- <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>Bank's IFSC Code</mat-label>
+                                        <input matInput type="text" readonly formControlName="ecsIfscCode" autocomplete="off" />
+                                        <mat-error>
+                                            <smart-error [control]="errorControl.ecsIfscCode"></smart-error>
+                                        </mat-error>
+                                     -->
+                </div>
+
+                <div class="flex flex-column align-items-start justify-content-center space_between">
+                    <label for="ecsBankName" class="font-medium">Bank Name</label>
+                    <input pInputText type="text" formControlName="ecsBankName" id="ecsBankName" />
+                    <!-- <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>Bank Name</mat-label>
+                                        <input matInput type="text" formControlName="ecsBankName" readonly autocomplete="off" />
+                                        <mat-error>
+                                            <smart-error [control]="errorControl.ecsBankName"></smart-error>
+                                        </mat-error>
+                                     -->
+                </div>
+
+                <div class="flex flex-column align-items-start justify-content-center space_between">
+                    <label for="ecsAccountNo" class="font-medium">Account Number</label>
+                    <input pInputText type="text" formControlName="ecsAccountNo" id="ecsAccountNo" />
+                    <!-- <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>Account Number</mat-label>
+                                        <input matInput type="text" formControlName="ecsAccountNo" readonly autocomplete="off" />
+                                        <mat-error>
+                                            <smart-error [control]="errorControl.ecsAccountNo"></smart-error>
+                                        </mat-error>
+                                     -->
+                </div>
+
+                <div class="flex flex-column align-items-start justify-content-center space_between">
+                    <label for="ecsEmail" class="font-medium">E-mail</label>
+                    <input pInputText type="text" formControlName="ecsEmail" id="ecsEmail" />
+                    <!-- <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>E-Mail</mat-label>
+                                        <input matInput type="text" readonly formControlName="ecsEmail" autocomplete="off" />
+                                        <mat-error>
+                                            <smart-error [control]="errorControl.ecsEmail"></smart-error>
+                                        </mat-error>
+                                     -->
+                </div>
+
+                <div class="flex flex-column align-items-start justify-content-center space_between">
+                    <label for="ecsContactNo" class="font-medium">Contact No.</label>
+                    <input pInputText type="text" formControlName="ecsContactNo" id="ecsContactNo" />
+                    <!-- <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>Contact No.</mat-label>
+                                        <input matInput type="text" readonly formControlName="ecsContactNo" autocomplete="off" />
+                                        <mat-error>
+                                            <smart-error [control]="errorControl.ecsContactNo"></smart-error>
+                                        </mat-error>
+                                     -->
+                </div>
+
+                <div class="flex flex-column align-items-start justify-content-center space_between">
+                    <label for="ecsPanNo" class="font-medium">PAN No.</label>
+                    <input pInputText type="text" formControlName="ecsPanNo" id="ecsPanNo" />
+                    <!-- <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>PAN No </mat-label>
+                                        <input matInput type="text" formControlName="ecsPanNo" autocomplete="off" />
+                                        <mat-error>
+                                            <smart-error [control]="errorControl.ecsPanNo"></smart-error>
+                                        </mat-error>
+                                     -->
+                </div>
+
+                <div class="flex flex-column align-items-start justify-content-center space_between">
+                    <label for="ecsAddress" class="font-medium">Address</label>
+                    <input pInputText type="text" formControlName="ecsAddress" id="ecsAddress" />
+                    <!-- <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>Address</mat-label>
+                                        <input matInput type="text" readonly formControlName="ecsAddress" autocomplete="off" />
+                                        <mat-error>
+                                            <smart-error [control]="errorControl.ecsAddress"></smart-error>
+                                        </mat-error>
+                                     -->
+                </div>
+
+                <div class="flex flex-column align-items-start justify-content-center space_between">
+                    <label for="ecsAmount" class="font-medium">Amount(in Rs)</label>
+                    <p-inputNumber placeholder="Amount(in Rs)" formControlName="ecsAmount" mode="currency" inputId="ecsAmount" currency="INR" currencyDisplay="symbol" locale="en-IN" [minFractionDigits]="0" [maxFractionDigits]="0"></p-inputNumber>
+                    <!-- <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>Amount(in Rs)</mat-label>
+                                        <input matInput type="number" formControlName="ecsAmount" autocomplete="off" />
+                                        <mat-error>
+                                            <smart-error [control]="errorControl.ecsAmount"></smart-error>
+                                        </mat-error>
+                                     -->
+                </div>
+
+                <div class="flex flex-column align-items-start justify-content-center space_between">
+                    <label for="ecspayeetype" class="font-medium">Payee Type</label>
+                    <input pInputText type="number" formControlName="ecsPaymentType" id="ecspayeetype" />
+                    <!-- <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>Payee Type</mat-label>
+                                        <input matInput type="text" readonly formControlName="ecsPaymentType" autocomplete="off" />
+                                        <mat-error>
+                                            <smart-error [control]="errorControl.ecsPaymentType"></smart-error>
+                                        </mat-error>
+                                     -->
+                </div>
+            </form>
+            <div class="mb-3">
+                <button pButton icon="pi pi-plus" label="" class="flex p-button-raised" (click)="addECSArray()"></button>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <div class="table-details">
+                <table class="table w-full" cellspacing="1">
+                    <tr style="text-align: center">
+                        <th class="t_cell">Sr. No.</th>
+                        <th class="t_cell">Beneficiary Name</th>
+                        <th class="t_cell">Beneficiary Code</th>
+                        <th class="t_cell">Bank's IFSC Code</th>
+                        <th class="t_cell">Bank Name</th>
+                        <th class="t_cell">Account Number</th>
+                        <th class="t_cell">E-Mail</th>
+                        <th class="t_cell">Contact No.</th>
+                        <th class="t_cell">PAN No.</th>
+                        <th class="t_cell">Address</th>
+                        <th class="t_cell">Amount(in Rs)</th>
+                        <th class="t_cell">Payee Type</th>
+                        <!-- <th class="t_cell">Chalan Validity Date</th> -->
+                        <th class="t_cell">Action</th>
+                    </tr>
+
+                    <tr *ngFor="let index of ecsTableArray; let rowIndex = index" style="text-align: center">
+                        <td class="t_cell">
+                            {{ rowIndex + 1 }}
+                        </td>
+                        <td class="t_cell">
+                            {{ index.ecsPartyName?.beneficiaryName }}
+                        </td>
+                        <td class="t_cell">
+                            {{ index.ecsPayeeCode }}
+                        </td>
+                        <td class="t_cell">
+                            {{ index.ecsIfscCode }}
+                        </td>
+                        <td class="t_cell">
+                            {{ index.ecsBankName }}
+                        </td>
+                        <td class="t_cell">
+                            {{ index.ecsAccountNo }}
+                        </td>
+                        <td class="t_cell">
+                            {{ index.ecsEmail }}
+                        </td>
+                        <td class="t_cell">
+                            {{ index.ecsContactNo }}
+                        </td>
+                        <td class="t_cell">
+                            {{ index.ecsPanNo }}
+                        </td>
+                        <td class="t_cell">
+                            {{ index.ecsAddress }}
+                        </td>
+                        <td class="t_cell">
+                            {{ index.ecsAmount }}
+                        </td>
+                        <td class="t_cell">
+                            {{ index.ecsPaymentType }}
+                        </td>
+                        <!-- <td class="t_cell">
+                                            {{ index.chalanValidityDate }}
+                                        </td> -->
+                        <td class="t_cell">
+                            <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="ecsTableArray.splice(rowIndex, 1)"></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="t_cell" colspan="14">
+                            <strong>Total Amount :- {{ ecsAmt }}</strong>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="flex justify-content-center flex-wrap">
+        <button pButton icon="pi pi-save" label="Save" class="flex p-button-raised" [disabled]="ecsTableArray.length === 0" (click)="save($event)"></button>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+<electricity-service-provider
+    *ngIf="electricityServiceIds.includes(parentFormName.getRawValue().serviceProvider?.id)"
+    [parentFormName]="parentFormName"
+    (onServiceProviderAdd)="onServiceProviderEntry($event)">
+</electricity-service-provider>
+
+<bsnl-service-provider
+    *ngIf="bsnlServiceIds.includes(parentFormName.getRawValue().serviceProvider?.id)"
+    [parentFormName]="parentFormName"
+    (onServiceProviderAdd)="onServiceProviderEntry($event)">
+</bsnl-service-provider>
