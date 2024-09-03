@@ -12,7 +12,7 @@
           <div class="field flex-1">
             <div class="flex-column flex gap-2">
               <label>Office<span class="text-red-700">*</span></label>
-              <input pInputText formControlName="Office" id="office" type="text" />
+              <p-dropdown [options]="dropdownItemOfficeTypeMasterList" formControlName="Office" optionLabel="name" optionValue="code" placeholder="select Office"></p-dropdown>
               <small *ngIf="isInvalidAndTouched('Office')" class="p-error">
                 Office is required.
               </small>
@@ -21,7 +21,7 @@
           <div class="field flex-1">
             <div class="flex-column flex gap-2">
               <label>Functionality<span class="text-red-700">*</span></label>
-              <input pInputText formControlName="Functionality" id="Functionality" type="text" />
+              <p-dropdown [options]="dropdownItemFuncMasterList"  formControlName="Functionality" optionLabel="name" optionValue="code" placeholder="select Functionality"></p-dropdown>
               <small *ngIf="isInvalidAndTouched('Functionality')" class="p-error">
                 Functonality is required.
               </small>
@@ -34,7 +34,8 @@
       <div class="flex flex-wrap gap-2 align-items-center justify-content-center">
         <button pButton pRipple label="Back" onclick="history.back()"></button>
 
-        <p-button label="Search" icon="pi pi-search" styleClass="p-button-info"></p-button>
+        <p-button label="Search" icon="pi pi-search" styleClass="p-button-info" (onClick)="onSearchList()"></p-button>
+        <p-button label="Add New" icon="pi pi-add" styleClass="p-button-info"></p-button>
       </div>
     </div>
   </div>
