@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild,ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastService } from 'src/app/core/services/toast.service';
 import { WorkflowService } from '../core/services/workflow/workflow.service';
@@ -12,6 +12,21 @@ interface FuncMasterList {
   name: string;
   code: number;
 }
+interface OpList {
+  id: number,
+  intOperatorId: number,
+  intOperatorCode: number,
+  operatorName: string,
+  intDdoId: number,
+  ddoName: string,
+  intHoaId:number,
+  hoa: string,
+  intTreasuryId: number,
+  treasuryCode: string,
+  treasuryName: string,
+  intSchemeHead: number,
+  schemeHeadName: string
+}
 @Component({
   selector: 'app-workflow-management',
   templateUrl: './workflow-management.component.html',
@@ -22,6 +37,9 @@ export class WorkflowManagementComponent implements OnInit {
   dropdownItemFuncMasterList: FuncMasterList[] = [];
   workflowmanagementForm !: FormGroup;
   showTable: boolean = false;
+  OpList: OpList[] = [];
+  Func_Name:string='';
+  Office_Name:string='';
 
   constructor(private fb: FormBuilder, private toastService: ToastService, private WorkflowService: WorkflowService, private router: Router) {}
 
@@ -66,14 +84,25 @@ getFuncMaster() {
       }
   });
 }
+getOpList() {
+  this.WorkflowService.searchWorkFlow().subscribe((response) => {
+      if (response.apiResponseStatus == 0 || response.apiResponseStatus == 1 || response.apiResponseStatus == 3) {
+          response.result.map((item, index) => {
+              item.intOperatorId = item.intOperatorId;
+              item.operatorName = item.operatorName;
+          });
+          this.OpList = response.result;
+         console.log(this.OpList);
+      }
+  });
+}
 onSearchList() {
- // console.log('ok');
   if (this.workflowmanagementForm.valid) {
-     console.log('ok');
+    this.showTable=true;
       const formValues = this.workflowmanagementForm.value;
-      
-      const Office = formValues.Office.Code; // Assuming Treasury is an object with a trCode property
-      const Functionality = formValues.Functionality.Code; // Assuming PFDAdmin is an object with a pfdCode property
+      this.Office_Name=formValues.Office.name;
+      this.Func_Name=formValues.Functionality.name;
+      this.getOpList();
   } else {
     this.showTable = false;
     Object.keys(this.workflowmanagementForm.controls).forEach((field) => {

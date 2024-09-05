@@ -28,8 +28,8 @@ export class WorkflowService {
             })
         );
     }
-    searchWorkFlow(OfficeType:number,FuncCoe:number):Observable<IapiResponce>{
-        return this.http.get<IapiResponce>(this.BaseURL+'api/v1/Workflow/GetEmpView?office_type='+OfficeType+'&funcCoe='+FuncCoe).pipe(
+    searchWorkFlow():Observable<IapiResponce>{
+        return this.http.get<IapiResponce>(this.BaseURL+'api/v1/Master/get-LfplDdoMap').pipe(
             catchError((error) => {
               throw this.toastService.showError(error.message);
             })

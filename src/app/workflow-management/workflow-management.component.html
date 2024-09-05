@@ -11,8 +11,9 @@
         <div class="flex justify-content-center gap-2 w-full">
           <div class="field flex-1">
             <div class="flex-column flex gap-2">
+
               <label>Office<span class="text-red-700">*</span></label>
-              <p-dropdown [options]="dropdownItemOfficeTypeMasterList" formControlName="Office" optionLabel="name" optionValue="code" placeholder="select Office"></p-dropdown>
+              <p-dropdown  [options]="dropdownItemOfficeTypeMasterList" formControlName="Office" optionLabel="name" placeholder="select Office" ariaLabelledBy="dd1"></p-dropdown>
               <small *ngIf="isInvalidAndTouched('Office')" class="p-error">
                 Office is required.
               </small>
@@ -21,7 +22,7 @@
           <div class="field flex-1">
             <div class="flex-column flex gap-2">
               <label>Functionality<span class="text-red-700">*</span></label>
-              <p-dropdown [options]="dropdownItemFuncMasterList"  formControlName="Functionality" optionLabel="name" optionValue="code" placeholder="select Functionality"></p-dropdown>
+              <p-dropdown  [options]="dropdownItemFuncMasterList"  formControlName="Functionality" optionLabel="name" placeholder="select Functionality"></p-dropdown>
               <small *ngIf="isInvalidAndTouched('Functionality')" class="p-error">
                 Functonality is required.
               </small>
@@ -37,6 +38,67 @@
         <p-button label="Search" icon="pi pi-search" styleClass="p-button-info" (onClick)="onSearchList()"></p-button>
         <p-button label="Add New" icon="pi pi-add" styleClass="p-button-info"></p-button>
       </div>
+      <div *ngIf="showTable">
+        <p-table
+        #dt2
+        [value]="OpList"
+        dataKey="id"
+        [rows]="10"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        [paginator]="true"
+        [globalFilterFields]="['intOperatorCode']"
+        [tableStyle]="{ 'min-width': '75rem' }"
+    >
+        <ng-template pTemplate="caption">
+            <div class="flex">
+                <p-iconField iconPosition="left" class="ml-auto">
+                    <p-inputIcon>
+                        <i class="pi pi-search"></i>
+                    </p-inputIcon>
+                    
+                </p-iconField>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Head Of Account</th>
+                <th>Functionality</th>
+                <th>Office</th>
+                <th>Treasury</th>
+                <th>NGIPF Admin</th>
+                <th>Action</th>
+            </tr>
+            
+        </ng-template>
+        <ng-template pTemplate="body" let-OpList>
+            <tr>
+                <td>
+                    {{ OpList.hoa }}({{ OpList.schemeHeadName }})
+                </td>
+                <td>
+                  {{ Office_Name}}
+                </td>
+                <td>
+                  {{ Func_Name}}
+                </td>
+                <td>
+                  {{ OpList.treasuryName }}
+                </td>
+                <td>
+                  {{ OpList.operatorName }}({{ OpList.intOperatorCode }})
+                </td>
+                <td>
+                    
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="5">No customers found.</td>
+            </tr>
+        </ng-template>
+</p-table>
+</div>
     </div>
   </div>
 </div>
