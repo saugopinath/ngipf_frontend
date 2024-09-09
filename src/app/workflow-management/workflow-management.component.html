@@ -41,7 +41,7 @@
       <div *ngIf="showTable">
         <p-table
         #dt2
-        [value]="OpList"
+        [value]="HooList"
         dataKey="id"
         [rows]="10"
         [rowsPerPageOptions]="[10, 25, 50]"
@@ -70,22 +70,22 @@
             </tr>
             
         </ng-template>
-        <ng-template pTemplate="body" let-OpList>
+        <ng-template pTemplate="body" let-HooList>
             <tr>
                 <td>
-                    {{ OpList.hoa }}({{ OpList.schemeHeadName }})
+                    {{ HooList.hoa }}
                 </td>
                 <td>
-                  {{ Office_Name}}
+                  {{ HooList.functionality}}
                 </td>
                 <td>
-                  {{ Func_Name}}
+                  {{ HooList.office}}
                 </td>
                 <td>
-                  {{ OpList.treasuryName }}
+                  {{ HooList.treasury }}
                 </td>
                 <td>
-                  {{ OpList.operatorName }}({{ OpList.intOperatorCode }})
+                  {{ HooList.ngipfAdmin }}
                 </td>
                 <td>
                     

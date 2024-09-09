@@ -12,20 +12,13 @@ interface FuncMasterList {
   name: string;
   code: number;
 }
-interface OpList {
-  id: number,
-  intOperatorId: number,
-  intOperatorCode: number,
-  operatorName: string,
-  intDdoId: number,
-  ddoName: string,
-  intHoaId:number,
+interface HooList {
+  intMmWorkflowStatusCode: number,
   hoa: string,
-  intTreasuryId: number,
-  treasuryCode: string,
-  treasuryName: string,
-  intSchemeHead: number,
-  schemeHeadName: string
+  functionality: string,
+  office: string,
+  treasury: string,
+  ngipfAdmin: string
 }
 @Component({
   selector: 'app-workflow-management',
@@ -37,9 +30,8 @@ export class WorkflowManagementComponent implements OnInit {
   dropdownItemFuncMasterList: FuncMasterList[] = [];
   workflowmanagementForm !: FormGroup;
   showTable: boolean = false;
-  OpList: OpList[] = [];
-  Func_Name:string='';
-  Office_Name:string='';
+  HooList: HooList[] = [];
+  
 
   constructor(private fb: FormBuilder, private toastService: ToastService, private WorkflowService: WorkflowService, private router: Router) {}
 
@@ -84,15 +76,19 @@ getFuncMaster() {
       }
   });
 }
-getOpList() {
-  this.WorkflowService.searchWorkFlow().subscribe((response) => {
+getHooList(IntFuncId: number,IntOfficeTypeId:string) {
+  this.WorkflowService.searchHoo().subscribe((response) => {
       if (response.apiResponseStatus == 0 || response.apiResponseStatus == 1 || response.apiResponseStatus == 3) {
           response.result.map((item, index) => {
-              item.intOperatorId = item.intOperatorId;
-              item.operatorName = item.operatorName;
+              item.hoa = item.hoa;
+              item.functionality = item.functionality;
+              item.office = item.office;
+              item.treasury = item.treasury;
+              item.ngipfAdmin = item.ngipfAdmin;
+              item.intMmWorkflowStatusCode = item.intMmWorkflowStatusCode;
           });
-          this.OpList = response.result;
-         console.log(this.OpList);
+          this.HooList = response.result;
+         //console.log(this.OpList);
       }
   });
 }
@@ -100,9 +96,9 @@ onSearchList() {
   if (this.workflowmanagementForm.valid) {
     this.showTable=true;
       const formValues = this.workflowmanagementForm.value;
-      this.Office_Name=formValues.Office.name;
-      this.Func_Name=formValues.Functionality.name;
-      this.getOpList();
+      //console.log(formValues.Functionality.code)
+      //console.log(formValues.Office.code)
+      this.getHooList(formValues.Functionality.code,formValues.Office.code);
   } else {
     this.showTable = false;
     Object.keys(this.workflowmanagementForm.controls).forEach((field) => {

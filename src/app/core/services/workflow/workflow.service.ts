@@ -28,8 +28,8 @@ export class WorkflowService {
             })
         );
     }
-    searchWorkFlow():Observable<IapiResponce>{
-        return this.http.get<IapiResponce>(this.BaseURL+'api/v1/Master/get-LfplDdoMap').pipe(
+    searchHoo():Observable<IapiResponce>{
+        return this.http.get<IapiResponce>(this.BaseURL+'api/v1/Workflow/WorkFlowCodeMasterList').pipe(
             catchError((error) => {
               throw this.toastService.showError(error.message);
             })
