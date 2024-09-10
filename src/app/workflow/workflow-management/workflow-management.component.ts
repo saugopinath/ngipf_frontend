@@ -1,8 +1,8 @@
 import { Component, OnInit,ViewChild,ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToastService } from 'src/app/core/services/toast.service';
-import { WorkflowService } from '../core/services/workflow/workflow.service';
-import { convertDate } from 'src/app/utils/dateConversion';
+import { ToastService } from './../../../../src/app/core/services/toast.service';
+import { WorkflowService } from '../../core/services/workflow/workflow.service';
+import { convertDate } from './../../../../src/app/utils/dateConversion';
 import { Router } from '@angular/router';
 interface OfficeTypeMasterList {
   name: string;
@@ -106,6 +106,9 @@ onSearchList() {
       control?.markAsTouched({ onlySelf: true });
     });
   }
+}
+onViewUser(intMmWorkflowStatusCode: number) {
+  this.router.navigate(['workflow/user/'+intMmWorkflowStatusCode]);
 }
 
 }

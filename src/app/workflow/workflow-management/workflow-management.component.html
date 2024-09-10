@@ -88,7 +88,12 @@
                   {{ HooList.ngipfAdmin }}
                 </td>
                 <td>
-                    
+                  <button
+                  pButton
+                  type="button"
+                  class="p-button-help"
+                  icon="pi pi-search-plus" (click)="onViewUser(HooList.intMmWorkflowStatusCode)"
+              ></button> 
                 </td>
             </tr>
         </ng-template>
