@@ -1,0 +1,78 @@
+<div class="grid">
+    <div class="col-12">
+      <form [formGroup]="workflowEditForm"
+        class="flex w-9 mx-auto flex-column justify-content-center align-items-center p-5 gap-2">
+      <div class="card">
+        <div class="flex align-items-center">
+          <i class="pi pi-angle-double-right mr-2"></i>
+          <h5>Workflow Management</h5>
+        </div>
+  
+        
+        <div class="flex justify-content-center gap-2 w-full">
+            <div class="field flex-1">
+              <div class="flex-column flex gap-2">
+  
+                <label>Office<span class="text-red-700">*</span></label>
+                <p-dropdown  [options]="OfficeTypeMasterList" formControlName="Office" optionLabel="name" placeholder="select Office" ariaLabelledBy="dd1"></p-dropdown>
+
+                
+              </div>
+            </div>
+            <div class="field flex-1">
+              <div class="flex-column flex gap-2">
+  
+                <label>Functionality<span class="text-red-700">*</span></label>
+                <p-dropdown  [options]="FuncMasterList"  formControlName="Functionality" optionLabel="name" placeholder="select Functionality"></p-dropdown>
+                
+              </div>
+            </div>
+            <div class="field flex-1"></div>
+              <div class="flex-column flex gap-2">
+  
+                <label>Head of Account<span class="text-red-700">*</span></label>
+                <p-dropdown  [options]="HoadMasterList"  formControlName="Hoa" optionLabel="name" placeholder="select Head of Account" (onChange)="HoaSelected($event)"></p-dropdown>
+                
+              </div>
+            </div>
+            <div class="field flex-1">
+              <div class="flex-column flex gap-2">
+  
+                <label>Tresuary<span class="text-red-700">*</span></label>
+                <p-dropdown  formControlName="Tresuary" optionLabel="name" placeholder="select Tresuary" ariaLabelledBy="dd1"></p-dropdown>
+                
+              </div>
+            </div>
+            <div class="field flex-1">
+              <div class="flex-column flex gap-2">
+  
+                <label>PFD Admin<span class="text-red-700">*</span></label>
+                <p-dropdown  [options]="PfdAdminMasterList"  formControlName="PfdAdmin" optionLabel="Name" placeholder="select PFD Admin" ></p-dropdown>
+                
+              </div>
+            </div>
+            <div class="field flex-1">
+              <div class="flex-column flex gap-2">
+  
+                <label>Role<span class="text-red-700">*</span></label>
+                <p-dropdown  formControlName="Office" optionLabel="name" placeholder="select Office" ariaLabelledBy="dd1"></p-dropdown>
+                
+              </div>
+            </div>
+            <div class="field flex-1">
+              <div class="flex-column flex gap-2">
+  
+                <label>User<span class="text-red-700">*</span></label>
+                <p-dropdown  formControlName="Office" optionLabel="name" placeholder="select Office" ariaLabelledBy="dd1"></p-dropdown>
+                
+              </div>
+            </div>
+        
+        
+          <button _ngcontent-owr-c368="" class="primary-button"> SAVE & APPROVE </button>
+  
+      </div>
+      </form>
+    </div>
+  </div>
+  

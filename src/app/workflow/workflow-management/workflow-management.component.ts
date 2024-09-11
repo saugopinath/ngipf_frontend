@@ -76,8 +76,8 @@ getFuncMaster() {
       }
   });
 }
-getHooList(IntFuncId: number,IntOfficeTypeId:string) {
-  this.WorkflowService.searchHoo().subscribe((response) => {
+getHooList(IntFuncId: number,IntOfficeTypeId:number) {
+  this.WorkflowService.getHoo(IntFuncId,IntOfficeTypeId).subscribe((response) => {
       if (response.apiResponseStatus == 0 || response.apiResponseStatus == 1 || response.apiResponseStatus == 3) {
           response.result.map((item, index) => {
               item.hoa = item.hoa;
@@ -108,7 +108,11 @@ onSearchList() {
   }
 }
 onViewUser(intMmWorkflowStatusCode: number) {
-  this.router.navigate(['workflow/user/'+intMmWorkflowStatusCode]);
+  this.router.navigate(
+    ['workflow/UserList'],
+    {queryParams:{workflowId:intMmWorkflowStatusCode}}
+    );
+
 }
 
 }

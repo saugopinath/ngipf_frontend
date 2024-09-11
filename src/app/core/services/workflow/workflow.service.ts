@@ -28,12 +28,21 @@ export class WorkflowService {
             })
         );
     }
-    searchHoo():Observable<IapiResponce>{
-        return this.http.get<IapiResponce>(this.BaseURL+'api/v1/Workflow/WorkFlowCodeMasterList').pipe(
+    getHoo(IntFuncId: number,IntOfficeTypeId:number):Observable<IapiResponce>{
+        return this.http.get<IapiResponce>(this.BaseURL+'api/v1/Workflow/WorkFlowCodeMasterList?IntFuncId='+IntFuncId+'&IntOfficeTypeId='+IntOfficeTypeId).pipe(
             catchError((error) => {
               throw this.toastService.showError(error.message);
             })
           );
 
     }
+    getUser(WorkFlowid: number):Observable<IapiResponce>{
+        return this.http.get<IapiResponce>(this.BaseURL+'api/v1/Workflow/WorkFlowUserMapping?WorkFlowId='+WorkFlowid).pipe(
+            catchError((error) => {
+              throw this.toastService.showError(error.message);
+            })
+          );
+
+    }
+    
 }

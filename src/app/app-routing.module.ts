@@ -30,7 +30,7 @@ import { CapturePfInterestYearComponent } from './Interest-year-capture/capture-
 import { InboxComponent } from './inbox/inbox.component';
 import { WorkflowManagementComponent } from './workflow/workflow-management/workflow-management.component';
 import { WorkflowUserManagementComponent } from './workflow/workflow-user-management/workflow-user-management.component';
-
+import { WorkflowEditComponent } from './workflow/workflow-edit/workflow-edit.component';
 import { OpeningBalanceCaptureComponent } from './opening-balance-capture/opening-balance-capture.component';
 import { FinalPaymentComponent } from './final-payment/final-payment.component';
 import { FinalPaymentApplicationComponent } from './final-payment/final-payment-application/final-payment-application.component';
@@ -109,7 +109,8 @@ import { OfficeComponent } from './employeeDetails/newSearch-Employee/office/off
                         { path: 'Interest-year-capture/capture-pf-interest', component: CapturePfInterestYearComponent },
                         { path: 'Inbox', component: InboxComponent },
                         { path: 'workflow-management', component: WorkflowManagementComponent },
-                        { path: 'workflow/user/:workflowid', component: WorkflowUserManagementComponent },
+                        { path: 'workflow/UserList', component: WorkflowUserManagementComponent },
+                        { path: 'workflow/user/addEdit', component: WorkflowEditComponent },
                         { path: 'opening-balance-capture', component: OpeningBalanceCaptureComponent },
                         { path: 'opening-balance-capture/view', component: ViewComponent },
                         { path: 'opening-balance-capture/permission_of_initiation', component: PermissionOfInitiationComponent },
