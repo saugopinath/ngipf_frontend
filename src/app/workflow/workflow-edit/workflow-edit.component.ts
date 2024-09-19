@@ -52,8 +52,16 @@ export class WorkflowEditComponent implements OnInit {
   PfdAdminMasterList:PfdAdminList[] = [];
   PfdAdminDisable:boolean;
   AddUserOption:boolean;
+  hoa:number;
+  tresury:number;
+  public selectedPfdAdmin: any[] = [];
 
-  constructor(private fb: FormBuilder, private toastService: ToastService, private MasterService: MasterService,private WorkflowService: WorkflowService,private route: ActivatedRoute, private router: Router,) { }
+  constructor(private fb: FormBuilder, private toastService: ToastService, private MasterService: MasterService,private WorkflowService: WorkflowService,private route: ActivatedRoute, private router: Router,) { 
+    this.selectedPfdAdmin = [
+      {label: 'Select PFD Admin', value: 0,'name': 'Select PFD Admin','code':'0'},
+      
+  ];
+  }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -76,8 +84,9 @@ export class WorkflowEditComponent implements OnInit {
       Functionality: [''],
       Hoa: [''],
       Tresuary: [''],
-      PfdAdmin: [''],
+      selectedPfdAdmin: this.selectedPfdAdmin
     });
+    console.log(this.workflowEditForm);
   }
   getOfficeMaster() {
     this.WorkflowService.getOffice().subscribe((response) => {
@@ -113,35 +122,39 @@ getHoaMaster() {
   });
 }
 HoaSelected($event) {
-  this.getPfdAdminByHoa($event.value.code);
+  this.hoa=$event.value.code;
+  this.getTresuryByHoa($event.value.code);
 }
-getPfdAdminByHoa(hoa: number) {
-  this.MasterService.getPfdAdminByHoa(hoa).subscribe((response) => {
+TresurySelected($event) {
+  this.getpFdAdminTreSuryByHoa($event.value,this.hoa);
+}
+getTresuryByHoa(hoa: number) {
+  this.MasterService.getTresuryByHoa(hoa).subscribe((response) => {
       if (response.apiResponseStatus == 0 || response.apiResponseStatus == 1 || response.apiResponseStatus == 3) {
           response.result.map((item, index) => {
-            item.id=  item.id,
-            item.intOperatorId= item.intOperatorId,
-            item.intOperatorCode=  item.intOperatorCode,
-            item.operatorName= item.operatorName,
-            item.intDdoId=  item.intDdoId,
-            item.ddoName=  item.ddoName,
-            item.intHoaId=  item.intHoaId,
-            item.hoa=  item.hoa,
-            item.intTreasuryId=  item.intTreasuryId,
-            item.treasuryCode=  item.treasuryCode,
-            item.treasuryName=  item.treasuryName,
-            item.intSchemeHead=  item.intSchemeHead,
-            item.schemeHeadName=  item.schemeHeadName,
-            item.Name = item.operatorName ;
-            item.Code = item.id;
+            item.Name = item.treasuryName+' ('+item.treasuryCode+')';
+            item.Code = item.intTreasuryId;
+             
+          });
+          this.TresuaryMasterList = response.result;
+         // console.log(this.TresuaryMasterList);
+          
+          
+      }
+  });
+}
+getpFdAdminTreSuryByHoa(tresuryId: number,hoa: number) {
+  this.MasterService.getPfdAdminByHoaandTresury(tresuryId,hoa).subscribe((response) => {
+      if (response.apiResponseStatus == 0 || response.apiResponseStatus == 1 || response.apiResponseStatus == 3) {
+          response.result.map((item, index) => {
+            item.Name = item.operatorName+' ('+item.operatorCode+')';
+            item.Code = item.intOperatorId;
              
           });
           this.PfdAdminMasterList = response.result;
-          const key = 'intTreasuryId';
-          const arrayUniqueByKey = [...new Map(this.PfdAdminMasterList.map(item =>
-            [item[key], item])).values()];
+          console.log(this.PfdAdminMasterList);
           
-          console.log(arrayUniqueByKey);
+          
       }
   });
 }

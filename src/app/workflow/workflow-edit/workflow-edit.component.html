@@ -39,7 +39,7 @@
               <div class="flex-column flex gap-2">
   
                 <label>Tresuary<span class="text-red-700">*</span></label>
-                <p-dropdown  formControlName="Tresuary" optionLabel="name" placeholder="select Tresuary" ariaLabelledBy="dd1"></p-dropdown>
+                <p-dropdown  [options]="TresuaryMasterList"  formControlName="Tresuary" optionValue="Code" optionLabel="Name" placeholder="select Tresuary" (onChange)="TresurySelected($event)"></p-dropdown>
                 
               </div>
             </div>
@@ -47,7 +47,7 @@
               <div class="flex-column flex gap-2">
   
                 <label>PFD Admin<span class="text-red-700">*</span></label>
-                <p-dropdown  [options]="PfdAdminMasterList"  formControlName="PfdAdmin" optionLabel="Name" placeholder="select PFD Admin" ></p-dropdown>
+                <p-multiSelect  [options]="PfdAdminMasterList"  formControlName="selectedPfdAdmin" optionValue="Code" optionLabel="Name" placeholder="select PFD Admin" ></p-multiSelect>
                 
               </div>
             </div>

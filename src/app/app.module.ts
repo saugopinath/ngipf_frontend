@@ -95,7 +95,7 @@ import { BankdetailsComponent } from './employeeDetails/newSearch-Employee/bankd
 import { OfficeComponent } from './employeeDetails/newSearch-Employee/office/office.component';
 import { WorkflowUserManagementComponent } from './workflow/workflow-user-management/workflow-user-management.component';
 import { WorkflowEditComponent } from './workflow/workflow-edit/workflow-edit.component';
-
+import {MultiSelectModule} from 'primeng/multiselect';
 @NgModule({
     declarations: [AppComponent, NotfoundComponent, ServerDownComponent, LoginComponent, NotFoundComponent, StaticLoginComponent, appDeclaration, TestComponent, ViewEmployeeComponent, SerachEmployeeComponent, StakeHolderComponent, InterestRateMasterComponent, AddInterestRateComponent, DelegatedRoleComponent, TaggingReceiptPaymentComponent, EmployeeWisePfRegisterWithInterestComponent, EmployeePFBalanceTransferComponent, TransferHistoryComponent, CapturePfInterestYearComponent, InboxComponent, WorkflowManagementComponent, OpeningBalanceCaptureComponent, FinalPaymentComponent, FinalPaymentApplicationComponent, FinalPaymentEligibilityMasterComponent, InterestCreditBillStatementComponent, InitiatePfInterestCalculationComponent, InterestCreditBillSummaryComponent, TRForFinalPaymentComponent, InterestCreditGenerationMasterComponent, ViewComponent, PermissionOfInitiationComponent, PendingRequestListOfOtherUserComponent, OperatorListHavingVeBalanceBypassedComponent, ViewAdvanceComponent, DppgAdvanceSearchComponent, MasterMaintanceComponent, EligibilityMasterComponent, PurposeMasterComponent, PurposeTAggingMasterComponent, SalaryDetailsComponent, AddStakeholderComponent, EditStakeholderComponent, DemoSearchEmployeeComponent, ContactDetailsComponent, BasicDetailsComponent, SalaryComponent, BankdetailsComponent, OfficeComponent, WorkflowUserManagementComponent,  WorkflowEditComponent],
     imports: [PanelModule, CommonModule, AppRoutingModule, AppLayoutModule, DialogModule, ToastModule, NgxPermissionsModule.forRoot(), NgxSpinnerModule, ButtonModule, RadioButtonModule, DataViewModule, FormsModule, InputTextModule, DropdownModule, SelectButtonModule, FormsModule, ReactiveFormsModule, InputMaskModule, MenuModule, StepsModule, AutoCompleteModule, TooltipModule, CalendarModule, InputNumberModule, DividerModule, InputTextareaModule, TableModule, BadgeModule, MhPrimeDynamicTableModule, DynamicTableModule, CheckboxModule, ToggleButtonModule, CardModule],
@@ -129,6 +129,7 @@ import { WorkflowEditComponent } from './workflow/workflow-edit/workflow-edit.co
         DatePipe,
         DividerModule,
         StepsModule,
+        MultiSelectModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     bootstrap: [AppComponent],
