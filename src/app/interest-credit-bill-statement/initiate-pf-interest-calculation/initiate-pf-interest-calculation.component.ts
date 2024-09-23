@@ -14,9 +14,9 @@ interface Year{
 })
 export class InitiatePfInterestCalculationComponent implements OnInit {
   dropdownItemYearType: Year[];
-  
+  showTable: boolean = false;
   PFInterestForm !: FormGroup;
-
+  tableData: any;
   constructor(private fb: FormBuilder) {
     this.dropdownItemYearType = [
       { Year: '2022-2023', code: '2022-2023' },
@@ -35,6 +35,9 @@ export class InitiatePfInterestCalculationComponent implements OnInit {
       
      
     });
+  }
+  onSearch() : void{
+    this.showTable = true;
   }
 
   // Method to check if a form control is invalid and touched

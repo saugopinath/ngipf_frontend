@@ -11,7 +11,7 @@ import { Message } from 'primeng/api';
 })
 export class EmployeeDetailsService {
     BaseURL: string = `${environment.BaseURL}`;
-    constructor(private http: HttpClient, private toastService: ToastService) { }
+    constructor(private http: HttpClient, private toastService: ToastService) {}
 
     getTresury(): Observable<IapiResponce> {
         return this.http.get<IapiResponce>(this.BaseURL + 'api/v1/EmployeeView/GetAllTreasury').pipe(
@@ -21,8 +21,8 @@ export class EmployeeDetailsService {
         );
     }
 
-    getPfdAdmin(intTreasuryCode:number): Observable<IapiResponce> {
-        return this.http.post<IapiResponce>(this.BaseURL + 'api/v1/EmployeeView/GetAllPfdAdmin?TreasuryCode='+intTreasuryCode,"").pipe(
+    getPfdAdmin(intTreasuryCode: number): Observable<IapiResponce> {
+        return this.http.get<IapiResponce>(this.BaseURL + 'api/v1/EmployeeView/GetAllPfdAdmin?TreasuryCode=' + intTreasuryCode).pipe(
             catchError((error) => {
                 throw this.toastService.showError(error.Message);
             })
@@ -37,12 +37,22 @@ export class EmployeeDetailsService {
         );
     }
 
-    viewEmployee(trCode:string,pfdCode:number,sanctionCode:number):Observable<IapiResponce>{
-        return this.http.get<IapiResponce>(this.BaseURL+'api/v1/ViewEmp/GetEmpView?Treasury='+trCode+'&PFD_Admin='+pfdCode+'&Sanction_Admin='+sanctionCode).pipe(
+    viewEmployee(trCode: number, pfdCode: number): Observable<IapiResponce> {
+        return this.http.get<IapiResponce>(this.BaseURL + 'api/v1/EmployeeView/GetEmpployee?treasury=' + trCode + '&OperatorId=' + pfdCode).pipe(
             catchError((error) => {
-              throw this.toastService.showError(error.message);
+                throw this.toastService.showError(error.message);
             })
-          );
+        );
+    }
 
+
+    private data: any;
+
+    setData(data: any) {
+        this.data = data;
+    }
+
+    getData() {
+        return this.data;
     }
 }

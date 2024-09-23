@@ -201,6 +201,17 @@ export class AppMenuComponent implements OnInit {
                     },
                 ],
             },
+            {
+                label: 'PDF Generation',
+                items: [
+                    {
+                        label: 'Sanction Admin PDF',
+                        icon: 'pi pi-search-plus',
+                        routerLink: ['pdf-generation'],
+                    },
+                    
+                ],
+            },
         ];
     }
 }

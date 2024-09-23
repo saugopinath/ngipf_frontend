@@ -4,8 +4,7 @@
 
 export const environment = {
   production: false,
-  BaseURL: 'https://localhost:7249/',
-  ePradanBaseURL: 'https://localhost:7149/'
+  BaseURL: 'https://localhost:7249/'
 };
 
 /*

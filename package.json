@@ -4,7 +4,7 @@
     "scripts": {
         "ng": "ng",
         "start": "ng serve -o",
-        "build": "ng build",
+        "build": "node --max_old_space_size=14336 ./node_modules/@angular/cli/bin/ng build --configuration production --base-href /ngipf/ --aot --build-optimizer",
         "watch": "ng build --watch --configuration development",
         "test": "ng test",
         "lint": "ng lint"
@@ -22,6 +22,8 @@
         "@angular/router": "~14.0.0",
         "@auth0/angular-jwt": "^5.2.0",
         "chart.js": "^3.3.2",
+        "js.pdf": "^0.0.2",
+        "jspdf-autotable": "^3.8.2",
         "mh-prime-dynamic-table": "^0.0.2",
         "ngx-permissions": "^13.0.1",
         "ngx-spinner": "^14.0.0",
@@ -45,6 +47,7 @@
         "@angular/compiler-cli": "~14.0.0",
         "@types/jasmine": "~3.10.0",
         "@types/node": "^12.11.1",
+        "@types/raf": "^3.4.3",
         "@typescript-eslint/eslint-plugin": "5.37.0",
         "@typescript-eslint/parser": "5.37.0",
         "eslint": "^8.23.1",

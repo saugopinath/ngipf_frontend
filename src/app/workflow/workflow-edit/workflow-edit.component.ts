@@ -1,17 +1,21 @@
 import { Component, OnInit,ViewChild,ElementRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl ,Validators } from '@angular/forms';
 import { ToastService } from './../../../../src/app/core/services/toast.service';
 import { MasterService } from '../../core/services/master/master.service';
 import { WorkflowService } from '../../core/services/workflow/workflow.service';
 import { convertDate } from './../../../../src/app/utils/dateConversion';
 import { Router,ActivatedRoute } from '@angular/router';
 import { from } from 'rxjs';
-
 import { groupBy, mergeMap, toArray } from 'rxjs/operators';
 
 interface CodeMasterList {
   name: string;
   code: number;
+}
+export class MultiSelectDropDown {
+  public id?: number;
+  public name?: string;
+  public code?: number;
 }
 interface PfdAdminList {
   name: string;
@@ -54,16 +58,12 @@ export class WorkflowEditComponent implements OnInit {
   AddUserOption:boolean;
   hoa:number;
   tresury:number;
-  public selectedPfdAdmin: any[] = [];
-
   constructor(private fb: FormBuilder, private toastService: ToastService, private MasterService: MasterService,private WorkflowService: WorkflowService,private route: ActivatedRoute, private router: Router,) { 
-    this.selectedPfdAdmin = [
-      {label: 'Select PFD Admin', value: 0,'name': 'Select PFD Admin','code':'0'},
-      
-  ];
+   
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {   
+    
     this.initializeForm();
     const workflowid = this.route.snapshot.queryParamMap.get('workflowId');
     this.workflowid=workflowid;
@@ -79,14 +79,15 @@ export class WorkflowEditComponent implements OnInit {
     this.getHoaMaster();
   }
   initializeForm(): void {
+    
     this.workflowEditForm = this.fb.group({
       Office: [''],
       Functionality: [''],
       Hoa: [''],
-      Tresuary: [''],
-      selectedPfdAdmin: this.selectedPfdAdmin
+      Tresuary: ['']
+
     });
-    console.log(this.workflowEditForm);
+    //console.log(this.workflowEditForm);
   }
   getOfficeMaster() {
     this.WorkflowService.getOffice().subscribe((response) => {

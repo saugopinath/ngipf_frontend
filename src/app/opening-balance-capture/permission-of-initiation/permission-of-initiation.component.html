@@ -6,40 +6,50 @@
                 <h5>Permission for Opening Balance Capture & PF Register Submission to DPPG</h5>
             </div>
 
-            <form [formGroup]="PermissionForm" class="flex w-9 mx-auto flex-column justify-content-center align-items-center p-5 gap-2">
+            <form [formGroup]="PermissionForm"
+                class="flex w-9 mx-auto flex-column justify-content-center align-items-center p-5 gap-2">
                 <div class="flex justify-content-center gap-2 w-full">
                     <div class="field flex-1">
                         <div class="flex-column flex gap-2">
                             <label>Search By<span class="text-red-700">*</span></label>
                             <select pInputText formControlName="Search_By" id="Search_By">
                                 <option value="" disabled>Select</option>
-                                <option value="option1">Treasury</option>
-                                <option value="option2">Head Of Account</option>
-                                <option value="option3">Head Of Account & Treasury</option>
+                                <option value="treasury">Treasury</option>
+                                <option value="hoa">Head Of Account</option>
+                                <option value="hoa&treasury">Head Of Account & Treasury</option>
                             </select>
-                            <small *ngIf="isInvalidAndTouched('Search_By')" class="p-error"> Search By is required. </small>
+                            <small *ngIf="isInvalidAndTouched('Search_By')" class="p-error"> Search By is required.
+                            </small>
                         </div>
                     </div>
                 </div>
 
                 <!-- Conditionally show/hide Treasury based on Search_By value -->
-                <div class="flex-row flex justify-content-center gap-2 w-full" *ngIf="showTreasury">
-                    <div class="field flex-1">
-                        <div class="flex-column flex gap-2">
-                            <label>Treasury<span class="text-red-700">*</span></label>
-                            <input pInputText formControlName="Treasury" id="Treasury" type="text" />
-                            <small *ngIf="isInvalidAndTouched('Treasury')" class="p-error"> Treasury is required. </small>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Conditionally show/hide Head Of Account based on Search_By value -->
                 <div class="flex justify-content-center gap-2 w-full" *ngIf="showHeadOfAccount">
                     <div class="field flex-1">
                         <div class="flex-column flex gap-2">
                             <label>Head Of Account<span class="text-red-700">*</span></label>
-                            <input pInputText formControlName="Head_Of_Account" id="Head Of Account" type="text" />
-                            <small *ngIf="isInvalidAndTouched('Head_Of_Account')" class="p-error"> HOA is required. </small>
+
+                            <p-dropdown [options]="dropdownItemHoa" formControlName="Head_of_Account"
+                                (onChange)="selectedHoa($event)" optionLabel="hoaName" [filter]="true"
+                                filterBy="hoaName" [showClear]="true" placeholder="Select Head of Account"></p-dropdown>
+                            <small *ngIf="isInvalidAndTouched('Head_of_Account')" class="p-error"> Head Of Account is
+                                required. </small>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="flex-row flex justify-content-center gap-2 w-full" *ngIf="showTreasury">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Treasury<span class="text-red-700">*</span></label>
+                            <!-- <input pInputText formControlName="Treasury" id="Treasury" type="text" /> -->
+                            <p-dropdown [options]="dropdownItemTreasuryname" formControlName="Treasury"
+                                (onChange)="trSelected($event)" optionLabel="treasuryName" [filter]="true"
+                                filterBy="treasuryName" [showClear]="true" placeholder="Select Treasury"></p-dropdown>
+                            <small *ngIf="isInvalidAndTouched('Treasury')" class="p-error"> Treasury is required.
+                            </small>
                         </div>
                     </div>
                 </div>
@@ -47,18 +57,20 @@
 
             <div class="flex flex-wrap gap-2 align-items-center justify-content-center">
                 <button pButton pRipple label="Back" onclick="history.back()"></button>
-                <p-button label="Reset" icon="pi pi-replay" styleClass="p-button-warning" (click)="resetForm()"></p-button>
+                <p-button label="Reset" icon="pi pi-replay" styleClass="p-button-warning"
+                    (click)="resetForm()"></p-button>
                 <p-button label="Search" icon="pi pi-search" styleClass="p-button-info" (click)="onSearch()"></p-button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Conditionally render the table card -->
+
 <div *ngIf="showTable" class="grid">
     <div class="col-12">
         <div class="card">
-            <p-table [value]="[]" [rows]="12" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" responsiveLayout="scroll">
+            <p-table [value]="tableData" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
+                [paginator]="true" responsiveLayout="scroll">
                 <ng-template pTemplate="caption">
                     <div class="flex justify-content-between flex-column sm:flex-row">
                         <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash"></button>
@@ -70,48 +82,328 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="min-width: 12rem" alignFrozen="left">Operator Name</th>
-                        <th style="min-width: 26rem">Treasury</th>
-                        <th style="min-width: 12rem">Int Transfer</th>
-                        <th style="min-width: 12rem">Interest Year Upto</th>
-                        <th style="min-width: 12rem">Status</th>
-                        <th style="min-width: 12rem">Open From</th>
-                        <th style="min-width: 12rem">Permission Status</th>
-                        <th style="min-width: 12rem">Remarks</th>
-                        <th style="min-width: 6rem" pFrozenColumn alignFrozen="right">Action</th>
+                        <th style="min-width: 7rem" alignFrozen="left" class="bg-blue-500 text-white">Operator Name</th>
+                        <th style="min-width: 7rem" class="bg-blue-500 text-white">Treasury</th>
+                        <th style="min-width: 7rem" class="bg-blue-500 text-white">Int Transfer</th>
+                        <th style="min-width: 7rem" class="bg-blue-500 text-white">Interest Year Upto</th>
+                        <th style="min-width: 7rem" class="bg-blue-500 text-white">Status</th>
+                        <th style="min-width: 7rem" class="bg-blue-500 text-white">Open From</th>
+                        <th style="min-width: 7rem" class="bg-blue-500 text-white">Permission Status</th>
+                        <th style="min-width: 7rem" class="bg-blue-500 text-white">Remarks</th>
+                        <th style="min-width: 6rem" pFrozenColumn alignFrozen="right" class="bg-blue-500 text-white">
+                            Action</th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-searchEmployee>
+                <ng-template pTemplate="body" let-tableData let-i="rowIndex">
                     <tr class="p-selectable-row">
-                        <td style="min-width: 12rem"></td>
-                        <td style="min-width: 26rem"></td>
-                        <td style="min-width: 12rem"></td>
-                        <td style="min-width: 12rem"></td>
+                        <td style="min-width: 7rem">{{ tableData.operatorName }}</td>
+                        <td style="min-width: 7rem">{{ tableData.treasuryCode }}</td>
+                        <td style="min-width: 7rem">{{ tableData.intTransfer }}</td>
+                        <td style="min-width: 7rem">{{ tableData.interestYearUpto }}</td>
+                        <td style="min-width: 6rem">{{tableData.status}}</td>
+                        <td style="min-width: 10rem">
+                            <p-dropdown [options]="dropdownItemInterestYear" [(ngModel)]="permissionFinYear[i]"
+                                optionLabel="year" placeholder="Select Year"></p-dropdown>
+                        </td>
+                        <td style="min-width: 6rem">
+                            <p-dropdown [options]="dropdownPermissionStatus" [(ngModel)]="permissionStatus[i]"
+                                optionLabel="status" placeholder="Select status"></p-dropdown>
+                        </td>
                         <td style="min-width: 6rem" pFrozenColumn alignFrozen="right">
-                          <button pButton type="button" class="p-button-help" icon="pi pi-file-edit"></button>
-                      </td>
-                        <td style="min-width: 6rem" pFrozenColumn alignFrozen="right">
-                            <button pButton type="button" class="p-button-help" icon="pi pi-external-link"></button>
-                            <p-checkbox [(ngModel)]="value" [binary]="true"></p-checkbox>
+                            <button pButton type="button" class="p-button-help" icon="pi pi-file-edit"
+                                (click)="openDialog(tableData.ind)"></button>
+                        </td>
+                        <td style="min-width: 6rem" pFrozenColumn alignFrozen="right" class="flex gap-2">
+                            <button pButton type="button" class="p-button-raised p-button-rounded"
+                                icon=" pi pi-external-link" (click)="showDetailsDialog(i,tableData)"></button>
+                            <p-checkbox [binary]="true" [checked]="selectedCheckbox === i"
+                                (onChange)="onCheckboxChange(i, tableData)"></p-checkbox>
                         </td>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="emptymessage">
                     <tr>
-                        <td colspan="8">No Data Available</td>
+                        <td colspan="10">No Data Available</td>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="loadingbody">
                     <tr>
-                        <td colspan="12">Loading Employee Accounts. Please wait.</td>
+                        <td colspan="10">Loading Employee Accounts. Please wait.</td>
                     </tr>
                 </ng-template>
             </p-table>
             <div class="flex flex-col mt-1 align-items-center justify-content-center">
                 <div class="flex flex-wrap gap-2">
-                    <p-button label="Save & Approve" icon="pi pi-cloud-upload" styleClass="p-button-info"></p-button>
+                    <p-button label=" Save & Approve" styleClass="p-button-info" (click)="showApprovalDialog()"
+                        [disabled]="isApproveDisabled()"></p-button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<p-dialog [value]="" header="Details" [(visible)]="displayDetails" [modal]="true" [style]="{ width: '50vw' }">
+    <div class="p-grid" style="background-color: #e3f2fd; padding: 1rem;">
+        <div style="font-size: 18px; font-weight: bold; color: #1976d2; padding: 10px 15px">Operator Details</div>
+        <div class="flex gap-8 xl:flex-row flex-column">
+            <div class="p-col-8">
+                <div class="field">
+                    <label style="font-size: 14px;">Credit HOA Code</label>
+                    <p style="font-weight: bold;">{{ selectedpermissionOfInitiation?.hoa }}</p>
+                </div>
+
+                <div class="field ">
+                    <label style="font-size: 14px;">NGIPF Administration Code</label>
+                    <p style="font-weight: bold;">{{ selectedpermissionOfInitiation?.operatorId }}</p>
+                </div>
+                <div class="field">
+                    <label style="font-size: 14px;">DPPG Permission Memo Date</label>
+                    <p style="font-weight: bold;">{{ selectedpermissionOfInitiation?.hoa }}</p>
+                </div>
+
+                <div class="field">
+                    <label style="font-size: 14px;">Treasury</label>
+                    <p style="font-weight: bold;">{{ selectedpermissionOfInitiation?.hoa }}</p>
+                </div>
+            </div>
+
+            <div class="p-col-6">
+                <div class="field">
+                    <label style="font-size: 14px;">HOA Description</label>
+                    <p style="font-weight: bold;">{{ selectedpermissionOfInitiation?.GoNo }}</p>
+                </div>
+                <div class="field">
+                    <label style="font-size: 14px;">NGIPG Administration Description</label>
+                    <p style="font-weight: bold;">{{ selectedpermissionOfInitiation?.convertDate }}</p>
+                </div>
+                <div class="field">
+                    <label style="font-size: 14px;">DPPG Permission Memo Date</label>
+                    <p style="font-weight: bold;">{{ selectedpermissionOfInitiation?.convertDate }}</p>
+                </div>
+            </div>
+
+        </div>
+        <!-- <div class="field">
+        <label>Credit HOA Code</label>
+        <p>
+            <strong>{{ selectedpermissionOfInitiation?.hoa }}</strong>
+        </p>
+    </div>
+    <div class="field">
+        <label>HOA Description</label>
+        <p>
+            <strong>{{ selectedpermissionOfInitiation?.institutions }}</strong>
+        </p>
+    </div> -->
+        <!-- <div class="field">
+        <label>PFD Admin Code</label>
+        <p>
+            <strong>{{ selectedpermissionOfInitiation?.operatorId }}</strong>
+        </p>
+    </div>
+    <div class="field">
+        <label>PFD Admin Description</label>
+        <p>
+            <strong>{{ selectedpermissionOfInitiation?.institutions }}</strong>
+        </p>
+    </div>
+    <div class="field">
+        <label>Treasury</label>
+        <p>
+            <strong>{{ selectedpermissionOfInitiation?.treasuryCode }}</strong>
+        </p>
+    </div> -->
+        <div style="font-size: 18px; font-weight: bold; color: #1976d2; padding: 10px 15px">Last Interest Credit Bill
+            Details</div>
+        <div class="flex gap-8 xl:flex-row flex-column">
+
+            <div class="p-col-4">
+                <div class="field">
+                    <label style="font-size: 14px;">Status</label>
+                    <p style="font-weight: bold;">{{ selectedpermissionOfInitiation?.status }}</p>
+                </div>
+
+                <div class="field ">
+                    <label style="font-size: 14px;">DDO Code</label>
+                    <p style="font-weight: bold;">{{ selectedpermissionOfInitiation?.institutions }}</p>
+                </div>
+                <div class="field">
+                    <label style="font-size: 14px;">Bill No</label>
+                    <p style="font-weight: bold;">{{ selectedpermissionOfInitiation?.hoa }}</p>
+                </div>
+
+                <div class="field">
+                    <label style="font-size: 14px;">Bill Amount</label>
+                    <p style="font-weight: bold;">{{ selectedpermissionOfInitiation?.hoa }}</p>
+                </div>
+                <div class="field">
+                    <label style="font-size: 14px;">Voucher Number</label>
+                    <p style="font-weight: bold;">{{ selectedpermissionOfInitiation?.hoa }}</p>
+                </div>
+            </div>
+
+            <div class="p-col-6">
+                <div class="field">
+                    <label style="font-size: 14px;">Upto Interest Year</label>
+                    <p style="font-weight: bold;">{{ selectedpermissionOfInitiation?.GoNo }}</p>
+                </div>
+                <div class="field">
+                    <label style="font-size: 14px;">DDO Description</label>
+                    <p style="font-weight: bold;">{{ selectedpermissionOfInitiation?.convertDate }}</p>
+                </div>
+                <div class="field">
+                    <label style="font-size: 14px;">Bill Date</label>
+                    <p style="font-weight: bold;">{{ selectedpermissionOfInitiation?.convertDate }}</p>
+                </div>
+                <div class="field">
+                    <label style="font-size: 14px;">Amount Credited To NGIPF Admin</label>
+                    <p style="font-weight: bold;">{{ selectedpermissionOfInitiation?.convertDate }}</p>
+                </div>
+                <div class="field">
+                    <label style="font-size: 14px;">Voucher Date</label>
+                    <p style="font-weight: bold;">{{ selectedpermissionOfInitiation?.convertDate }}</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- <div class="field">
+        <label>Status</label>
+        <p>
+            <strong>{{ selectedpermissionOfInitiation?.status }}</strong>
+        </p>
+    </div>
+    <div class="field">
+        <label>Interest Year Upto</label>
+        <p>
+            <strong>{{ selectedpermissionOfInitiation?.interestYearUpto }}</strong>
+        </p>
+    </div>
+    <div class="field">
+        <label>DDO Code</label>
+        <p>
+            <strong>{{ selectedpermissionOfInitiation?.ddoCode }}</strong>
+        </p>
+    </div>
+    <div class="field">
+        <label>DDO Description</label>
+        <p>
+            <strong>{{ selectedpermissionOfInitiation?.address1 }}</strong>
+        </p>
+    </div>
+    <div class="field">
+        <label>Bill No.</label>
+        <p>{{ selectedpermissionOfInitiation?.billNo }}</p>
+    </div>
+    <div class="field">
+        <label>Bill Date</label>
+        <p>{{ selectedpermissionOfInitiation?.billDate }}</p>
+    </div>
+    <div class="field">
+        <label>Bill Amount (Rs.)</label>
+        <p>{{ selectedpermissionOfInitiation?.billAmount }}</p>
+    </div>
+    <div class="field">
+        <label>Amount Credited To PFD Admin (Rs.)</label>
+        <p>{{ selectedpermissionOfInitiation?.amountCreditedToPfdAdmin }}</p>
+    </div>
+    <div class="field">
+        <label>Voucher No.</label>
+        <p>{{ selectedpermissionOfInitiation?.voucherNo }}</p>
+    </div>
+    <div class="field">
+        <label>Voucher Date</label>
+        <p>{{ selectedpermissionOfInitiation?.voucherDate }}</p>
+    </div> -->
+
+    <p-footer>
+        <button pButton type="button" label="OK" (click)="displayDetails = false"></button>
+    </p-footer>
+
+</p-dialog>
+
+
+
+
+
+
+
+<p-dialog position="top" header="List of Purpose" [(visible)]="showDialog" [modal]="true"
+    [style]="{ width: '40vw',height:'30vw' }">
+    <div class="p-fluid p-form-grid border-1 p-4">
+        <div class="p-field p-col-12">
+            <label for="remarks">Remarks</label>
+            <textarea id="remarks" [cols]="30" [rows]="7" pInputTextarea [(ngModel)]="remarks"></textarea>
+        </div>
+    </div>
+
+    <p-footer>
+        <button type="button" pButton label="Cancel" (click)="closeDialog()" autofocus></button>
+        <button type="button" pButton label="OK" autofocus></button>
+    </p-footer>
+</p-dialog>
+<p-dialog header="Details" [(visible)]="displayApprovalDialog" [modal]="true" [style]="{ width: '50vw' }">
+    <div class="p-grid" style="background-color: #e3f2fd; padding: 1rem;">
+        <div style="font-size: 18px; font-weight: bold; color: #1976d2; padding: 10px 15px">Opening Balance Capture
+            Permission </div>
+
+        <!-- <div *ngFor="let item of dialogboxData; let i = index" style="background-color: #e3f2fd; border-radius: 8px; padding: 15px; margin-bottom: 10px"> -->
+        <div class="flex gap-8 xl:flex-row flex-column padding: 10px 15px">
+            <div class="p-col-8">
+                <div class="field">
+                    <label style="font-size: 14px;">Operator Name</label>
+                    <p style="font-weight: bold;">{{ confirmationTableData[0]?.treasury }}</p>
+                </div>
+
+                <div class="field ">
+                    <label style="font-size: 14px;">Int Transfer</label>
+                    <p style="font-weight: bold;">{{ confirmationTableData[0]?.operator }}</p>
+                </div>
+                <div class="field">
+                    <label style="font-size: 14px;">Status</label>
+                    <p style="font-weight: bold;">{{ confirmationTableData[0]?.treasury }}</p>
+                </div>
+
+                <div class="field ">
+                    <label style="font-size: 14px;">Permission Status</label>
+                    <p style="font-weight: bold;">{{ confirmationTableData[0]?.operator }}</p>
+                </div>
+            </div>
+
+
+            <div class="p-col-6">
+                <div class="field">
+                    <label style="font-size: 14px;">Treasury</label>
+                    <p style="font-weight: bold;">{{ confirmationTableData[0]?.GoNo }}</p>
+                </div>
+                <div class="field">
+                    <label style="font-size: 14px;">Interest Year Upto</label>
+                    <p style="font-weight: bold;">{{ confirmationTableData[0]?.convertDate }}</p>
+                </div>
+                <div class="field">
+                    <label style="font-size: 14px;">Open From</label>
+                    <p style="font-weight: bold;">{{ confirmationTableData[0]?.GoNo }}</p>
+                </div>
+                <div class="field">
+                    <label style="font-size: 14px;">Remarks</label>
+                    <p style="font-weight: bold;">{{ confirmationTableData[0]?.convertDate }}</p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <div *ngIf="dialogboxData.length > 1 && i < dialogboxData.length - 1"></div>
+
+
+    <div class="p-field-checkbox" style="padding: 10px 15px">
+        <p-checkbox [binary]="true" (onChange)="setCheckBox($event)" label="Verified and checked"></p-checkbox>
+    </div>
+
+    <p-footer>
+        <button pButton type="button" label="Close" (click)="displayApprovalDialog = false"
+            class="p-button-text"></button>
+        <button pButton type="button" label="Confirm" (click)="ApproveData()" [disabled]="isVerifiedAndChecked"
+            class="p-button"></button>
+    </p-footer>
+</p-dialog>

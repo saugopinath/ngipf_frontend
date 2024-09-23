@@ -1,0 +1,42 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <div class="flex align-items-center">
+                <i class="pi pi-angle-double-right mr-2"></i>
+                <h5>Search Deposits Into Treasury Link Bank</h5>
+            </div>
+            <form [formGroup]="bankChallan" class="flex w-9 mx-auto flex-column justify-content-center align-items-center p-5 gap-2">
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>From Date</label>
+                            <p-calendar formControlName="selectedFromDate" [maxDate]="maxDateValue" dateFormat="dd.mm.yy" placeholder="" [showIcon]="true"></p-calendar>
+                            <!-- <small *ngIf="isInvalidAndTouched('selectedFromDate')" class="p-error">From Date is required. </small> -->
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>To Date</label>
+                            <p-calendar formControlName="selectedToDate" [maxDate]="maxDateValue" dateFormat="dd.mm.yy" placeholder="" [showIcon]="true"></p-calendar>
+                            <!-- <small *ngIf="isInvalidAndTouched('selectedToDate')" class="p-error">To Date is required. </small> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Request ID</label>
+                            <input pInputText formControlName="requestId" id="requestId" type="text" />
+                            
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="flex flex-wrap gap-2 align-items-center justify-content-center">
+                <button pButton pRipple label="Back" onclick="history.back()"></button>
+                <p-button label="Reset" icon="pi pi-replay" styleClass="p-button-warning"></p-button>
+                <p-button label="Search" icon="pi pi-search" styleClass="p-button-info"></p-button>
+            </div>
+        </div>
+    </div>
+</div>

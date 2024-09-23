@@ -1,0 +1,78 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <div class="flex align-items-center">
+                <i class="pi pi-angle-double-right mr-2"></i>
+                <h5>Fetch Subscribers</h5>
+            </div>
+            <form [formGroup]="fetchSubscriberForm"
+                class="flex w-9 mx-auto flex-column justify-content-center align-items-center p-5 gap-2">
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Head Of Account<span class="text-red-700">*</span></label>
+                            <input pInputText formControlName="Head_of_Account" id="Head_of_Account" type="text" />
+                            <small *ngIf="isInvalidAndTouched('Head_of_Account')" class="p-error">Head of Account is
+                                required.</small>
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>PFD Admin<span class="text-red-700">*</span></label>
+                            <input pInputText formControlName="pfd_Admin" id="pfd_Admin" type="text" />
+                            <small *ngIf="isInvalidAndTouched('pfd_Admin')" class="p-error">PFD Admin is
+                                required.</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-row flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Sanction Admin<span class="text-red-700">*</span></label>
+                            <input pInputText formControlName="Sanction_Admin" id="Sanction_Admin" type="text" />
+                            <small *ngIf="isInvalidAndTouched('Sanction_Admin')" class="p-error">Sanction Admin is
+                                required.</small>
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Salary Source<span class="text-red-700">*</span></label>
+                            <input pInputText formControlName="salary_Source" id="salary_Source" type="text" />
+                            <small *ngIf="isInvalidAndTouched('salary_Source')" class="p-error">Salary Source is
+                                required.</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-row flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Employee ID<span class="text-red-700">*</span></label>
+                            <input pInputText formControlName="emp_id" id="emp_id" type="text" />
+                            <small *ngIf="isInvalidAndTouched('emp_id')" class="p-error">Employee ID is
+                                required.</small>
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Department</label>
+                            <input pInputText formControlName="department" id="department" type="text" />
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label for="remarks">Remarks</label>
+                            <textarea id="remarks" pInputTextarea formControlName="remarks"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="flex flex-wrap gap-2 align-items-center justify-content-center">
+                <button pButton pRipple label="Back" onclick="history.back()"></button>
+                <p-button label="Fetch Subscribers" icon="pi pi-chevron-circle-down" styleClass="p-button-info" [disabled]="fetchSubscriberForm.invalid"></p-button>
+            </div>
+        </div>pi
+    </div>
+</div>

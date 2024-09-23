@@ -43,7 +43,7 @@ import { UpdateDetailsModel } from '../models/UpdateDetailsModel';
 })
 export class CommonService {
     eBillUrl = `${environment.BaseURL}api/`;
-    ePradanUrl = `${environment.ePradanBaseURL}api/`;
+    // ePradanUrl = `${environment.ePradanBaseURL}api/`;
     saoCode: string;
     deptCode: string;
     constructor(private http: HttpClient) {
@@ -507,9 +507,9 @@ export class CommonService {
         return this.http.post<any>(this.eBillUrl + 'Ecs/NeftDetails?billid=' + payload[0].billId, payload);
     }
     //Get api for beneficaryname of searching bankdetails in (ECs/neft)
-    getECSneft(userName: string) {
-        return this.http.get(this.ePradanUrl + 'BeneficiaryMaster/GetAllBeneficiaryDetailsByName?beneficiaryName=' + userName).pipe(catchError(this.handleError));
-    }
+    // getECSneft(userName: string) {
+    //     return this.http.get(this.ePradanUrl + 'BeneficiaryMaster/GetAllBeneficiaryDetailsByName?beneficiaryName=' + userName).pipe(catchError(this.handleError));
+    // }
     get42TrDetails(billId: string) {
         return this.http.get<any>(this.eBillUrl + 'TR42/TR42BillDetailByBillId?billId=' + billId);
     }
@@ -519,25 +519,25 @@ export class CommonService {
 
     // e-Paradan APIs
 
-    getBenificiaryList(payload: any) {
-        return this.http.post<any>(this.ePradanUrl + 'Eps/BeneficiarySearch', payload);
-    }
+    // getBenificiaryList(payload: any) {
+    //     return this.http.post<any>(this.ePradanUrl + 'Eps/BeneficiarySearch', payload);
+    // }
 
     // getBankNameList(){
     //     return this.http.get<any>(this.ePradanUrl+'Eps/BankNames')            **************** This API is not used anymore. ****************
     // }
 
-    getIfscByIfscPrefix(prefix: string) {
-        return this.http.get<any>(this.ePradanUrl + 'Eps/Ifscs?input=' + prefix);
-    }
+    // getIfscByIfscPrefix(prefix: string) {
+    //     return this.http.get<any>(this.ePradanUrl + 'Eps/Ifscs?input=' + prefix);
+    // }
 
-    getBankByIfsc(ifsc: string) {
-        return this.http.get<any>(this.ePradanUrl + 'Eps/BankByIfsc?ifsc=' + ifsc);
-    }
+    // getBankByIfsc(ifsc: string) {
+    //     return this.http.get<any>(this.ePradanUrl + 'Eps/BankByIfsc?ifsc=' + ifsc);
+    // }
 
-    insertBenificiary(payload: any) {
-        return this.http.post<any>(this.ePradanUrl + 'Eps/BeneficiaryEntry', payload);
-    }
+    // insertBenificiary(payload: any) {
+    //     return this.http.post<any>(this.ePradanUrl + 'Eps/BeneficiaryEntry', payload);
+    // }
     // post api for tr24 extended form tr button form//
     saveTR24Extendform(payload: BillDetailsOftr24_Model) {
         return this.http.post<any>(this.eBillUrl + 'TR24/BillDetailsOfTR24', payload);
@@ -560,26 +560,26 @@ export class CommonService {
     // submitCheque_Bill(payload: ChequeBill_Model[]) {
     //     return this.http.post<any>(this.eBillUrl + 'ChequeDetails/ChequeDetails', payload);
     // }
-    getFailedBenList() {
-        return this.http.get<any>(this.ePradanUrl + 'Eps/BeneficiaryFailedList');
-    }
+    // getFailedBenList() {
+    //     return this.http.get<any>(this.ePradanUrl + 'Eps/BeneficiaryFailedList');
+    // }
 
-    insertBenificiaryInBulk(fileNmae: any, payload: any) {
-        return this.http.post<any>(this.ePradanUrl + 'Eps/BulkBeneficiaryEntry?filename=' + fileNmae, payload);
-    }
-    // Voucher Details+++++++++++++++++++++++++++++++++++++++++++++++++
+    // insertBenificiaryInBulk(fileNmae: any, payload: any) {
+    //     return this.http.post<any>(this.ePradanUrl + 'Eps/BulkBeneficiaryEntry?filename=' + fileNmae, payload);
+    // }
+    // // Voucher Details+++++++++++++++++++++++++++++++++++++++++++++++++
 
-    approveBenificiary(approvePayload: any) {
-        return this.http.put(this.ePradanUrl + 'Eps/BeneficiaryId', approvePayload);
-    }
+    // approveBenificiary(approvePayload: any) {
+    //     return this.http.put(this.ePradanUrl + 'Eps/BeneficiaryId', approvePayload);
+    // }
 
-    toogleActivation(activationPayload: any) {
-        return this.http.put<any>(this.ePradanUrl + 'Eps/ActiveInactive', activationPayload);
-    }
+    // toogleActivation(activationPayload: any) {
+    //     return this.http.put<any>(this.ePradanUrl + 'Eps/ActiveInactive', activationPayload);
+    // }
 
-    modifyBenificiary(modifyPayload: any) {
-        return this.http.put<any>(this.ePradanUrl + 'Eps/ModifyBeneficiary', modifyPayload);
-    }
+    // modifyBenificiary(modifyPayload: any) {
+    //     return this.http.put<any>(this.ePradanUrl + 'Eps/ModifyBeneficiary', modifyPayload);
+    // }
 
     saveBtDetails(payload: any) {
         return this.http.post<any>(this.eBillUrl + 'BillBt/InsertUpdateBillBtDetail?billid=' + payload[0].billId, payload);

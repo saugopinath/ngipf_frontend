@@ -12,6 +12,7 @@ export class AuthTokenService {
     decodedToken: IJwtDecodedToken | any;
     jwtToken: IJwtToken | any;
     constructor() {}
+    
     getToken(): string {
         return window.localStorage['jwtToken'];
     }

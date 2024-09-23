@@ -1,4 +1,5 @@
 import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { MultiSelectModule } from 'primeng/multiselect';
 import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AppComponent } from './app.component';
 import { AppRoutingModule, appDeclaration } from './app-routing.module';
@@ -62,7 +63,7 @@ import { EmployeePFBalanceTransferComponent } from './employee-pf-balance-transf
 import { TransferHistoryComponent } from './employee-pf-balance-transfer/transfer-history/transfer-history.component';
 import { CapturePfInterestYearComponent } from './Interest-year-capture/capture-pf-interest-year/capture-pf-interest-year.component';
 import { InboxComponent } from './inbox/inbox.component';
-import { WorkflowManagementComponent } from './workflow/workflow-management/workflow-management.component';
+import { WorkflowManagementComponent } from './workflow-management/workflow-management.component';
 import { OpeningBalanceCaptureComponent } from './opening-balance-capture/opening-balance-capture.component';
 import { FinalPaymentComponent } from './final-payment/final-payment.component';
 import { FinalPaymentApplicationComponent } from './final-payment/final-payment-application/final-payment-application.component';
@@ -93,30 +94,45 @@ import { BasicDetailsComponent } from './employeeDetails/newSearch-Employee/basi
 import { SalaryComponent } from './employeeDetails/newSearch-Employee/salary/salary.component';
 import { BankdetailsComponent } from './employeeDetails/newSearch-Employee/bankdetails/bankdetails.component';
 import { OfficeComponent } from './employeeDetails/newSearch-Employee/office/office.component';
-import { WorkflowUserManagementComponent } from './workflow/workflow-user-management/workflow-user-management.component';
-import { WorkflowEditComponent } from './workflow/workflow-edit/workflow-edit.component';
-import {MultiSelectModule} from 'primeng/multiselect';
+import { SelfRegistrationComponent } from './selfRegistration/self-registration/self-registration.component';
+import { ViewDepositeTresuryBankComponent } from './depositeTresuryBank/view-deposite-tresury-bank/view-deposite-tresury-bank.component';
+import { BankChallanComponent } from './depositeTresuryBank/bank-challan/bank-challan.component';
+import { AddExceptionComponent } from './interestRateMaster/add-exception/add-exception.component';
+import { ViewPFSubsciptionComponent } from './changePFSubscription/view-pfsubsciption/view-pfsubsciption.component';
+import { MinMaxMasterComponent } from './changePFSubscription/min-max-master/min-max-master.component';
+import { ChangeSubsComponent } from './changePFSubscription/change-subs/change-subs.component';
+import { FetchSubscriberComponent } from './opening-balance-capture/fetch-subscriber/fetch-subscriber.component';
+import { InitialCaptureBalanceComponent } from './opening-balance-capture/initial-capture-balance/initial-capture-balance.component';
+import { InitialBalanceCaptureForPFDAdminComponent } from './opening-balance-capture/initial-balance-capture-for-pfdadmin/initial-balance-capture-for-pfdadmin.component';
+import { BalanceStatusComponent } from './opening-balance-capture/balance-status/balance-status.component';
+import { OpeningBalanceStatusForSanctioningAuthorityComponent } from './opening-balance-capture/balance-status/opening-balance-status-for-sanctioning-authority/opening-balance-status-for-sanctioning-authority.component';
+import { CapturedEmployeeBalanceComponent } from './opening-balance-capture/balance-status/opening-balance-status-for-sanctioning-authority/captured-employee-balance/captured-employee-balance.component';
+import { BalanceAcceptanceComponent } from './opening-balance-capture/balance-status/opening-balance-status-for-sanctioning-authority/captured-employee-balance/balance-acceptance/balance-acceptance.component';
+import { PdfGenerationComponent } from './pdf-generation/pdf-generation.component';
+import { SanctionAdminWiseOpeningBalanceComponent } from './opening-balance-capture/view/sanction-admin-wise-opening-balance/sanction-admin-wise-opening-balance.component';
+import { PfRegisterYearComponent } from './opening-balance-capture/view/sanction-admin-wise-opening-balance/pf-register-year/pf-register-year.component';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 @NgModule({
-    declarations: [AppComponent, NotfoundComponent, ServerDownComponent, LoginComponent, NotFoundComponent, StaticLoginComponent, appDeclaration, TestComponent, ViewEmployeeComponent, SerachEmployeeComponent, StakeHolderComponent, InterestRateMasterComponent, AddInterestRateComponent, DelegatedRoleComponent, TaggingReceiptPaymentComponent, EmployeeWisePfRegisterWithInterestComponent, EmployeePFBalanceTransferComponent, TransferHistoryComponent, CapturePfInterestYearComponent, InboxComponent, WorkflowManagementComponent, OpeningBalanceCaptureComponent, FinalPaymentComponent, FinalPaymentApplicationComponent, FinalPaymentEligibilityMasterComponent, InterestCreditBillStatementComponent, InitiatePfInterestCalculationComponent, InterestCreditBillSummaryComponent, TRForFinalPaymentComponent, InterestCreditGenerationMasterComponent, ViewComponent, PermissionOfInitiationComponent, PendingRequestListOfOtherUserComponent, OperatorListHavingVeBalanceBypassedComponent, ViewAdvanceComponent, DppgAdvanceSearchComponent, MasterMaintanceComponent, EligibilityMasterComponent, PurposeMasterComponent, PurposeTAggingMasterComponent, SalaryDetailsComponent, AddStakeholderComponent, EditStakeholderComponent, DemoSearchEmployeeComponent, ContactDetailsComponent, BasicDetailsComponent, SalaryComponent, BankdetailsComponent, OfficeComponent, WorkflowUserManagementComponent,  WorkflowEditComponent],
-    imports: [PanelModule, CommonModule, AppRoutingModule, AppLayoutModule, DialogModule, ToastModule, NgxPermissionsModule.forRoot(), NgxSpinnerModule, ButtonModule, RadioButtonModule, DataViewModule, FormsModule, InputTextModule, DropdownModule, SelectButtonModule, FormsModule, ReactiveFormsModule, InputMaskModule, MenuModule, StepsModule, AutoCompleteModule, TooltipModule, CalendarModule, InputNumberModule, DividerModule, InputTextareaModule, TableModule, BadgeModule, MhPrimeDynamicTableModule, DynamicTableModule, CheckboxModule, ToggleButtonModule, CardModule],
+    declarations: [AppComponent, NotfoundComponent, ServerDownComponent, LoginComponent, NotFoundComponent, StaticLoginComponent, appDeclaration, TestComponent, ViewEmployeeComponent, SerachEmployeeComponent, StakeHolderComponent, InterestRateMasterComponent, AddInterestRateComponent, DelegatedRoleComponent, TaggingReceiptPaymentComponent, EmployeeWisePfRegisterWithInterestComponent, EmployeePFBalanceTransferComponent, TransferHistoryComponent, CapturePfInterestYearComponent, InboxComponent, WorkflowManagementComponent, OpeningBalanceCaptureComponent, FinalPaymentComponent, FinalPaymentApplicationComponent, FinalPaymentEligibilityMasterComponent, InterestCreditBillStatementComponent, InitiatePfInterestCalculationComponent, InterestCreditBillSummaryComponent, TRForFinalPaymentComponent, InterestCreditGenerationMasterComponent, ViewComponent, PermissionOfInitiationComponent, PendingRequestListOfOtherUserComponent, OperatorListHavingVeBalanceBypassedComponent, ViewAdvanceComponent, DppgAdvanceSearchComponent, MasterMaintanceComponent, EligibilityMasterComponent, PurposeMasterComponent, PurposeTAggingMasterComponent, SalaryDetailsComponent, AddStakeholderComponent, EditStakeholderComponent, DemoSearchEmployeeComponent, ContactDetailsComponent, BasicDetailsComponent, SalaryComponent, BankdetailsComponent, OfficeComponent, SelfRegistrationComponent, ViewDepositeTresuryBankComponent, BankChallanComponent, AddExceptionComponent, ViewPFSubsciptionComponent, MinMaxMasterComponent, ChangeSubsComponent, FetchSubscriberComponent, InitialCaptureBalanceComponent, InitialBalanceCaptureForPFDAdminComponent, BalanceStatusComponent, OpeningBalanceStatusForSanctioningAuthorityComponent, CapturedEmployeeBalanceComponent, BalanceAcceptanceComponent, PdfGenerationComponent, SanctionAdminWiseOpeningBalanceComponent, PfRegisterYearComponent],
+    imports: [ProgressSpinnerModule,MultiSelectModule,PanelModule, CommonModule, AppRoutingModule, AppLayoutModule, DialogModule, ToastModule, NgxPermissionsModule.forRoot(), NgxSpinnerModule, ButtonModule, RadioButtonModule, DataViewModule, FormsModule, InputTextModule, DropdownModule, SelectButtonModule, FormsModule, ReactiveFormsModule, InputMaskModule, MenuModule, StepsModule, AutoCompleteModule, TooltipModule, CalendarModule, InputNumberModule, DividerModule, InputTextareaModule, TableModule, BadgeModule, MhPrimeDynamicTableModule, DynamicTableModule, CheckboxModule, ToggleButtonModule, CardModule],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },
-        {
-            provide: APP_INITIALIZER,
-            useFactory: (authTokenService: AuthTokenService, rolesService: NgxRolesService) =>
-                function () {
-                    return authTokenService.loadRolesAndPermissions().subscribe((roles) => {
-                        if (roles != null) {
-                            roles.forEach((role) => {
-                                rolesService.addRoleWithPermissions(role.Name, role.Permissions);
-                            });
-                        }
-                    });
-                },
-            deps: [AuthTokenService, NgxRolesService],
-            multi: true,
-        },
+        // {
+        //     provide: APP_INITIALIZER,
+        //     useFactory: (authTokenService: AuthTokenService, rolesService: NgxRolesService) =>
+        //         function () {
+        //             return authTokenService.loadRolesAndPermissions().subscribe((roles) => {
+        //                 if (roles != null) {
+        //                     roles.forEach((role) => {
+        //                         rolesService.addRoleWithPermissions(role.Name, role.Permissions);
+        //                     });
+        //                 }
+        //             });
+        //         },
+        //     deps: [AuthTokenService, NgxRolesService],
+        //     multi: true,
+        // },
         CountryService,
         CustomerService,
         EventService,
@@ -129,7 +145,6 @@ import {MultiSelectModule} from 'primeng/multiselect';
         DatePipe,
         DividerModule,
         StepsModule,
-        MultiSelectModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     bootstrap: [AppComponent],

@@ -1,0 +1,112 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <div class="flex align-items-center">
+                <i class="pi pi-angle-double-right mr-2"></i>
+                <h5>Balance Acceptance</h5>
+            </div>
+            <!-- <form [formGroup]="BalanceAcceptanceForm" class="flex w-9 mx-auto flex-column justify-content-center align-items-center p-5 gap-2">
+               
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Financial Year</label>
+                            <input pInputText formControlName="Financial_Year" id="Financial_Year" type="text" [class.readonly]="isReadOnly" [readonly]="isReadOnly" />
+                            <small *ngIf="isInvalidAndTouched('Financial_Year')" class="p-error"> year is required. </small>
+                        </div>
+                    </div>
+
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Total Subscriber</label>
+                            <input pInputText formControlName="subscriber" id="subscriber" type="text" [class.readonly]="isReadOnly" [readonly]="isReadOnly" />
+                            <small *ngIf="isInvalidAndTouched('subscriber')" class="p-error">subscriber is required. </small>
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Head Of Account</label>
+                            <input pInputText formControlName="Head_of_Account" id="Head_of_Account" type="text" [class.readonly]="isReadOnly" [readonly]="isReadOnly" />
+                            <small *ngIf="isInvalidAndTouched('Head_of_Account')" class="p-error"> Head Of Account is required. </small>
+                        </div>
+                    </div>
+
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Treasury</label>
+                            <input pInputText formControlName="Treasury" id="Treasury" type="text" [class.readonly]="isReadOnly" [readonly]="isReadOnly" />
+                            <small *ngIf="isInvalidAndTouched('Treasury')" class="p-error"> Treasury is required. </small>
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>NGIPF Administrator</label>
+                            <input pInputText formControlName="NGIPF_Administrator" id="NGIPF_Administrator" type="text" [class.readonly]="isReadOnly" [readonly]="isReadOnly" />
+                            <small *ngIf="isInvalidAndTouched('NGIPF_Administrator')" class="p-error"> NGIPF is required. </small>
+                        </div>
+                    </div>
+                </div>
+            </form> -->
+            <p-table [value]="acceptedBalance" [rows]="12" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" responsiveLayout="scroll">
+                <ng-template pTemplate="caption">
+                    <div class="flex justify-content-between flex-column sm:flex-row">
+                        <!-- <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash"></button> -->
+                        <span class="p-input-icon-left mb-2">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" placeholder="Search Keyword" class="w-full" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th  class="bg-blue-500 text-white">Data Source</th>
+                        <th style="min-width: 2rem" class="bg-blue-500 text-white">Opening Balance ({{ openingBalanceDate1 }})</th>
+                        <th  class="bg-blue-500 text-white">Interest(01/04/2022)</th>
+                         <!-- <th style="min-width: 2rem" class="bg-blue-500 text-white">Final Opening Balance(01/04/2022)</th>  -->
+                        <th style="min-width: 2rem" class="bg-blue-500 text-white">Total Deposit</th>
+                        <th style="min-width: 2rem" class="bg-blue-500 text-white">Total Withdrawal</th>
+                        <th style="min-width: 2rem" class="bg-blue-500 text-white">Closing Balance(31/03/2023)</th>
+                        <th style="min-width: 2rem" class="bg-blue-500 text-white">Interest(01/04/2023)</th>
+                        <th style="min-width: 2rem" class="bg-blue-500 text-white">Opening Balance(01/04/2023)</th>
+                        <th style="min-width: 2rem" class="bg-blue-500 text-white">Suspense Balance</th>
+                        <!-- <th style="min-width: 2rem" class="bg-blue-500 text-white">Action</th>  -->
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                    <tr class="p-selectable-row">
+                        <td >{{ item.dataSource }}</td>
+                        <td style="min-width: 3rem">{{ item.openingBalance }}</td>
+                        <td style="min-width: 3rem">{{ item.interest }}</td>
+                        <!-- <td style="min-width: 3rem">{{ item.finalOpeningBalance }}</td> -->
+                        <td style="min-width: 3rem">{{ item.totalDeposite }}</td>
+                        <td style="min-width: 3rem">{{ item.totalWithdrawal }}</td>
+                        <td style="min-width: 3rem">{{ item.closingBalance }}</td>
+                        <td style="min-width: 3rem">{{ item.interestAfter }}</td>
+                        <td style="min-width: 3rem">{{ item.openingBalanceNew }}</td>
+                        <td style="min-width: 3rem">{{ item.suspenseBalance }}</td>
+                        <!-- <td style="min-width: 3rem">{{ item.action }}</td>  -->
+                        <!-- <td style="min-width: 3rem" class="flex gap-2"> -->
+                            <!-- <button pButton type="button" class="p-button-help" icon="pi pi-search"></button>
+                            <button pButton type="button" class="p-button-help" icon="pi pi-pencil"></button> -->
+                        <!-- </td> -->
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">No Data Available</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="loadingbody">
+                    <tr>
+                        <td colspan="12">Loading Employee Accounts. Please wait.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <div class="flex flex-wrap gap-2 align-items-center justify-content-center">
+                <button pButton pRipple label="Back" onclick="history.back()"></button>
+                <button pButton pRipple label="Save"></button>
+                <button pButton pRipple label="Accept balance"(click)="BalanceAcceptance()"></button>
+            </div>
+        </div>
+    </div>
+</div>

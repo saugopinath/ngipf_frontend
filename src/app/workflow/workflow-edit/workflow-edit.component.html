@@ -47,7 +47,9 @@
               <div class="flex-column flex gap-2">
   
                 <label>PFD Admin<span class="text-red-700">*</span></label>
-                <p-multiSelect  [options]="PfdAdminMasterList"  formControlName="selectedPfdAdmin" optionValue="Code" optionLabel="Name" placeholder="select PFD Admin" ></p-multiSelect>
+                
+                <p-dropdown  [options]="PfdAdminMasterList"  formControlName="selectedPfdAdmin" optionValue="Code" optionLabel="Name" placeholder="select PFD Admin" ></p-dropdown>
+                
                 
               </div>
             </div>

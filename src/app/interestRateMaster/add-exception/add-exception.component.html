@@ -1,0 +1,70 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <div class="flex align-items-center">
+                <i class="pi pi-angle-double-right mr-2"></i>
+                <h5>Define Expection</h5>
+            </div>
+
+            <form [formGroup]="addException" class="flex w-9 mx-auto flex-column justify-content-center align-items-center p-5 gap-2">
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Interest Rate</label>
+                            <input pInputText formControlName="InterestRate" id="debit_head_of_account" type="text" />
+                            
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Active</label>
+                            <input pInputText formControlName="active" id="debit_head_of_account" type="text" />
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>G.O NO</label>
+                            <input pInputText formControlName="GONo" id="debit_head_of_account" type="text" />
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>G.O Date </label>
+                            <input pInputText formControlName="selectedGODate" id="debit_head_of_account" type="text" />
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>W.E.F  </label>
+                            <input pInputText formControlName="selectedWEFDate" id="debit_head_of_account" type="text" />
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>W.E.T</label>
+                            <input pInputText formControlName="selectedWETDate" id="debit_head_of_account" type="text" />
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Head Of Account <span class="text-red-700">*</span> </label>
+                            <input pInputText formControlName="hoa" id="" type="text" />
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="flex flex-wrap gap-2 align-items-center justify-content-center">
+                <button pButton pRipple label="Back" onclick="history.back()"></button>
+                <p-button label="Approve" icon="pi pi-check" styleClass="p-button-success" (click)="approve()"></p-button>
+            </div>
+        </div>
+    </div>
+</div>

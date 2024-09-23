@@ -11,7 +11,7 @@
                     <div class="field flex-1">
                         <div class="flex-column flex gap-2">
                             <label>Financial Year<span class="text-red-700">*</span></label>
-                            <p-dropdown [options]="dropdownItemYearType" formControlName="Financial_year" optionLabel="Year" placeholder="Select year"></p-dropdown>
+                            <p-dropdown [options]="dropdownItemYearType" formControlName="Financial_year" (onChange)="selectedYear($event)" optionLabel="Year" placeholder="Select year"></p-dropdown>
                             <small *ngIf="isInvalidAndTouched('Financial Year')" class="p-error"> Financial Year is required. </small>
                         </div>
                     </div>
@@ -28,7 +28,7 @@
 <div *ngIf="showTable" class="grid">
     <div class="col-12">
         <div class="card">
-            <p-table [value]="SalaryDetails" [rows]="12" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" responsiveLayout="scroll">
+            <p-table [value]="SalaryDetails" [rows]="5" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" responsiveLayout="scroll">
                 <ng-template pTemplate="caption">
                     <div class="flex justify-content-between flex-column sm:flex-row ; border: 1px solid black;">
                         <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash"></button>
@@ -84,7 +84,7 @@
                         <th style="text-align: center; border: 1px solid black">Arrear Amount(₹)</th>
 
                         <th style="text-align: center; border: 1px solid black">PF Subscription</th>
-                        
+
                         <th style="text-align: center; border: 1px solid black">PF Refund Amount(₹)</th>
                         <th style="text-align: center; border: 1px solid black">Arrear Amount(₹)</th>
                         <th style="text-align: center; border: 1px solid black">PF Subscription</th>
@@ -101,19 +101,45 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-SalaryDetails>
                     <tr class="p-selectable-row">
-                        <!-- <td style="max-width: 4rem" pFrozenColumn><p-tableCheckbox [value]="reference"></p-tableCheckbox></td> -->
-                        <!-- <td style="min-width: 12rem">{{ SalaryDetails.pfAccount }}</td>
-                        <td style="min-width: 26rem">{{ SalaryDetails.empName }}</td>
-                        <td style="min-width: 12rem">{{ SalaryDetails.DOJ }}</td>
-                        <td style="min-width: 12rem">{{ SalaryDetails.status }}</td>
-                        <td style="min-width: 6rem" pFrozenColumn alignFrozen="right">
-                            <button
-                                pButton
-                                type="button"
-                                class="p-button-help"
-                                icon="pi pi-search-plus" 
-                            ></button>
-                        </td> -->
+                        
+                        <td style="min-width: 12rem">{{ SalaryDetails.name }}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.employerSubscription}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.refundAmount}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.arrearAmount}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.employerSubscription}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.refundAmount}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.arrearAmount}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.employerSubscription}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.refundAmount}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.arrearAmount}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.employerSubscription}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.refundAmount}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.arrearAmount}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.employerSubscription}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.refundAmount}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.arrearAmount}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.employerSubscription}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.refundAmount}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.arrearAmount}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.employerSubscription}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.refundAmount}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.arrearAmount}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.employerSubscription}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.refundAmount}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.arrearAmount}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.employerSubscription}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.refundAmount}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.arrearAmount}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.employerSubscription}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.refundAmount}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.arrearAmount}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.employerSubscription}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.refundAmount}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.arrearAmount}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.employerSubscription}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.refundAmount}}</td>
+                        <td style="min-width: 12rem">{{ SalaryDetails.arrearAmount}}</td>
+                        
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="emptymessage">
@@ -127,6 +153,7 @@
                     </tr>
                 </ng-template> -->
             </p-table>
+            
         </div>
     </div>
 </div>

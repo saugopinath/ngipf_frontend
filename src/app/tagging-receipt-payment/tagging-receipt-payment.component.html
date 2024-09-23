@@ -6,52 +6,80 @@
                 <h5>Tagging of receipt and payment with PF Account Number</h5>
             </div>
 
-            <form [formGroup]="taggingReceiptPayement" class="flex w-9 mx-auto flex-column justify-content-center align-items-center p-5 gap-2">
+            <form [formGroup]="taggingReceiptPayement"
+                class="flex w-9 mx-auto flex-column justify-content-center align-items-center p-5 gap-2">
                 <div class="flex justify-content-center gap-2 w-full">
                     <div class="field flex-1">
                         <div class="flex-column flex gap-2">
                             <label>Treasury Name<span class="text-red-700">*</span></label>
-                            <input pInputText formControlName="treasuryName" id="debit_head_of_account" type="text" class="pi pi-search" />
-                            <small *ngIf="isInvalidAndTouched('InterestRate')" class="p-error">Treasury Name is required. </small>
+                            <span class="p-input-icon-left">
+                                <i class="pi pi-search"></i>
+                                <input type="text" pInputText formControlName="treasuryName" class="w-full"
+                                    placeholder="Search" (focus)="showTreasuryDialog()" />
+                            </span>
                         </div>
                     </div>
                     <div class="field flex-1">
                         <div class="flex-column flex gap-2">
                             <label>Operator Description<span class="text-red-700">*</span></label>
-                            <input pInputText formControlName="operatorDesc" id="debit_head_of_account" type="text" />
-                            <small *ngIf="isInvalidAndTouched('operatorDesc')" class="p-error">Operator Description or not. </small>
+                            <span class="p-input-icon-left">
+                                <i class="pi pi-search"></i>
+                                <input type="text" pInputText formControlName="operatorDesc" class="w-full"
+                                    placeholder="Search" (focus)="showOperatorDialog()"/>
+                            </span>
+                            <small *ngIf="isInvalidAndTouched('operatorDesc')" class="p-error">Operator Description is
+                                required.</small>
                         </div>
                     </div>
                 </div>
+
                 <div class="flex justify-content-center gap-2 w-full">
                     <div class="field flex-1">
                         <div class="flex-column flex gap-2">
                             <label>Transaction Type<span class="text-red-700">*</span> </label>
-                            <p-dropdown [options]="dropdownItemTransactionType" formControlName="selectedItemTransactionType" optionLabel="name" placeholder="Select Transaction Type"></p-dropdown>
-                            <small *ngIf="isInvalidAndTouched('GONo')" class="p-error"> Transaction Type is required. </small>
+                            <p-dropdown [options]="dropdownItemTransactionType"
+                                formControlName="selectedItemTransactionType"  (onChange)="onReferenceTypeChange($event,'transaction')"
+                                placeholder="Select Transaction Type"></p-dropdown>
+                            <small *ngIf="isInvalidAndTouched('GONo')" class="p-error"> Transaction Type is required.
+                            </small>
                         </div>
                     </div>
                     <div class="field flex-1">
                         <div class="flex-column flex gap-2">
-                            <label>	Financial Year<span class="text-red-700">*</span> </label>
-                            <p-dropdown [options]="dropdownItemFinancialYear" formControlName="selectedItemFinancialYear" optionLabel="code" placeholder="Select Financial Year"></p-dropdown>
-                            <small *ngIf="isInvalidAndTouched('selectedItemFinancialYear')" class="p-error">Financial Year is required. </small>
+                            <label> Financial Year<span class="text-red-700">*</span> </label>
+                            <p-dropdown [options]="dropdownItemFinancialYear"
+                                formControlName="selectedItemFinancialYear" optionLabel="code"
+                                placeholder="Select Financial Year"
+                                (onChange)="onFinancialYearChange($event)"></p-dropdown>
+                            <small *ngIf="isInvalidAndTouched('selectedItemFinancialYear')" class="p-error">Financial
+                                Year is required. </small>
                         </div>
                     </div>
                 </div>
+
                 <div class="flex justify-content-center gap-2 w-full">
                     <div class="field flex-1">
                         <div class="flex-column flex gap-2">
-                            <label>From Date<span class="text-red-700">*</span> </label>
-                            <p-calendar formControlName="selectedFromDate" [maxDate]="maxDateValue" dateFormat="dd.mm.yy" placeholder="" [showIcon]="true"></p-calendar>
-                            <small *ngIf="isInvalidAndTouched('selectedFromDate')" class="p-error">From Date is required. </small>
+                            <label class="flex justify-content-between align-items-center w-full"><span>From Date<span
+                                        class="text-red-700">*</span></span><p-progressSpinner
+                                    *ngIf="isDateRangeLoading" styleClass="w-1rem h-1rem"></p-progressSpinner></label>
+                            <p-calendar formControlName="selectedFromDate" [maxDate]="maxDateValue"
+                                dateFormat="dd.mm.yy" placeholder="" [showIcon]="true"
+                                [disabled]="isDateRangeLoading"></p-calendar>
+                            <small *ngIf="isInvalidAndTouched('selectedFromDate')" class="p-error">From Date is
+                                required. </small>
                         </div>
                     </div>
                     <div class="field flex-1">
+
                         <div class="flex-column flex gap-2">
-                            <label>To Date<span class="text-red-700">*</span> </label>
-                            <p-calendar formControlName="selectedToDate" [maxDate]="maxDateValue" dateFormat="dd.mm.yy" placeholder="" [showIcon]="true"></p-calendar>
-                            <small *ngIf="isInvalidAndTouched('selectedToDate')" class="p-error">To Date is required. </small>
+                            <label class="flex justify-content-between align-items-center w-full"><span>From Date<span
+                                        class="text-red-700">*</span></span><p-progressSpinner
+                                    *ngIf="isDateRangeLoading" styleClass="w-1rem h-1rem"></p-progressSpinner></label>
+                            <p-calendar formControlName="selectedToDate" [maxDate]="maxDateValue" dateFormat="dd.mm.yy"
+                                placeholder="" [showIcon]="true" [disabled]="isDateRangeLoading"></p-calendar>
+                            <small *ngIf="isInvalidAndTouched('selectedToDate')" class="p-error">From Date is
+                                required. </small>
                         </div>
                     </div>
                 </div>
@@ -59,19 +87,130 @@
                     <div class="field flex-1">
                         <div class="flex-column flex gap-2">
                             <label>Reference Type<span class="text-red-700">*</span> </label>
-                            <p-dropdown [options]="dropdownItemFinancialYear" formControlName="selectedItemFinancialYear" optionLabel="name" placeholder="Select Reference Type "></p-dropdown>
-                            <small *ngIf="isInvalidAndTouched('selectedFromDate')" class="p-error">Reference Type is required. </small>
+                            <p-dropdown [options]="dropdownReferenceType"
+                                formControlName="selectedReferenceType" 
+                                placeholder="Select Reference Type " (onChange)="onReferenceTypeChange($event,'payment')"></p-dropdown>
+                            <small *ngIf="isInvalidAndTouched('selectedReferenceType')" class="p-error">Reference Type is
+                                required. </small>
                         </div>
                     </div>
-                    
                 </div>
             </form>
 
             <div class="flex flex-wrap gap-2 align-items-center justify-content-center">
                 <button pButton pRipple label="Back" onclick="history.back()"></button>
                 <p-button label="Reset" icon="pi pi-replay" styleClass="p-button-warning"></p-button>
-                <p-button label="Search" icon="pi pi-search" styleClass="p-button-info"></p-button>
+                <p-button label="Search" icon="pi pi-search" styleClass="p-button-info"(onClick)="onSearch()"></p-button>
             </div>
+        </div>
+    </div>
+</div>
+<p-dialog header="Search Treasury" [(visible)]="displayDialog" [modal]="true" [style]="{width: '70vw'}">
+    <div class="flex justify-content-center gap-2 w-full">
+        <div class="field flex-1">
+            <div class="flex flex-column gap-4">
+                <label>Treasury Name<span class="text-red-700">*</span></label>
+                <div class="flex gap-2 align-items-center">
+                    <span class="p-input-icon-left w-full" style="width: 100%;">
+                        <i class="pi pi-search"></i>
+                        <input type="text" pInputText [(ngModel)]="treasuryCode" class="w-10" placeholder="Search" />
+                        <button type="button" pButton class="p-button-text p-button-help p-button-raised" icon="pi pi-search" label="Search"></button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid">
+        <div class="col-12">
+            <p-table [value]="treasuryList" [rows]="12" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" responsiveLayout="scroll">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="min-width: 2cap" class="bg-blue-500 text-white" alignFrozen="left">Treasury Code</th>
+                        <th style="min-width: 4rem" class="bg-blue-500 text-white">Treasury Name</th>
+                        <th style="min-width: 4rem" class="bg-blue-500 text-white">Description</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-tableData let-i="index">
+                    <tr class="p-selectable-row" (click)="onRowSelect(tableData)">
+                        <td style="min-width: 4rem">{{tableData.treasuryCode}}</td>
+                        <td style="min-width: 4rem">{{tableData.treasuryName}}</td>
+                        <td style="min-width: 4rem">{{tableData.intTreasuryCode}}</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">No Data Available</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="loadingbody">
+                    <tr>
+                        <td colspan="12">Loading Employee Accounts. Please wait.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+
+    <p-footer>
+        <button type="button" pButton icon="pi pi-check" label="Select" (click)="onSelectTreasury()"></button>
+        <button type="button" pButton icon="pi pi-times" label="Cancel" (click)="hideDialog()"></button>
+    </p-footer>
+</p-dialog>
+
+<div *ngIf="showTableData" class="grid">
+    <div class="col-12">
+        <div class="card">
+            <p-table [value]="tableData" [rows]="12" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" responsiveLayout="scroll">
+                <ng-template pTemplate="caption">
+                    <div class="flex justify-content-between flex-column sm:flex-row">
+                        <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash"></button>
+                        <span class="p-input-icon-left mb-2">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" placeholder="Search Keyword" class="w-full" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="min-width: 2cap" class="bg-blue-500 text-white" alignFrozen="left">Challan Number</th>
+                        <th style="min-width: 4rem" class="bg-blue-500 text-white">Challan Date</th>
+                        <th style="min-width: 4rem" class="bg-blue-500 text-white">Reference No</th>
+                        <th style="min-width: 4rem" class="bg-blue-500 text-white">Payee Name</th>
+                        <th style="min-width: 2rem" class="bg-blue-500 text-white">Amount(₹)</th>
+                        <th style="min-width: 2rem" class="bg-blue-500 text-white">Un-tagged Amount(₹)</th>
+                        
+                        <th style="min-width: 4rem" class="bg-blue-500 text-white">Status</th>
+                        <th style="min-width: 2rem" class="bg-blue-500 text-white" pFrozenColumn alignFrozen="right">Details</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-tableData let-i="index">
+                    <tr class="p-selectable-row">
+                        <td style="min-width: 4rem">{{ tableData.challanNumber }}</td>
+                        <td style="min-width: 4rem">{{ tableData.challanDate }}</td>
+                        <td style="min-width: 4rem">{{ tableData.refNumber }}</td>
+                        <td style="min-width: 4rem">{{ tableData.payeeName }}</td>
+                        <td style="min-width: 4rem">{{ tableData.amountPf }}</td>
+                        <td style="min-width: 4rem">{{ tableData.interest }}</td>
+                        <td style="min-width: 4rem">{{ tableData.interest }}</td>
+
+                        <td style="min-width: 6rem">
+                            <button pButton type="button" class="p-button-help" icon="pi pi-search"></button>
+                            <!-- <p-checkbox [(ngModel)]="value" [binary]="true"></p-checkbox> -->
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">No Data Available</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="loadingbody">
+                    <tr>
+                        <td colspan="12">Loading Employee Accounts. Please wait.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
         </div>
     </div>
 </div>

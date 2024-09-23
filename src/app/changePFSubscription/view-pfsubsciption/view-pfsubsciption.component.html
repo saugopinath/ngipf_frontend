@@ -1,0 +1,31 @@
+<div class="grid fadein animation-duration-500">
+    <div class="col-12 md:col-6 align-items-center justify-content-center column-gap-4 row-gap-6">
+        <p-card class="card-1 ml-20  mt-90">
+            <ng-template pTemplate="header">
+                <div class="flex align-items-center justify-content-center ml-20">
+                    <img src="assets/layout/images/employee.png" alt="employee" class="w-3rem h-3rem mr-1 mt-2" />
+                    <span class="text-primary font-bold ml-2 mt-2 font-bold text-xl">
+                        Change Subscription Master
+                        <button pButton type="button" class="p-button-raised p-button-rounded" icon=" pi pi-external-link" (click)="chnageSubsClick()"></button>
+                    </span>
+                </div>
+            </ng-template>
+            <div class="ml-6">.</div>
+        </p-card>
+    </div>
+    <div class="col-12 md:col-6 align-items-center justify-content-center column-gap-4 row-gap-6">
+        <p-card class="card-1 ml-20  mt-90">
+            <ng-template pTemplate="header">
+                <div class="flex align-items-center justify-content-center ml-20">
+                    <img src="assets/layout/images/employee.png" alt="employee" class="w-3rem h-3rem mr-1 mt-2" />
+                    <span class="text-primary font-bold ml-2 mt-2 font-bold text-xl"> Min-Max Master
+                        <button pButton type="button" class="p-button-raised p-button-rounded" icon=" pi pi-external-link"(click)="minMaxMasterClick()" ></button>
+                    </span>
+                </div>
+            </ng-template>
+            <div class="ml-6">.</div>
+        </p-card>
+    </div>
+    <button pButton pRipple label="Back" onclick="history.back()"></button>
+</div>
+

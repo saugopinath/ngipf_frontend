@@ -1,0 +1,131 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <div class="flex align-items-center">
+                <i class="pi pi-angle-double-right mr-2"></i>
+                <h5>Deposit Into Treasury Link Bank</h5>
+            </div>
+
+            <form [formGroup]="insertTreasuryBank" class="flex w-9 mx-auto flex-column justify-content-center align-items-center p-5 gap-2">
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Tag Employees With<span class="text-red-700">*</span></label>
+                            <input pInputText formControlName="TagEmployees" id="Tag_Employees" type="text" />
+                            <small *ngIf="isInvalidAndTouched('TagEmployees')" class="p-error">This field is required. </small>
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Major Head<span class="text-red-700">*</span></label>
+                            <input pInputText formControlName="MajorHead" id="Major_Head" type="text" />
+                            <small *ngIf="isInvalidAndTouched('Major Head')" class="p-error"> Major Head is required </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Financial Year<span class="text-red-700">*</span> </label>
+                            <!--   <p-dropdown [options]="dropdownYear" formControlName="financial_year" placeholder="Select Year"></p-dropdown> -->
+                            <small *ngIf="isInvalidAndTouched('Financial_Year')" class="p-error"> Financial year is required. </small>
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Pre Challan Id(Date)<span class="text-red-700">*</span> </label>
+                            <input pInputText formControlName="PreChallanId" id="Challan_Id" type="text" />
+                            <small *ngIf="isInvalidAndTouched('selectedChallanId')" class="p-error"> Pre Challan Id is required. </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Treasury Challan Id(Date) <span class="text-red-700">*</span> </label>
+                            <input pInputText formControlName="Treasury_Challan_Id" id="Challan_Id" type="text" />
+                            <small *ngIf="isInvalidAndTouched('selectedChallanId')" class="p-error"> Treasury Challan Id is required. </small>
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Treasury Challan Amount <span class="text-red-700">*</span> </label>
+                            <input pInputText formControlName="Treasury_Challan_Amount" id="Treasury_Challan_Amount" type="text" />
+                            <small *ngIf="isInvalidAndTouched('selectedTreasuryChallanAmount')" class="p-error">Treasury Challan Amount is required. </small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Salary Year<span class="text-red-700">*</span></label>
+                            <input pInputText formControlName="Salary_year" id="Salary_year" type="text" />
+                            <small *ngIf="isInvalidAndTouched('Salaryyear')" class="p-error">Salary year is required. </small>
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Salary Month<span class="text-red-700">*</span></label>
+                            <input pInputText formControlName="Salary_month" id="Salary_month" type="text" />
+                            <small *ngIf="isInvalidAndTouched('Salarymonth')" class="p-error"> Salary month is required. </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Operator Name(Code)<span class="text-red-700">*</span> </label>
+                            <input pInputText formControlName="operator_name" id="operator_name" type="text" />
+                            <small *ngIf="isInvalidAndTouched('operatorname')" class="p-error">operator name is required. </small>
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Treasury Name(Code)<span class="text-red-700">*</span> </label>
+                            <input pInputText formControlName="treasury_name" id="treasury_name" type="text" />
+                            <small *ngIf="isInvalidAndTouched('selectedTreasuryName')" class="p-error">Treasury_name is required. </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Bank Name <span class="text-red-700">*</span> </label>
+                            <input pInputText formControlName="Bank_Name" id="Bank_Name" type="text" />
+                            <small *ngIf="isInvalidAndTouched('selectedBankName')" class="p-error"> Bank Name is required. </small>
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Total Amount <span class="text-red-700">*</span> </label>
+                            <input pInputText formControlName="Total_Amount" id="Total_Amount" type="text" />
+                            <small *ngIf="isInvalidAndTouched('selectedTotalAmount')" class="p-error"> TotalAmount is required. </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Status<span class="text-red-700">*</span> </label>
+                            <input pInputText formControlName="Status" id="Status" type="text" />
+                            <small *ngIf="isInvalidAndTouched('selectedStatus')" class="p-error"> Status is required. </small>
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Request Id <span class="text-red-700">*</span> </label>
+                            <input pInputText formControlName="Request_Id" id="Request_Id" type="text" />
+                            <small *ngIf="isInvalidAndTouched('selectedRequestId')" class="p-error"> Request Id is required. </small>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="flex flex-wrap gap-2 align-items-center justify-content-center">
+                <button pButton pRipple label="Back" onclick="history.back()"></button>
+                <p-button  label="Approve" icon="pi pi-check" styleClass="p-button-success"></p-button>
+            </div>
+        </div>
+    </div>
+</div>

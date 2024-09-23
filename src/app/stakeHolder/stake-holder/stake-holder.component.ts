@@ -19,27 +19,32 @@ export class StakeHolderComponent implements OnInit {
     }
 
     getStakeHolder(): void {
-        this.stakeHolderService.getStakeHolder().subscribe(
-            (response: any) => {
-                console.log('API response:', response); // Add this line
-                if (response.apiResponseStatus == 0 || response.apiResponseStatus == 1 || response.apiResponseStatus == 3) {
-                    response.result.map((item: any) => {});
-                    this.stakeHolder = response.result;
-                    console.log('Stakeholders:', this.stakeHolder); // Add this line
-                } else {
-                    this.toastService.showAlert(response.message, response.apiResponseStatus);
-                }
-            },
-            (error: any) => {
-                console.error('Error fetching stakeholders:', error); // Add this line
-                this.toastService.showError('Error fetching stakeholders');
+    this.stakeHolderService.getStakeHolder().subscribe(
+        (response: any) => {
+            console.log('API response:', response);
+            if (response.apiResponseStatus == 0 || response.apiResponseStatus == 1 || response.apiResponseStatus == 3) {
+                this.stakeHolder = response.result.map((item: any) => {
+                    return {
+                        ...item,
+                        recommendingAuthRequired: item.recommendingAuthRequired ? 'Yes' : 'No'
+                    };
+                });
+                console.log('Stakeholders:', this.stakeHolder);
+            } else {
+                this.toastService.showAlert(response.message, response.apiResponseStatus);
             }
-        );
-    }
+        },
+        (error: any) => {
+            console.error('Error fetching stakeholders:', error);
+            this.toastService.showError('Error fetching stakeholders');
+        }
+    );
+}
+
 
     editStakeHolder($event) {
-//        console.log($event);
-        this.router.navigate(['stakeHolder/editStakHolder', { data: JSON.stringify(this.stakeHolder.filter(e=>e.intHoaCode == $event)) }]);
+    //    console.log($event);
+        this.router.navigate(['stakeHolder/editStakHolder', { data: JSON.stringify(this.stakeHolder.filter(e=>e.hoa == $event)) }]);
     }
 
     addStakeHolder() {

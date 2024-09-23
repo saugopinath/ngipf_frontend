@@ -16,10 +16,17 @@ export class StakeHolderService {
     constructor(private http: HttpClient, private toastService: ToastService) {}
 
     getStakeHolder(): Observable<IapiResponce> {
-      return this.http.get<IapiResponce>(this.BaseURL + 'api/v1/StakeHolderMapping/list').pipe(
+      return this.http.get<IapiResponce>(this.BaseURL + 'api/v1/SancRecomhierarchy/GetAllSancHierarchy').pipe(
           catchError((error) => {
               throw this.toastService.showError(error.Message);
           })
       );
     }
+    getTresury(): Observable<IapiResponce> {
+      return this.http.get<IapiResponce>(this.BaseURL + 'api/v1/EmployeeView/GetAllTreasury').pipe(
+          catchError((error) => {
+              throw this.toastService.showError(error.Message);
+          })
+      );
+  }
 }

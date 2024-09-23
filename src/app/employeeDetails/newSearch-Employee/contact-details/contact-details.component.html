@@ -5,15 +5,18 @@
                 <div class="flex justify-content-center gap-2 w-full">
                     <div class="field flex-1">
                         <div class="flex-column flex gap-2">
-                            <label>Mobile NO.</label>
-                            <input pInputText formControlName="mobileno" id="mobileno" type="text" />
-                            <small class="text-blue-600">10 digit No only</small>
+                            <label>Mobile Number<span class="text-red-700">*</span></label>
+                            <input pInputText formControlName="mobileNo" id="mobileNo" type="text" (keypress)="allowOnlyNumbers($event)" />
+                            <small *ngIf="isInvalidAndTouched('mobileNo') && addContact.get('mobileNo')?.errors?.['required']" class="p-error"> Mobile number is required. </small>
+                            <small *ngIf="isInvalidAndTouched('mobileNo') && addContact.get('mobileNo')?.errors?.['pattern']" class="p-error"> Mobile number must be 10 digits. </small>
                         </div>
                     </div>
                     <div class="field flex-1">
                         <div class="flex-column flex gap-2">
-                            <label>Email ID:<span class="text-red-700">*</span></label>
-                            <input pInputText formControlName="emailId" id="emailId" type="text" />
+                            <label>Email Address<span class="text-red-700">*</span></label>
+                            <input pInputText formControlName="emailId" id="emailId" type="email" />
+                            <small *ngIf="isInvalidAndTouched('emailId') && addContact.get('emailId')?.errors?.['required']" class="p-error"> Email address is required. </small>
+                            <small *ngIf="isInvalidAndTouched('emailId') && addContact.get('emailId')?.errors?.['email']" class="p-error"> Invalid email address. </small>
                         </div>
                     </div>
                 </div>
@@ -38,13 +41,15 @@
                     <div class="field flex-1">
                         <div class="flex-column flex gap-2">
                             <label>State</label>
-                            <input pInputText formControlName="state" id="state" type="text" />
+                            <p-dropdown *ngIf="usingDefaultData" [options]="dropdownItemState" optionLabel="stateName" formControlName="state" id="state" placeholder="Select State"></p-dropdown>
+                            <input *ngIf="!usingDefaultData" pInputText formControlName="state" id="state" type="text" />
                         </div>
                     </div>
                     <div class="field flex-1">
                         <div class="flex-column flex gap-2">
                             <label>District</label>
-                            <input pInputText formControlName="district" id="district" type="text" />
+                            <p-dropdown *ngIf="usingDefaultData" [options]="dropdownItemDistrict" optionLabel="districtName" formControlName="district" id="district" placeholder="Select District"></p-dropdown>
+                            <input *ngIf="!usingDefaultData" pInputText formControlName="district" id="district" type="text" />
                         </div>
                     </div>
                 </div>
@@ -59,13 +64,16 @@
                     <div class="field flex-1">
                         <div class="flex-column flex gap-2">
                             <label>As on/with Effective Date</label>
-                            <p-calendar formControlName="selectedAED" dateFormat="dd.mm.yy" placeholder="" [showIcon]="true"></p-calendar>
+
+                            <input *ngIf="!usingDefaultData" pInputText formControlName="selectedAED" id="pfAcc" type="text" />
+                            <p-calendar *ngIf="usingDefaultData" formControlName="selectedAED" dateFormat="dd.mm.yy" placeholder="" [showIcon]="true"></p-calendar>
+
                         </div>
                     </div>
                 </div>
                 <div class="field-checkbox justify-content-left align-items-left">
-                    <p-checkbox formControlName="checked" [binary]="true" inputId="binary"></p-checkbox>
-                    <label class="text-xl font-italic" for="binary">Permanent Address same As Present Addresss</label>
+                    <p-checkbox formControlName="checked" [binary]="true" inputId="binary" (onChange)="onCheckboxChange($event)"></p-checkbox>
+                    <label class="text-xl font-italic" for="binary">Permanent Address same As Present Address</label>
                 </div>
                 <h3 class="align-items-left justify-content-left text-blue-600">Permanent Address</h3>
                 <div class="flex justify-content-center gap-2 w-full">
@@ -109,7 +117,14 @@
                     <div class="field flex-1">
                         <div class="flex-column flex gap-2">
                             <label>As on/with Effective Date</label>
-                            <p-calendar formControlName="selectedAED" dateFormat="dd.mm.yy" placeholder="" [showIcon]="true"></p-calendar>
+                            <ng-container *ngIf="checked">
+                                <!-- Input box for Effective Date -->
+                                <input pInputText formControlName="selectedAED" id="selectedAED" type="text" />
+                            </ng-container>
+                            <ng-container *ngIf="!checked">
+                                <!-- Calendar for Effective Date -->
+                                <p-calendar formControlName="selectedAED" dateFormat="dd.mm.yy" placeholder="" [showIcon]="true"></p-calendar>
+                            </ng-container>
                         </div>
                     </div>
                 </div>

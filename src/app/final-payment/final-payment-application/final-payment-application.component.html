@@ -1,36 +1,117 @@
 <div class="grid">
-    <div class="col-12">
-        <div class="card">
-            <div class="flex align-items-center">
-                <i class="pi pi-angle-double-right mr-2"></i>
-                <h5>Final Payment Eligibility List</h5>
-            </div>
-            
-            <form [formGroup]="PaymentForm" class="flex w-9 mx-auto flex-column justify-content-center align-items-center p-5 gap-2">
-                <div class="flex justify-content-center gap-2 w-full">
+  <div class="col-12">
+      <div class="card">
+          <div class="flex align-items-center">
+              <i class="pi pi-angle-double-right mr-2"></i>
+              <h5>Final Payment Eligibility List</h5>
+          </div>
+
+          <form [formGroup]="PaymentForm" class="flex w-9 mx-auto flex-column justify-content-center align-items-center p-5 gap-2">
+              <div class="flex justify-content-center gap-2 w-full">
                   <div class="field flex-1">
-                    <div class="flex-column flex gap-2">
-                      <label>Search By<span class="text-red-700">*</span></label>
-                      <p-dropdown [options]="dropdownItemsearchType"  formControlName="Search_By" optionLabel="name"placeholder="Search By"></p-dropdown>
-                     
-                    </div>
-                  </div>
-                  <div class="field flex-1">
-                    <div class="flex-column flex gap-2">
-                        <label>Financial Year<span class="text-red-700">*</span></label>
-                        <p-dropdown [options]="dropdownItemYearType"  formControlName="Financial_Year" optionLabel="Year"placeholder="Select Year"></p-dropdown> 
+                      <div class="flex-column flex gap-2">
+                          <label>Search By<span class="text-red-700">*</span></label>
+                          <select pInputText formControlName="Search_By" id="Search_By">
+                              <option value="" disabled>Select</option>
+                              <option value="option1">Financial Year</option>
+                              <option value="option2">PF Account No</option>
+                              <option value="option3">Employee Name</option>
+                              <option value="option4">Employee Id</option>
+                          </select>
+                          <small *ngIf="isInvalidAndTouched('Search_By')" class="p-error">Search By is required.</small>
                       </div>
                   </div>
-                </div>
-                   
-            </form>
-              
-            <div class="flex flex-wrap gap-2 align-items-center justify-content-center">
-                <button pButton pRipple label="Back" onclick="history.back()"></button>
-                
-                <p-button label="Search" icon="pi pi-search" styleClass="p-button-info"></p-button>
-            </div>
-        
-    
+                  <div class="field flex-1" *ngIf="showFinancialYear">
+                      <div class="flex-column flex gap-2">
+                          <label>Financial Year<span class="text-red-700">*</span></label>
+                          <p-dropdown [options]="dropdownItemYearType" formControlName="Financial_Year" optionLabel="Year" placeholder="Select Year"></p-dropdown>
+                      </div>
+                  </div> 
+              </div>
 
+              <div class="flex justify-content-center gap-2 w-full"*ngIf="showPFAccountNo" >
+                  <div class="field flex-1">
+                      <div class="flex-column flex gap-2">
+                          <label>PF Account NO<span class="text-red-700">*</span></label>
+                          <input pInputText formControlName="PF_Account_NO" id="PF_Account_NO" type="text" />
+                          <small *ngIf="isInvalidAndTouched('PF_Account_NO')" class="p-error">PF Account NO is required.</small>
+                      </div>
+                  </div>
+              </div>
 
+              <div class="flex justify-content-center gap-2 w-full"*ngIf="showEmployeeName" >
+                  <div class="field flex-1">
+                      <div class="flex-column flex gap-2">
+                          <label>Employee Name<span class="text-red-700">*</span></label>
+                          <input pInputText formControlName="Employee_Name" id="Employee_Name" type="text" />
+                          <small *ngIf="isInvalidAndTouched('Employee_Name')" class="p-error">Employee Name is required.</small>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="flex justify-content-center gap-2 w-full"*ngIf="showEmployeeId">
+                  <div class="field flex-1">
+                      <div class="flex-column flex gap-2">
+                          <label>Employee Id<span class="text-red-700">*</span></label>
+                          <input pInputText formControlName="Employee_Id" id="Employee_Id" type="text" />
+                          <small *ngIf="isInvalidAndTouched('Employee_Id')" class="p-error">Employee Id is required.</small>
+                      </div>
+                  </div>
+              </div>
+          </form>
+
+          <div class="flex flex-wrap gap-2 align-items-center justify-content-center">
+              <button pButton pRipple label="Back" onclick="history.back()"></button>
+              <button pButton pRipple label="Search" icon="pi pi-search" styleClass="p-button-info" (click)="onSearch()"></button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div *ngIf="showTable" class="grid">
+  <div class="col-12">
+      <div class="card">
+          <p-table [value]="setTableData" [rows]="12" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" responsiveLayout="scroll">
+              <ng-template pTemplate="caption">
+                  <div class="flex justify-content-between flex-column sm:flex-row">
+                      <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash"></button>
+                      <span class="p-input-icon-left mb-2">
+                          <i class="pi pi-search"></i>
+                          <input pInputText type="text" placeholder="Search Keyword" class="w-full" />
+                      </span>
+                  </div>
+              </ng-template>
+              <ng-template pTemplate="header">
+                  <tr>
+                      <!-- <th style="max-width: 4rem" pFrozenColumn><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th> -->
+                      <th style="min-width: 10rem" alignFrozen="left" class="bg-blue-500 text-white">Emp Name(Id)</th>
+                      <th style="min-width: 10rem" class="bg-blue-500 text-white">NGIPF Account No</th>
+                      <th style="min-width: 12rem" class="bg-blue-500 text-white">Type of </th>
+                      <th style="min-width: 12rem" class="bg-blue-500 text-white"> Date Of </th>
+                      <th style="min-width: 10rem" class="bg-blue-500 text-white">Application Status</th>
+                      <th style="min-width: 6rem" class="bg-blue-500 text-white" pFrozenColumn alignFrozen="right">Action</th>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-tableData>
+                  <tr class="p-selectable-row">
+                      <td style="min-width: 10rem"></td>
+                      <td style="min-width: 10rem"></td>
+                      <td style="min-width: 8rem"></td>
+                      <td style="min-width: 9rem"></td>
+                      <td style="min-width: 8rem"></td>
+                      <td style="min-width: 6rem"></td>
+                     ?
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="emptymessage">
+                  <tr>
+                      <td colspan="8">No Data Available</td>
+                  </tr>
+              </ng-template>
+              <!-- <ng-template pTemplate="loadingbody">
+              <tr>
+                  <td colspan="12">Loading Employee Accounts. Please wait.</td>
+              </tr>
+          </ng-template> -->
+          </p-table>
+      </div>

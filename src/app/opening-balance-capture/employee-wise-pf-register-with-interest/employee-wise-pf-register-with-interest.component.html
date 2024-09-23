@@ -73,34 +73,34 @@
                 <ng-template pTemplate="header">
                     <tr>
                         <!-- <th style="max-width: 4rem" pFrozenColumn><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th> -->
-                        <th style="min-width: 12rem" alignFrozen="left">Name(Emp ID)</th>
-                        <th style="min-width: 26rem">PF Account Number.</th>
-                        <th style="min-width: 12rem">Section Name</th>
-                        <th style="min-width: 12rem">Opening Balance(₹)</th>
-                        <th style="min-width: 12rem">Total Withdrawal(₹)</th>
-                        <th style="min-width: 12rem">Total Deposit(₹)</th>
-                        <th style="min-width: 12rem">Interest(₹)</th>
-                        <th style="min-width: 12rem">Closing Balance(₹)</th>
-                        <th style="min-width: 12rem">Status</th>
-                        <th style="min-width: 12rem">Other Balance(₹)</th>
+                        <th style="min-width: 8rem">Name(Emp ID)</th>
+                        <th style="min-width: 8rem">PF Account Number.</th>
+                        <th style="min-width: 8rem">Section Name</th>
+                        <th style="min-width: 8rem">Opening Balance(₹)</th>
+                        <th style="min-width: 8rem">Total Withdrawal(₹)</th>
+                        <th style="min-width: 8rem">Total Deposit(₹)</th>
+                        <th style="min-width: 8rem">Interest(₹)</th>
+                        <th style="min-width: 8rem">Closing Balance(₹)</th>
+                        <th style="min-width: 8rem">Status</th>
+                        <th style="min-width: 8rem">Other Balance(₹)</th>
                         <th style="min-width: 6rem" pFrozenColumn alignFrozen="right">Action</th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-searchEmployee>
+                <ng-template pTemplate="body" let-PFRegister>
                     <tr class="p-selectable-row">
-                        <!-- <td style="max-width: 4rem" pFrozenColumn><p-tableCheckbox [value]="reference"></p-tableCheckbox></td> -->
-                        <!-- <td style="min-width: 12rem">{{ PFRegister.pfAccount }}</td>
-                        <td style="min-width: 26rem">{{ PFRegister.empName }}</td>
-                        <td style="min-width: 12rem">{{ PFRegister.DOJ }}</td>
-                        <td style="min-width: 12rem">{{ PFRegister.status }}</td>
-                        <td style="min-width: 6rem" pFrozenColumn alignFrozen="right">
-                            <button
-                                pButton
-                                type="button"
-                                class="p-button-help"
-                                icon="pi pi-search-plus" 
-                            ></button>
-                        </td> -->
+                        <td>{{PFRegister.empName}}</td>
+                        <td>{{PFRegister.pfAccount}}</td>
+                        <td>{{PFRegister.sectionName}}</td>
+                        <td>{{PFRegister.openingBalance}}</td>
+                        <td>{{PFRegister.totalWithdrawal}}</td>
+                        <td>{{PFRegister.totalDeposit}}</td>
+                        <td>{{PFRegister.interest}}</td>
+                        <td>{{PFRegister.closingBalance}}</td>
+                        <td>{{PFRegister.status}}</td>
+                        <td>{{PFRegister.otherBalance}}</td>
+                        <td>
+                            <button pButton type="button" class="p-button-help" icon="pi pi-file-pdf" (click)="downloadPDF(PFRegister)"></button>
+                        </td>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="emptymessage">

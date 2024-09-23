@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -7,10 +8,14 @@ import { Router } from '@angular/router';
     styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-    constructor(private router: Router) {}
-
+    constructor(
+        private router: Router,
+        private authService: AuthService
+    ) {}
     // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        console.log(this.authService.getUserDetails())
+    }
     viewEmployeeDetailsClick() {
         // Navigate to the view route
         // this.router.navigate(['Component/view']);
@@ -61,5 +66,14 @@ export class DashboardComponent implements OnInit {
     }
     salaryClick(){
         this.router.navigate(['salary-details'])
+    }
+    selfRegistrationClick(){
+        this.router.navigate(['selfRegistration'])
+    }
+    depositeTresuryBankClick(){
+        this.router.navigate(['depositeDetails/viewDepositeTresuryBank'])
+    }
+    viewSubscibtionClick(){
+        this.router.navigate(['ChangePfSubscintion/viewPFSubscribtion'])
     }
 }

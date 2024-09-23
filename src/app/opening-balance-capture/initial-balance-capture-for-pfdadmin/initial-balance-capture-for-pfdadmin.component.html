@@ -1,0 +1,117 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <div class="flex align-items-center">
+                <i class="pi pi-angle-double-right mr-2"></i>
+                <h5>Opening Balance Capture & PF register Submission</h5>
+            </div>
+            <form [formGroup]="PfdAdminData"
+                class="flex w-9 mx-auto flex-column justify-content-center align-items-center p-5 gap-2">
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Head Of Account</label>
+                            <input pInputText formControlName="Head_of_Account" id="Head_of_Account" type="number"  />
+                            <small>Provident Fund for Employees of non-Govt.Arts,Science,Commerce Teachers Training College</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Treasury</label>
+                            <input pInputText formControlName="treasury" id="treasury" type="number"  />
+
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>PFD Admin</label>
+                            <input pInputText formControlName="pfdAdmin" id="pfdAdmin" type="number"  />
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="flex flex-wrap gap-2 align-items-center justify-content-center">
+                <button pButton pRipple label="Back" onclick="history.back()"></button>
+                <p-button label="Reset" icon="pi pi-replay" styleClass="p-button-warning"
+                    (click)="resetForm()"></p-button>
+                <p-button label="Search" icon="pi pi-search" styleClass="p-button-info"
+                    (onClick)="onSearch()"></p-button> 
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<div *ngIf="showTable" class="grid">
+    <div class="col-12">
+        <div class="card">
+            <div class="flex align-items-center">
+                <i class="pi pi-angle-double-right mr-2"></i>
+                <h5>PFD Admin wise Opening Balance & PF Register</h5>
+                <hr>
+            </div>
+            <p-table [value]="tableData" [rows]="12" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true"
+                responsiveLayout="scroll">
+                <ng-template pTemplate="caption">
+                    <div class="flex justify-content-between flex-column sm:flex-row">
+                        <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash"></button>
+                        <span class="p-input-icon-left mb-2">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" placeholder="Search Keyword" class="w-full" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="min-width: 12rem"class="bg-blue-500 text-white">PFD Admin</th>
+                        <th style="min-width: 12rem"class="bg-blue-500 text-white">PF Register Date</th>
+                        <th style="min-width: 12rem"class="bg-blue-500 text-white">Opening Balance(A)(₹)</th>
+                        <th style="min-width: 12rem"class="bg-blue-500 text-white">Interest (B) (₹)</th>
+                        <th style="min-width: 12rem"class="bg-blue-500 text-white">Total Opening Balance (A+B) (₹)</th>
+                        <th style="min-width: 12rem"class="bg-blue-500 text-white">Captured Balance (%)</th>
+                        <th style="min-width: 12rem"class="bg-blue-500 text-white">Final Submission by SA (Count)</th>
+                        <th style="min-width: 12rem"class="bg-blue-500 text-white">Tagging Status</th>
+                        <th style="min-width: 12rem"class="bg-blue-500 text-white">PF Register Status</th>
+                        <th style="min-width: 12rem"class="bg-blue-500 text-white">Checked By DPPG</th>
+                        <th style="min-width: 6rem" class="bg-blue-500 text-white">Action</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-tableData let-i="index">
+                    <tr class="p-selectable-row">
+                        <td style="min-width: 12rem">{{tableData.operatorName}}</td>
+                        <td style="min-width: 26rem">{{tableData.pfRegisterDate}}</td>
+                        <td style="min-width: 12rem"></td>
+                        <td style="min-width: 12rem"></td>
+                        <td style="min-width: 12rem"></td>
+                        <td style="min-width: 12rem"></td>
+                        <td style="min-width: 12rem"></td>
+                        <td style="min-width: 12rem">
+                            <button pButton type="button" class="p-button-raised p-button-rounded" icon=" pi pi-file-edit"></button>
+                        </td>
+                        <td style="min-width: 12rem"></td>
+                        <td style="min-width: 6rem" pFrozenColumn alignFrozen="right" class="flex gap-2">
+                            <button pButton type="button" class="p-button-raised p-button-rounded"
+                                icon=" pi pi-search"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">No Data Available</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+

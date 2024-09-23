@@ -11,23 +11,23 @@
                     <div class="field flex-1">
                         <div class="flex-column flex gap-2">
                             <label>Treasury<span class="text-red-700">*</span></label>
-                            <p-dropdown [options]="dropdownItemTreasuryname"  (onChange)="trSelected($event)" formControlName="Treasury" optionLabel="treasuryName" placeholder="select Treasury name"></p-dropdown>
+                            <p-dropdown [options]="dropdownItemTreasuryname" (onChange)="trSelected($event)" formControlName="Treasury"  [filter]="true" filterBy="treasuryName" [showClear]="true" optionLabel="treasuryName" placeholder="select Treasury name"></p-dropdown>
 
                             <small *ngIf="isInvalidAndTouched('Treasury')" class="p-error"> Treasury is required. </small>
                         </div>
                     </div>
                     <div class="field flex-1">
                         <div class="flex-column flex gap-2">
-                            <label>Sanction Admin<span class="text-red-700">*</span></label>
+                            <label>Sanction Admin</label>
                             <p-dropdown [options]="dropdownItemSanctionAdmin" formControlName="SanctionAdmin" optionLabel="sanctionName" placeholder="select sanction admin"></p-dropdown>
-                            <small *ngIf="isInvalidAndTouched('SanctionAdmin')" class="p-error"> Sanction Admin is required. </small>
+                            <!-- <small *ngIf="isInvalidAndTouched('SanctionAdmin')" class="p-error"> Sanction Admin is required. </small> -->
                         </div>
                     </div>
                 </div>
                 <div class="flex-row flex justify-content-center gap-2 w-full">
                     <div class="field flex-1">
                         <div class="flex-column flex gap-2">
-                            <label>Salary Source<span class="text-red-700">*</span></label> 
+                            <label>Salary Source<span class="text-red-700">*</span></label>
                             <p-dropdown [options]="dropdownItemSalaryType" formControlName="SalarySource" optionLabel="name" placeholder="select Salary Source"></p-dropdown>
                             <small *ngIf="isInvalidAndTouched('SalarySource')" class="p-error"> Salary Source is required. </small>
                         </div>
@@ -35,7 +35,7 @@
                     <div class="field flex-1">
                         <div class="flex-column flex gap-2">
                             <label>PFD Admin<span class="text-red-700">*</span></label>
-                            <p-dropdown [options]="dropdownItemPfdAdmin" formControlName="PFDAdmin" optionLabel="pfdName" placeholder="select PFD admin"></p-dropdown>
+                            <p-dropdown [options]="dropdownItemPfdAdmin" (onChange)="pfdCodeSelected($event)" formControlName="PFDAdmin" optionLabel="pfdName" placeholder="select PFD admin"></p-dropdown>
                             <small *ngIf="isInvalidAndTouched('PFDAdmin')" class="p-error"> PFD Admin is required. </small>
                         </div>
                     </div>
@@ -92,8 +92,8 @@
                 <ng-template pTemplate="header">
                     <tr>
                         <!-- <th style="max-width: 4rem" pFrozenColumn><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th> -->
-                        <th style="min-width: 12rem" alignFrozen="left">PF Account No.</th>
-                        <th style="min-width: 26rem">Employee Name(ID)</th>
+                        <th  style="min-width: 12rem" alignFrozen="left">PF Account No.</th>
+                        <th pSortableColumn="empName" style="min-width: 26rem">Employee Name(ID)<p-sortIcon field="empName"></p-sortIcon></th>
                         <th style="min-width: 12rem">Date OF Joining</th>
                         <th style="min-width: 12rem">Status</th>
                         <th style="min-width: 6rem" pFrozenColumn alignFrozen="right">Action</th>
@@ -102,17 +102,12 @@
                 <ng-template pTemplate="body" let-searchEmployee>
                     <tr class="p-selectable-row">
                         <!-- <td style="max-width: 4rem" pFrozenColumn><p-tableCheckbox [value]="reference"></p-tableCheckbox></td> -->
-                        <td style="min-width: 12rem">{{ searchEmployee.pfAccount }}</td>
+                        <td style="min-width: 12rem">{{ searchEmployee?.hrMmEmpBasicDtl?.pfAccount }}</td>
                         <td style="min-width: 26rem">{{ searchEmployee.empName }}</td>
                         <td style="min-width: 12rem">{{ searchEmployee.DOJ }}</td>
                         <td style="min-width: 12rem">{{ searchEmployee.status }}</td>
                         <td style="min-width: 6rem" pFrozenColumn alignFrozen="right">
-                            <button
-                                pButton
-                                type="button"
-                                class="p-button-help"
-                                icon="pi pi-search-plus" (click)="editEmployee()"
-                            ></button>
+                            <button pButton type="button" class="p-button-help" icon="pi pi-search-plus" (click)="editEmployee(searchEmployee.hrMmEmpBasicDtl)"></button>
                         </td>
                     </tr>
                 </ng-template>

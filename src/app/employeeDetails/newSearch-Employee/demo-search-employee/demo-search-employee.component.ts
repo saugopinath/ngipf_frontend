@@ -3,6 +3,7 @@ import { StepsModule } from 'primeng/steps';
 import { MenuItem, MessageService } from 'primeng/api';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { EmployeeDetailsService } from 'src/app/core/services/employeeDetails/employee-details.service';
 @Component({
     selector: 'app-demo-search-employee',
     templateUrl: './demo-search-employee.component.html',
@@ -24,7 +25,7 @@ export class DemoSearchEmployeeComponent implements OnInit {
         this.activeState[index] = !this.activeState[index];
     }
     addPersonal!: FormGroup;
-    constructor(public messageService: MessageService, private fb: FormBuilder, private router: Router) {}
+    constructor(public messageService: MessageService, private fb: FormBuilder, private router: Router,private employeeDataService:EmployeeDetailsService ) {}
 
     ngOnInit(): void {
         this.items = [
@@ -64,8 +65,19 @@ export class DemoSearchEmployeeComponent implements OnInit {
                 },
             },
         ];
-
-        this.initializeForm();
+        if (history.state.data) {
+            const selectedEmployee=this.employeeDataService.setData(history.state.data);
+            console.log(selectedEmployee);
+            
+            this.activeIndex = 1; // or the appropriate step index
+        }
+        if (history.state.data) {
+            const selectedEmployee=this.employeeDataService.setData(history.state.data);
+            console.log(selectedEmployee);
+            
+            this.activeIndex = 2; // or the appropriate step index
+        }
+        // this.initializeForm();
         // this.subscription = this.ticketService.paymentComplete$.subscribe((personalInformation) =>{
         //   this.messageService.add({severity:'success', summary:'Order submitted', detail: 'Dear, ' + personalInformation.firstname + ' ' + personalInformation.lastname + ' your order completed.'});
         // });
@@ -77,24 +89,24 @@ export class DemoSearchEmployeeComponent implements OnInit {
     //   }
     // }
 
-    initializeForm(): void {
-        this.addPersonal = this.fb.group({
-            empID: ['', Validators.required],
-            pfAcc: ['', Validators.required],
-            name: ['', Validators.required],
-            gender: ['', Validators.required],
-            religion: ['', Validators.required],
-            selectedDOB: [null, Validators.required],
-            pan: ['', Validators.required],
-            adhaar: ['', Validators.required],
-            maritalStatus: ['', Validators.required],
-            selectedEffectFormDate: [null, Validators.required],
-        });
-    }
-    isInvalidAndTouched(controlName: string): boolean {
-        const control = this.addPersonal.get(controlName);
-        return control && control.invalid && (control.dirty || control.touched);
-    }
+    // initializeForm(): void {
+    //     this.addPersonal = this.fb.group({
+    //         empID: ['', Validators.required],
+    //         pfAcc: ['', Validators.required],
+    //         name: ['', Validators.required],
+    //         gender: ['', Validators.required],
+    //         religion: ['', Validators.required],
+    //         selectedDOB: [null, Validators.required],
+    //         pan: ['', Validators.required],
+    //         adhaar: ['', Validators.required],
+    //         maritalStatus: ['', Validators.required],
+    //         selectedEffectFormDate: [null, Validators.required],
+    //     });
+    // }
+    // isInvalidAndTouched(controlName: string): boolean {
+    //     const control = this.addPersonal.get(controlName);
+    //     return control && control.invalid && (control.dirty || control.touched);
+    // }
     nextPage() {
         this.submitted = true;
     }

@@ -1,52 +1,71 @@
 <div class="grid">
     <div class="col-12">
         <div class="card">
-            <div class="flex align-items-center">
-                <i class="pi pi-angle-double-right mr-2"></i>
-                <h5>Define the Stakeholder Hierarchy Mapping</h5>
+            <div class="flex justify-content-between align-items-center">
+                <div class="flex align-items-center">
+                    <i class="pi pi-angle-double-right mr-2"></i>
+                    <h5>Stakeholder Hierarchy - Define the Hierarchy level Exception</h5>
+                </div>
+
+                <div class="flex align-items-center">
+                    <label class="switch">
+                        <input type="checkbox" [checked]="isEditable" (change)="toggleEdit($event)" />
+                        <span class="slider round"></span>
+                    </label>
+                    <span class="ml-2 text-xl">Edit</span>
+                </div>
             </div>
-            <p-checkbox [(ngModel)]="value" [binary]="true" (onChange)="toggleEdit($event)"></p-checkbox>
-            <label for="edit">edit</label>
-            <form [formGroup]="addStakeHolder" class="flex w-9 mx-auto flex-column justify-content-center align-items-center p-5 gap-2">
+            <form [formGroup]="addStakeHolder"
+                class="flex w-9 mx-auto flex-column justify-content-center align-items-center p-5 gap-2">
                 <div class="flex justify-content-center gap-2 w-full">
                     <div class="field flex-1">
                         <div class="flex-column flex gap-2">
                             <label>Head Of Account</label>
-                            <input pInputText formControlName="HOA" id="HOA" type="text" [value]="stakeHolderTableValue.intHoaCode" />
+                            <input pInputText formControlName="HOA" id="HOA" type="text"
+                                [value]="stakeHolderTableValue?.[0]?.hoa" />
                         </div>
                     </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Treasury</label>
+                            <p-dropdown [options]="dropdownItemTreasuryname" formControlName="Treasury"
+                                optionLabel="treasuryName" placeholder="select Treasury name"></p-dropdown>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-content-center gap-2 w-full">
                     <div class="field flex-1">
                         <div class="flex-column flex gap-2">
                             <label>PFD Admin</label>
                             <input pInputText formControlName="PFDAdmin" id="PFDAdmin" type="text" />
                         </div>
                     </div>
-                </div>
-                <div class="flex justify-content-center gap-2 w-full">
                     <div class="field flex-1">
                         <div class="flex-column flex gap-2">
                             <label>Sanction Admin Count</label>
-                            <p-dropdown [options]="dropdownSanctionAdminCount" formControlName="dropdownSanctionAdminCount" optionLabel="sanctionAdminCount" ></p-dropdown>
-                        </div>
-                    </div>
-                    <div class="field flex-1">
-                        <div class="flex-column flex gap-2">
-                            <label>Sanction Admin Nature</label>
-                            <p-dropdown [options]="dropdownSanctionAdminNature" formControlName="dropdownSanctionAdminNature" optionLabel="sanctionAdminNature"></p-dropdown>
+                            <p-dropdown [options]="dropdownSanctionAdminCount"
+                                formControlName="dropdownSanctionAdminCount" optionLabel="sanctionAdminCount"
+                                (onChange)="onSanctionAdminCountChange($event)">
+                            </p-dropdown>
                         </div>
                     </div>
                 </div>
                 <div class="flex justify-content-center gap-2 w-full">
+                    <!-- Show this field only when showSanctionAdminNature is true -->
+                    <div class="field flex-1" *ngIf="showSanctionAdminNature">
+                        <div class="flex-column flex gap-2">
+                            <label>Sanction Admin Nature</label>
+                            <p-dropdown [options]="dropdownSanctionAdminNature"
+                                formControlName="dropdownSanctionAdminNature"
+                                optionLabel="sanctionAdminNature"></p-dropdown>
+                        </div>
+                    </div>
+
                     <div class="field flex-1">
                         <div class="flex-column flex gap-2">
                             <label>Recommending Authority Required?</label>
-                            <p-dropdown [options]="dropdownRecommendingAuthorityReq" formControlName="dropdownRecommendingAuthorityReq" optionLabel="required"></p-dropdown>
-                        </div>
-                    </div>
-                    <div class="field flex-1">
-                        <div class="flex-column flex gap-2">
-                            <label>Recommending Authority Count</label>
-                            <p-dropdown [options]="dropdownRecommendingAuthorityCount" formControlName="dropdownRecommendingAuthorityCount" optionLabel="count"></p-dropdown>
+                            <p-dropdown [options]="dropdownRecommendingAuthorityReq"
+                                formControlName="dropdownRecommendingAuthorityReq" optionLabel="required"></p-dropdown>
                         </div>
                     </div>
                 </div>
@@ -54,7 +73,15 @@
                     <div class="field flex-1">
                         <div class="flex-column flex gap-2">
                             <label>Recommending Authority Nature</label>
-                            <input pInputText formControlName="recommAuthorityNature" id="recommAuthorityNature" type="text" />
+                            <input pInputText formControlName="recommAuthorityNature" id="recommAuthorityNature"
+                                type="text" />
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Recommending Authority Count</label>
+                            <p-dropdown [options]="dropdownRecommendingAuthorityCount"
+                                formControlName="dropdownRecommendingAuthorityCount" optionLabel="count"></p-dropdown>
                         </div>
                     </div>
                 </div>
@@ -62,10 +89,11 @@
 
             <div class="flex flex-wrap gap-2 align-items-center justify-content-center">
                 <button pButton pRipple label="Back" onclick="history.back()"></button>
-                <p-button label="Reset" icon="pi pi-replay" styleClass="p-button-warning" (click)="resetForm()"></p-button>
-                <p-button label="Approve" icon="pi pi-check" styleClass="p-button-info" (click)="approveForm()" *ngIf="value"></p-button>
+                <p-button label="Reset" icon="pi pi-replay" styleClass="p-button-warning"
+                    (click)="resetForm()"></p-button>
+                <p-button label="Approve" icon="pi pi-check" styleClass="p-button-info" (click)="approveForm()"
+                    *ngIf="isEditable"></p-button>
             </div>
         </div>
     </div>
 </div>
-'

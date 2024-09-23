@@ -28,9 +28,7 @@ import { EmployeePFBalanceTransferComponent } from './employee-pf-balance-transf
 import { TransferHistoryComponent } from './employee-pf-balance-transfer/transfer-history/transfer-history.component';
 import { CapturePfInterestYearComponent } from './Interest-year-capture/capture-pf-interest-year/capture-pf-interest-year.component';
 import { InboxComponent } from './inbox/inbox.component';
-import { WorkflowManagementComponent } from './workflow/workflow-management/workflow-management.component';
-import { WorkflowUserManagementComponent } from './workflow/workflow-user-management/workflow-user-management.component';
-import { WorkflowEditComponent } from './workflow/workflow-edit/workflow-edit.component';
+import { WorkflowManagementComponent } from './workflow-management/workflow-management.component';
 import { OpeningBalanceCaptureComponent } from './opening-balance-capture/opening-balance-capture.component';
 import { FinalPaymentComponent } from './final-payment/final-payment.component';
 import { FinalPaymentApplicationComponent } from './final-payment/final-payment-application/final-payment-application.component';
@@ -62,6 +60,25 @@ import { SalaryComponent } from './employeeDetails/newSearch-Employee/salary/sal
 import { BankDetailsModel } from './core/models/BankDetail.model';
 import { BankdetailsComponent } from './employeeDetails/newSearch-Employee/bankdetails/bankdetails.component';
 import { OfficeComponent } from './employeeDetails/newSearch-Employee/office/office.component';
+import { SelfRegistrationComponent } from './selfRegistration/self-registration/self-registration.component';
+import { ViewSelfRegistrationComponent } from './selfRegistration/self-registration/view-self-registration/view-self-registration.component';
+import { InsertComponent } from './depositeTresuryBank/insert/insert.component';
+import { BankChallanComponent } from './depositeTresuryBank/bank-challan/bank-challan.component';
+import { AddExceptionComponent } from './interestRateMaster/add-exception/add-exception.component';
+import { ViewPFSubsciptionComponent } from './changePFSubscription/view-pfsubsciption/view-pfsubsciption.component';
+import { MinMaxMasterComponent } from './changePFSubscription/min-max-master/min-max-master.component';
+import { ChangeSubsComponent } from './changePFSubscription/change-subs/change-subs.component';
+import { FetchSubscriberComponent } from './opening-balance-capture/fetch-subscriber/fetch-subscriber.component';
+import { InitialCaptureBalanceComponent } from './opening-balance-capture/initial-capture-balance/initial-capture-balance.component';
+import { ViewDepositeTresuryBankComponent } from './depositeTresuryBank/view-deposite-tresury-bank/view-deposite-tresury-bank.component';
+import { InitialBalanceCaptureForPFDAdminComponent } from './opening-balance-capture/initial-balance-capture-for-pfdadmin/initial-balance-capture-for-pfdadmin.component';
+import { BalanceStatusComponent } from './opening-balance-capture/balance-status/balance-status.component';
+import { OpeningBalanceStatusForSanctioningAuthorityComponent } from './opening-balance-capture/balance-status/opening-balance-status-for-sanctioning-authority/opening-balance-status-for-sanctioning-authority.component';
+import { CapturedEmployeeBalanceComponent } from './opening-balance-capture/balance-status/opening-balance-status-for-sanctioning-authority/captured-employee-balance/captured-employee-balance.component';
+import { BalanceAcceptanceComponent } from './opening-balance-capture/balance-status/opening-balance-status-for-sanctioning-authority/captured-employee-balance/balance-acceptance/balance-acceptance.component';
+import { PdfGenerationComponent } from './pdf-generation/pdf-generation.component';
+import { SanctionAdminWiseOpeningBalanceComponent } from './opening-balance-capture/view/sanction-admin-wise-opening-balance/sanction-admin-wise-opening-balance.component';
+import { PfRegisterYearComponent } from './opening-balance-capture/view/sanction-admin-wise-opening-balance/pf-register-year/pf-register-year.component';
 
 @NgModule({
     imports: [
@@ -91,17 +108,18 @@ import { OfficeComponent } from './employeeDetails/newSearch-Employee/office/off
                                 { path: '', redirectTo: 'Basic-details', pathMatch: 'full' },
                                 { path: 'Basic-details', component: BasicDetailsComponent },
                                 { path: 'Contact-details', component: ContactDetailsComponent },
-                                { path: 'Salary', component: SalaryComponent},
-                                {path:'office-details',component:OfficeComponent},
-                                {path:'Bank-details',component:BankdetailsComponent},
+                                { path: 'Salary', component: SalaryComponent },
+                                { path: 'office-details', component: OfficeComponent },
+                                { path: 'Bank-details', component: BankdetailsComponent },
                             ],
                         },
                         { path: 'employeeDetails/viewEmployee/entryEmployee', component: DemoSearchEmployeeComponent },
                         { path: 'employeeDetails/viewEmployee/searchEmployee', component: SerachEmployeeComponent },
-            
+                        { path: 'interstRateMaster/addInterestRate', component: AddInterestRateComponent },
                         { path: 'stakeHolder', component: StakeHolderComponent },
                         { path: 'interestRateMaster', component: InterestRateMasterComponent },
                         { path: 'interstRateMaster/addInterestRate', component: AddInterestRateComponent },
+                        { path: 'interstRateMaster/addInterestRate/addException', component: AddExceptionComponent },
                         { path: 'delegatedRole', component: DelegatedRoleComponent },
                         { path: 'taggingReceiptPayment', component: TaggingReceiptPaymentComponent },
                         { path: 'Employee-PF-balance-transfer', component: EmployeePFBalanceTransferComponent },
@@ -109,14 +127,22 @@ import { OfficeComponent } from './employeeDetails/newSearch-Employee/office/off
                         { path: 'Interest-year-capture/capture-pf-interest', component: CapturePfInterestYearComponent },
                         { path: 'Inbox', component: InboxComponent },
                         { path: 'workflow-management', component: WorkflowManagementComponent },
-                        { path: 'workflow/UserList', component: WorkflowUserManagementComponent },
-                        { path: 'workflow/user/addEdit', component: WorkflowEditComponent },
                         { path: 'opening-balance-capture', component: OpeningBalanceCaptureComponent },
                         { path: 'opening-balance-capture/view', component: ViewComponent },
                         { path: 'opening-balance-capture/permission_of_initiation', component: PermissionOfInitiationComponent },
                         { path: 'opening-balance-capture/pending_req_list_of_other_user', component: PendingRequestListOfOtherUserComponent },
                         { path: 'opening-balance-capture/operator_list_having-ve_balance_bypassed', component: OperatorListHavingVeBalanceBypassedComponent },
                         { path: 'opening-balance-capture/employee-wise-pf-register', component: EmployeeWisePfRegisterWithInterestComponent },
+                        { path: 'opening-balance-capture/fetchSubscriberData', component: FetchSubscriberComponent },
+                        { path: 'opening-balance-capture/initialCaptureBalanace', component: InitialCaptureBalanceComponent },
+                        {path:  'opening-balance-capture/initialCaptureBalanace/PFDAdmin',component:InitialBalanceCaptureForPFDAdminComponent},
+                        {path:  'opening-balance-capture/balance-status',component:BalanceStatusComponent},
+                        {path:  'opening-balance-capture/balance-status/balance-status(sanctioning authority)',component:OpeningBalanceStatusForSanctioningAuthorityComponent},
+                        {path:  'opening-balance-capture/balance-status/balance-status(sanctioning authority)/captured-employee-balance',component:CapturedEmployeeBalanceComponent},
+                        {path:  'opening-balance-capture/balance-status/balance-status(sanctioning authority)/captured-employee-balance/balance-acceptance',component:BalanceAcceptanceComponent},
+                        { path: 'opening-balance-capture/view/sanctionAdminWise-OpeningBalance', component: SanctionAdminWiseOpeningBalanceComponent },
+                        { path: 'opening-balance-capture/view/sanctionAdminWise-OpeningBalance/PF-Register-Year', component: PfRegisterYearComponent },
+ 
                         { path: 'Final-payment', component: FinalPaymentComponent },
                         { path: 'Final-payment/final-payment-application', component: FinalPaymentApplicationComponent },
                         { path: 'Final-payment/final-payment-eligibility-master', component: FinalPaymentEligibilityMasterComponent },
@@ -135,8 +161,15 @@ import { OfficeComponent } from './employeeDetails/newSearch-Employee/office/off
                         { path: 'stakeHolder', component: StakeHolderComponent },
                         { path: 'stakeHolder/editStakHolder', component: EditStakeholderComponent },
                         { path: 'stakeHolder/addStakHolder', component: AddStakeholderComponent },
-                        
-
+                        { path: 'selfRegistration', component: SelfRegistrationComponent },
+                        {path:  'View/selfRegistration',component:ViewSelfRegistrationComponent},
+                        { path: 'depositeDetails/viewDepositeTresuryBank', component: ViewDepositeTresuryBankComponent },
+                        { path: 'depositeDetails/viewDepositeTresuryBank/insert', component: InsertComponent },
+                        { path: 'depositeDetails/viewDepositeTresuryBank/bankChallanList', component: BankChallanComponent },
+                        { path: 'ChangePfSubscintion/viewPFSubscribtion', component: ViewPFSubsciptionComponent },
+                        { path: 'ChangePfSubscintion/viewPFSubscribtion/minMaxMaster', component: MinMaxMasterComponent },
+                        { path: 'ChangePfSubscintion/viewPFSubscribtion/changeSubs', component: ChangeSubsComponent },
+                        { path: 'pdf-generation', component: PdfGenerationComponent },
                     ],
                 },
                 { path: 'static-login', component: StaticLoginComponent },

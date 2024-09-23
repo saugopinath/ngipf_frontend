@@ -134,13 +134,13 @@ export class EcsNeftComponent implements OnInit {
         });
     }
 
-    searchforBeneficaryName(e: any) {
-        if (e.filter.length >= 2) {
-            this.commonService.getECSneft(e.filter).subscribe((res: any) => {
-                this.ecsPayeeInfo = res.result;
-            });
-        }
-    }
+    // searchforBeneficaryName(e: any) {
+    //     if (e.filter.length >= 2) {
+    //         this.commonService.getECSneft(e.filter).subscribe((res: any) => {
+    //             this.ecsPayeeInfo = res.result;
+    //         });
+    //     }
+    // }
 
     addECSArray() {
         console.log(this.ecsForm.value);

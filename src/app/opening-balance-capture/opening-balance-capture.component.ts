@@ -29,4 +29,19 @@ operatorClick(){
 EmployeeClick(){
   this.router.navigate(['opening-balance-capture/employee-wise-pf-register']);
 }
+fetchSubsriberClick(){
+  this.router.navigate(['opening-balance-capture/fetchSubscriberData']);
+}
+initalCaptureBalanceClick(){
+  this.router.navigate(['opening-balance-capture/initialCaptureBalanace']);
+}
+initalCaptureBalancePFDAdminClick(){
+  this.router.navigate(['opening-balance-capture/initialCaptureBalanace/PFDAdmin']);
+}
+balanceStatusClick(){
+  this.router.navigate(['opening-balance-capture/balance-status']);
+}
+Acceptance(){
+  this.router.navigate(['opening-balance-capture/balance-status/balance-status(sanctioning authority)/captured-employee-balance/balance-acceptance'])
+}
 }

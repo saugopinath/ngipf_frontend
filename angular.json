@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "cts": {
+    "ngipf": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/cts",
+            "outputPath": "dist/ngipf",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -40,7 +40,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "1mb",
+                  "maximumWarning": "2mb",
+                  "maximumWarning": "2mb",
                   "maximumError": "5mb"
                 },
                 {
@@ -72,10 +73,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "cts:build:production"
+              "browserTarget": "ngipf:build:production"
             },
             "development": {
-              "browserTarget": "cts:build:development"
+              "browserTarget": "ngipf:build:development"
             }
           },
           "options": {
@@ -86,7 +87,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "cts:build"
+            "browserTarget": "ngipf:build"
           }
         },
         "test": {
@@ -119,7 +120,7 @@
       }
     }
   },
-  "defaultProject": "cts",
+  "defaultProject": "ngipf",
   "cli": {
     "analytics": false,
     "schematicCollections": [

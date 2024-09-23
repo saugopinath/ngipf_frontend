@@ -1,0 +1,258 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <div class="flex align-items-center">
+                <i class="pi pi-angle-double-right mr-2"></i>
+                <h5>Opening Balance Capture & PF register Submission</h5>
+            </div>
+            <form [formGroup]="initialBalanceCaptureForm"
+                class="flex w-9 mx-auto flex-column justify-content-center align-items-center p-5 gap-2">
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Head Of Account</label>
+                            <input pInputText formControlName="Head_of_Account" id="Head_of_Account" type="text" />
+
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Treasury</label>
+                            <input pInputText formControlName="treasury" id="treasury" type="text" />
+
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-row flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Subscribers Present Status</label>
+                            <p-dropdown [options]="dropDownItemSubscriberStatus" formControlName="subscribersStatus"
+                                optionLabel="subscriberStatus" placeholder="Select Present Status"></p-dropdown>
+
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>PFD Admin</label>
+                            <input pInputText formControlName="pfd_Admin" id="pfd_Admin" type="text" />
+
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-row flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Accounting Year</label>
+                            <input pInputText formControlName="year" id="year" type="text" />
+
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Sanction Admin</label>
+                            <input pInputText formControlName="Sanction_Admin" id="Sanction_Admin" type="text" />
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-row flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Status</label>
+                            <p-dropdown [options]="dropdownStatus" formControlName="status" optionLabel="status"
+                                placeholder="Select Status"></p-dropdown>
+
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>PF Account NO.</label>
+                            <input pInputText formControlName="pfAccNo" id="pfAccNo" type="text" />
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-row flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Employee ID</label>
+                            <input pInputText formControlName="emp_id" id="emp_id" type="text" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="flex flex-wrap gap-2 align-items-center justify-content-center">
+                <button pButton pRipple label="Back" onclick="history.back()" icon="pi pi-arrow-circle-left"></button>
+                <p-button label="Reset" icon="pi pi-replay" styleClass="p-button-warning"
+                    (click)="resetForm()"></p-button>
+                <p-button label="Search" icon="pi pi-search" styleClass="p-button-info"
+                    (onClick)="onSearch()"></p-button>
+                <p-button label="Upload" icon="pi pi-upload" styleClass="p-button-info"
+                    [disabled]="showTable"></p-button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div *ngIf="showTable" class="grid">
+    <div class="col-12">
+        <div class="card">
+            <div class="flex align-items-center">
+                <i class="pi pi-angle-double-right mr-2"></i>
+                <h5>Search Result</h5>
+                <hr>
+            </div>
+            <p-table [value]=tableData [rows]="12" [rowHover]="true" styleClass="p-datatable-gridlines"
+                [paginator]="true" responsiveLayout="scroll">
+                <ng-template pTemplate="caption">
+                    <div class="flex justify-content-between flex-column sm:flex-row">
+                        <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash"></button>
+                        <span class="p-input-icon-left mb-2">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" placeholder="Search Keyword" class="w-full" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <!-- <th>ID</th> -->
+                        <th style="min-width: 8rem" class="bg-blue-500 text-white">Employee Name(ID)</th>
+                        <th style="min-width: 8rem" class="bg-blue-500 text-white">PF Account Number</th>
+                        <th style="min-width: 8rem" class="bg-blue-500 text-white">Opening Balance(₹)</th>
+                        <th style="min-width: 8rem" class="bg-blue-500 text-white">Total Withdrawal(₹)</th>
+                        <th style="min-width: 8rem" class="bg-blue-500 text-white">Total Deposit(₹)</th>
+                        <th style="min-width: 8rem" class="bg-blue-500 text-white">Closing Balance(₹)</th>
+                        <th style="min-width: 8rem" class="bg-blue-500 text-white">Status</th>
+                        <th style="min-width: 8rem" class="bg-blue-500 text-white">Remarks</th>
+                        <th style="min-width: 8rem" class="bg-blue-500 text-white">Other Balance(₹)</th>
+                        <th style="min-width: 6rem" class="bg-blue-500 text-white">Action</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-tableData let-index="index">
+                    <tr class="p-selectable-row">
+                        <td style="min-width: 8rem">{{tableData.empNamewithId}}</td>
+                        <td style="min-width: 8rem">{{tableData.pfAcountNumber}}</td>
+                        <td style="min-width: 10rem">
+                            <input pInputText [(ngModel)]="tableData.openingBalance" [disabled]="!isEditMode"
+                                (ngModelChange)="onValueChange(tableData.id, $event)" class="w-full" />
+                        </td>
+                        <td style="min-width: 8rem">{{tableData.totalWithdrawal}}</td>
+                        <td style="min-width: 8rem">{{tableData.totalDeposit}}</td>
+                        <td style="min-width: 8rem">{{tableData.closingBalance}}</td>
+                        <td style="min-width: 8rem">{{tableData.status}}</td>
+                        <td style="min-width: 8rem">
+                            <button pButton type="button"
+                                class="p-button-help p-button-raised" icon="pi pi-file-edit"
+                                [disabled]="tableData.status === 'Approved'" [disabled]="!isModify"
+                                (click)="displayDialog(tableData.id,$event)"></button>
+                        </td>
+                        <td style="min-width: 10rem"> {{tableData.otherBalance}}</td>
+                        <td style="min-width: 6rem" pFrozenColumn alignFrozen="right" class="flex gap-2">
+                            <button pButton type="button" class="p-button-raised p-button-rounded"
+                                icon="pi pi-external-link" [disabled]="!tableData.isChanged"></button>
+                            <p-checkbox [binary]="true" [(ngModel)]="tableData.isChecked"
+                                [disabled]="!tableData.isChanged || tableData.isChecked"></p-checkbox>
+                        </td>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">No Data Available</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <form [formGroup]="tableForm" class="form-container flex w-full mx-auto flex-column p-3 gap-2">
+                <div class="flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Capture Balance(B)(₹)</label>
+                            <input pInputText formControlName="captureBalance" id="captureBalance" type="number" />
+
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Total Withdrawal(₹)</label>
+                            <input pInputText formControlName="totalWithdrawal" id="totalWithdrawal" type="text" />
+
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Total Deposit(₹)</label>
+                            <input pInputText formControlName="totalDeposit" id="totalDeposit" type="text" />
+
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-row flex justify-content-center gap-2 w-full">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Total Opening Balance(₹)</label>
+                            <input pInputText formControlName="totalOpening" id="totalOpening" type="text" />
+
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Total Closing Balance(₹)</label>
+                            <input pInputText formControlName="totalClosing" id="totalClosing" type="text" />
+
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Unsettled Balance</label>
+                            <input pInputText formControlName="unsetteldBalance" id="unsetteldBalance" type="text" />
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="flex flex-col mt-1 align-items-center justify-content-center">
+                <div class="flex flex-wrap gap-2">
+                    <button pButton pRipple label="Back" onclick="history.back()" icon="pi pi-arrow-circle-left"
+                        iconPos="left"></button>
+                    <p-button *ngIf="!isEditMode" label="Modify" styleClass="p-button-info" (click)="toggleEditMode()"
+                        class="p-button-raised p-button-rounded" icon="pi pi-pencil"></p-button>
+                    <p-button *ngIf="isEditMode" label="Save" styleClass="p-button-success" icon="pi pi-save"
+                        (click)="saveChanges()"></p-button>
+                    <p-button label="Forward" styleClass="p-button-help" [disabled]="isModify"
+                        icon="pi pi-arrow-circle-right"></p-button>
+                    <p-button label="Go To My Downloads" styleClass="p-button-info"></p-button>
+                    <p-button label="PF Register" icon="pi pi-download" styleClass="p-button-info"></p-button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<p-dialog position="top" header="List of Purpose" [(visible)]="showDialog" [modal]="true" [style]="{ width: '40vw',height:'50vh' }">
+    <ng-template pTemplate="header">
+        Employee Name And ID: {{modalDisplayData.empNamewithId}}
+    </ng-template>
+    <div class="p-fluid p-form-grid border-1 p-4">
+        <div class="p-field p-col-12">
+            <label for="remarks">Status</label>
+            <textarea id="status"  pInputTextarea  name="status"  [(ngModel)]="status" disabled></textarea>
+        </div>
+        <div class="p-field p-col-12">
+            <label for="remarks">Remarks</label>
+            <textarea id="remarks"  pInputTextarea [(ngModel)]="remarks" [cols]="30" [rows]="7" ></textarea>
+        </div>
+
+    </div>
+
+    <p-footer>
+        <button type="button" pButton label="Cancel" (click)="closeDialog()" autofocus></button>
+        <button type="button" pButton label="OK" (click)="handleOk()" autofocus></button>
+    </p-footer>
+</p-dialog>

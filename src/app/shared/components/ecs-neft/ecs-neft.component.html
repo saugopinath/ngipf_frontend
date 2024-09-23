@@ -32,13 +32,13 @@
             <form class="flex justify-content-start flex-wrap mb-4" [formGroup]="ecsForm">
                 <div class="flex flex-column align-items-start justify-content-center space_between">
                     <label for="ecsPartyName" class="font-medium">Select Payee</label>
-                    <p-dropdown [options]="ecsPayeeInfo" formControlName="ecsPartyName" optionLabel="beneficiaryName" inputId="ecsPartyName" [filter]="true" filterBy="beneficiaryName" [showClear]="true" placeholder="Select Payee" (onFilter)="searchforBeneficaryName($event)" (onChange)="onECSPartyChange()">
+                    <!-- <p-dropdown [options]="ecsPayeeInfo" formControlName="ecsPartyName" optionLabel="beneficiaryName" inputId="ecsPartyName" [filter]="true" filterBy="beneficiaryName" [showClear]="true" placeholder="Select Payee" (onFilter)="searchforBeneficaryName($event)" (onChange)="onECSPartyChange()">
                         <ng-template let-item pTemplate="item">
                             <div class="ui-helper-clearfix" style="position: relative; height: 25px" pTooltip="{{ item.accNo }}" tooltipPosition="right">
                                 <span style="font-size: 14px; margin-top: 4px">{{ item.accNo }} : {{ item.beneficiaryName ?? item.accNo }}</span>
                             </div>
                         </ng-template>
-                    </p-dropdown>
+                    </p-dropdown> -->
                     <!-- <mat-form-field class="full-width" appearance="outline">
                                         <mat-label>Beneficiary Name</mat-label>
                                         <input matInput type="text" formControlName="ecsPartyName" placeholder="Beneficiary Name" [matAutocomplete]="partyName" (keyup)="searchforBeneficaryName($event)" />

@@ -32,14 +32,99 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="flex justify-content-center gap-2 w-full" *ngIf="showAllFields">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>Advance Type</label>
+                            <p-dropdown [options]="dropdownItemadvanceType" formControlName="selectedItemAdvanceType" optionLabel="name" placeholder="Select Advance Type"></p-dropdown>
+                        </div>
+                    </div>
+
+                   <div class="field flex-1 ">
+                        <div class="flex-column flex gap-2 ">
+                            <label >Purpose</label>
+                            <p-multiSelect [options]="cities" formControlName="selectedCities" defaultLabel="Select a City" optionLabel="name" display="chip"></p-multiSelect>
+
+                            <p-button label="" icon="pi pi-external-link" styleClass="p-button-info" (onClick)="showDialog()"></p-button>
+                        </div>
+                    </div> 
+                </div>
+                <div class="flex justify-content-center gap-2 w-full" *ngIf="showAllFields">
+                    <div class="field flex-1 mt-10">
+                        <div class="flex-column flex gap-2">
+                            <label>G.O NO</label>
+                            <input pInputText formControlName="GONo" id="operator_name" type="text" />
+                        </div>
+                    </div>
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>G.O Date</label>
+                            <p-calendar formControlName="selectedGODate" dateFormat="dd.mm.yy" placeholder="" [showIcon]="true"></p-calendar>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-content-center gap-2 w-full" *ngIf="showAllFields">
+                    <div class="field flex-1">
+                        <div class="flex-column flex gap-2">
+                            <label>W.E.F</label>
+                            <p-calendar formControlName="selectedWEFDate" dateFormat="dd.mm.yy" placeholder="" [showIcon]="true"></p-calendar>
+                        </div>
+                    </div>
+                </div>
             </form>
 
             <div class="flex flex-wrap gap-2 align-items-center justify-content-center">
                 <button pButton pRipple label="Back" onclick="history.back()"></button>
                 <p-button label="Reset" icon="pi pi-replay" styleClass="p-button-warning"></p-button>
                 <p-button label="Search" icon="pi pi-search" styleClass="p-button-info"></p-button>
+                <p-button label="Add New" icon="pi pi-plus" styleClass="p-button-info" (onClick)="addNew()"></p-button>
             </div>
         </div>
     </div>
 </div>
 
+
+
+
+<p-dialog header="List of Purpose" [(visible)]="displayDialog" [modal]="true" [style]="{ width: '50vw' }">
+    <div class="p-fluid">
+        <div class="p-field">
+            <input type="text" pInputText placeholder="Search" [(ngModel)]="searchQuery">
+        </div>
+
+        <p-table #dt [value]="filteredPurposes" [rows]="5" [paginator]="true" [totalRecords]="totalRecords">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Purpose</th>
+                    <th>Selected</th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-purpose>
+                <tr [class.selected]="purpose.selected">
+                    <td>{{ purpose.name }}</td>
+                    <td>
+                        <p-checkbox [(ngModel)]="purpose.selected" (onChange)="onPurposeSelect(purpose)"></p-checkbox>
+                    </td>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="paginatorleft">
+                <div class="p-dropdown">
+                    <p-dropdown [options]="[5, 10, 25]" [(ngModel)]="rows" placeholder="Items per page"></p-dropdown>
+                </div>
+            </ng-template>
+        </p-table>
+
+        <div class="field-checkbox">
+            <p-checkbox [(ngModel)]="checked" [binary]="true" inputId="binary"></p-checkbox>
+            <label for="binary">Varified and Checked</label>
+        </div>
+    </div>
+
+    <p-footer>
+        <button type="button" pButton label="Cancel" (click)="closeDialog()"></button>
+        <button type="button" pButton label="OK" (click)="ok()" [disabled]="!checked"></button>
+    </p-footer>
+</p-dialog>

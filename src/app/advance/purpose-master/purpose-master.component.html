@@ -20,13 +20,13 @@
                     <tr>
                         <th style="min-width: 4rem">
                             <div class="flex justify-content-between align-items-center">
-                               Purpose
+                                Purpose
                                 <!-- <p-columnFilter type="text" field="name" display="menu" placeholder="Search by name"></p-columnFilter> -->
                             </div>
                         </th>
                         <th style="min-width: 14rem">
                             <div class="flex justify-content-between align-items-center">
-                               Active
+                                Active
                                 <!-- <p-columnFilter type="text" field="country.name" display="menu" placeholder="Search by country"></p-columnFilter> -->
                             </div>
                         </th>
@@ -88,5 +88,59 @@
 </div>
 <div class="flex flex-wrap gap-2 align-items-center justify-content-center">
     <button pButton pRipple label="Back" onclick="history.back()"></button>
+    <p-button label="Add New" icon="pi pi-plus" styleClass="p-button-info" (onClick)="addNew()"></p-button>
 </div>
 
+<p-dialog header="Add/Modify Purpose Master" [(visible)]="displayDialog" [modal]="true" [style]="{ width: '70vw' }">
+    <div class="p-fluid p-form-grid border-1 p-4" style="overflow: visible;height: 90vh;">
+        <form [formGroup]="purposeForm">
+            <div class="flex justify-content-center gap-2 w-full mb-6">
+                <div class="field flex-1">
+                    <div class="flex-column flex gap-2">
+                        <label for="purpose">Purpose<span class="text-red-700">*</span></label>
+                        <textarea id="purpose" pInputTextarea rows="5"  formControlName="purpose"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-content-center gap-2 w-full my-6">
+                <div class="field flex-1">
+                    <div class="flex-column flex gap-2">
+                        <label>Active<span class="text-red-700">*</span></label>
+                        <p-dropdown [options]="activeOptions" formControlName="active" placeholder="Select Active Status"></p-dropdown>
+                    </div>
+                </div>
+                <div class="field flex-1">
+                    <div class="flex-column flex gap-2">
+                        <label>G.O NO</label>
+                        <input pInputText formControlName="GONo" id="operator_name" type="text" />
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-content-center gap-2 w-full my-6">
+                <div class="field flex-1">
+                    <div class="flex-column flex gap-2">
+                        <label>W.E.F</label>
+                        <p-calendar formControlName="selectedWEFDate" dateFormat="dd.mm.yy" placeholder="" [showIcon]="true"></p-calendar>
+                    </div>
+                </div>
+                <div class="field flex-1">
+                    <div class="flex-column flex gap-2">
+                        <label>G.O Date</label>
+                        <p-calendar formControlName="selectedGODate" dateFormat="dd.mm.yy" placeholder="" [showIcon]="true"></p-calendar>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-field p-col-12">
+                <label for="remarks">Remarks</label>
+                <textarea id="remarks" pInputTextarea formControlName="remarks"></textarea>
+            </div>
+        </form>
+    </div>
+    <p-footer>
+        <button type="button" pButton label="Close" (click)="closeDialog()"></button>
+        <button type="button" pButton label="Save" (click)="savePurpose()" [disabled]="!purposeForm.valid"></button>
+        <button type="button" pButton label="View Past Record" [disabled]="!purposeForm.valid"></button>
+    </p-footer>
+</p-dialog>

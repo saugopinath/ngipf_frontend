@@ -216,3 +216,15 @@ $gutter: 1rem; //for primeflex grid system
 .p-button {
     // overflow: visible !important;
 }
+p-multiSelect {
+    height: auto;
+    max-height: 200px; /* Set a maximum height to prevent excessive growth */
+    overflow-y: auto;
+    
+}
+.readonly {
+    background-color: #f0f0f0; /* Light gray background */
+    color: #a0a0a0; /* Dim text color */
+    border-color: #d0d0d0; /* Light gray border */
+    cursor: not-allowed; /* Show "not-allowed" cursor */
+}

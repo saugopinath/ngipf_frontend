@@ -1,0 +1,23 @@
+
+<div class="grid">
+    <div class="col-12">
+        <div class="flex flex-wrap gap-2 align-items-center justify-content-center">
+            <p-card class="card-1 ml-20 flex mt-90">
+                <ng-template pTemplate="header">
+                    <div class="flex align-items-center justify-content-center ml-20">
+                        <img src="assets/layout/images/loan.png" alt="loan" class="w-3rem h-3rem mr-1 mt-2" />
+                        <span class="text-primary font-bold ml-2 mt-2 font-bold text-xl">
+                            View
+                            <button pButton type="button" class="p-button-raised p-button-rounded" icon=" pi pi-external-link" (click)="viewClick()"></button>
+                        </span>
+                    </div>
+                </ng-template>
+                <div class="ml-1">Facility to view registration request of headmaster/headmistress of secondary school</div>
+            </p-card>
+        </div>
+    </div>
+</div>
+
+<div class="flex flex-wrap gap-2 align-items-center justify-content-center">
+    <button pButton pRipple label="Back" onclick="history.back()"></button>
+</div>

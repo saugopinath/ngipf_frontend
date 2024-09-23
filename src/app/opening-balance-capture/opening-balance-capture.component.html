@@ -3,7 +3,7 @@
         <p-card class="card-1 ml-20 mt-90">
             <ng-template pTemplate="header">
                 <div class="flex align-items-center justify-content-center ml-20">
-                    <img src="assets/layout/images/loan.png" alt="loan" class="w-3rem h-3rem mr-1 mt-2" />
+                    <img src="assets/layout/images/loan.png" alt="loan" class="w-3rem h-3rem mr-1" />
                     <span class="text-primary font-bold ml-2 mt-2 font-bold text-xl">
                         View
                         <button pButton type="button" class="p-button-raised p-button-rounded" icon=" pi pi-external-link" (click)="viewClick()"></button>
@@ -49,12 +49,12 @@
                 <div class="flex align-items-center justify-content-center ml-20">
                     <img src="assets/layout/images/loan.png" alt="employee" class="w-3rem h-3rem mr-1 mt-2" />
                     <span class="text-primary font-bold ml-2 mt-2 font-bold text-xl">
-                        Operator List having-Ve Balance ByPassed
+                        Operator List having Negative Balance ByPassed
                         <button pButton type="button" class="p-button-raised p-button-rounded" icon=" pi pi-external-link" (click)="operatorClick()"></button>
                     </span>
                 </div>
             </ng-template>
-            <div class="ml-8">null</div>
+            <div class="ml-8">Facility to View list of PFD Admins for Whom Negative Balance Capture is Allowed</div>
         </p-card>
     </div>
 
@@ -69,7 +69,82 @@
                     </span>
                 </div>
             </ng-template>
-            <div class="ml-8">null</div>
+            <div class="ml-8">Facility to View PF Register of Subscriber with Interest</div>
         </p-card>
     </div>
+    <div class="col-12 md:col-6 align-items-center justify-content-center column-gap-4 row-gap-6">
+        <p-card class="card-1 ml-20 mt-90">
+            <ng-template pTemplate="header">
+                <div class="flex align-items-center justify-content-center ml-20">
+                    <img src="assets/layout/images/loan.png" alt="loan" class="w-3rem h-3rem mr-1 mt-2" />
+                    <span class="text-primary font-bold ml-2 mt-2 font-bold text-xl">
+                        Fetch Subscriber Data
+                        <button pButton type="button" class="p-button-raised p-button-rounded" icon=" pi pi-external-link" (click)="fetchSubsriberClick()"></button>
+                    </span>
+                </div>
+            </ng-template>
+            <div class="ml-8">Facility to Fetch Subscribers who are not yet Tagged in NGIPF</div>
+        </p-card>
+    </div>
+    <div class="col-12 md:col-6 align-items-center justify-content-center column-gap-4 row-gap-6">
+        <p-card class="card-1 ml-20 mt-90">
+            <ng-template pTemplate="header">
+                <div class="flex align-items-center justify-content-center ml-20">
+                    <img src="assets/layout/images/loan.png" alt="loan" class="w-3rem h-3rem mr-1 mt-2" />
+                    <span class="text-primary font-bold ml-2 mt-2 font-bold text-xl">
+                        Initial Capture Balance
+                        <button pButton type="button" class="p-button-raised p-button-rounded" icon=" pi pi-external-link" (click)="initalCaptureBalanceClick()"></button>
+                    </span>
+                </div>
+            </ng-template>
+            <div class="ml-8">Facility to Capture Opening Balance & Submit PF Register to DPPG</div>
+        </p-card>
+    </div>
+    <div class="col-12 md:col-6 align-items-center justify-content-center column-gap-4 row-gap-6">
+        <p-card class="card-1 ml-20 mt-90">
+            <ng-template pTemplate="header">
+                <div class="flex align-items-center justify-content-center ml-20">
+                    <img src="assets/layout/images/loan.png" alt="loan" class="w-3rem h-3rem mr-1 mt-2" />
+                    <span class="text-primary font-bold ml-2 mt-2 font-bold text-xl">
+                        Initial Capture Balance(PFD Admin)
+                        <button pButton type="button" class="p-button-raised p-button-rounded" icon=" pi pi-external-link" (click)="initalCaptureBalancePFDAdminClick()"></button>
+                    </span>
+                </div>
+            </ng-template>
+            <div class="ml-8">Facility to Capture Opening Balance & Submit PF Register to DPPG</div>
+        </p-card>
+    </div>
+
+    <div class="col-12 md:col-6 align-items-center justify-content-center column-gap-4 row-gap-6">
+        <p-card class="card-1 ml-20 mt-90">
+            <ng-template pTemplate="header">
+                <div class="flex align-items-center justify-content-center ml-20">
+                    <img src="assets/layout/images/loan.png" alt="loan" class="w-3rem h-3rem mr-1 mt-2" />
+                    <span class="text-primary font-bold ml-2 mt-2 font-bold text-xl">
+                        Opening Balance Status
+                        <button pButton type="button" class="p-button-raised p-button-rounded" icon=" pi pi-external-link" (click)="balanceStatusClick()"></button>
+                    </span>
+                </div>
+            </ng-template>
+            <div class="ml-8">Facility to view Opening Balance status</div>
+        </p-card>
+    </div>
+
+    <div class="col-12 md:col-6 align-items-center justify-content-center column-gap-4 row-gap-6">
+        <p-card class="card-1 ml-20 mt-90">
+            <ng-template pTemplate="header">
+                <div class="flex align-items-center justify-content-center ml-20">
+                    <img src="assets/layout/images/loan.png" alt="loan" class="w-3rem h-3rem mr-1 mt-2" />
+                    <span class="text-primary font-bold ml-2 mt-2 font-bold text-xl">
+                        Balance Acceptance(View)
+                        <button pButton type="button" class="p-button-raised p-button-rounded" icon=" pi pi-external-link" (click)="Acceptance()"></button>
+                    </span>
+                </div>
+            </ng-template>
+            <div class="ml-8">Facility to view </div>
+        </p-card>
+    </div>
+    
 </div>
+
+<button pButton pRipple label="Back" onclick="history.back()"></button>

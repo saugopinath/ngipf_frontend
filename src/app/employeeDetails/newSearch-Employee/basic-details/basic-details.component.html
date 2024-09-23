@@ -48,7 +48,8 @@
                                 <div class="field flex-1">
                                     <div class="flex-column flex gap-2">
                                         <label>Gender<span class="text-red-700">*</span> </label>
-                                        <input pInputText formControlName="gender" id="gender" type="text" />
+                                        <p-dropdown *ngIf="usingDefaultData" [options]="dropdownItemGender" optionLabel="value" formControlName="gender" id="gender" placeholder="Select Gender"></p-dropdown>
+                                        <input *ngIf="!usingDefaultData" pInputText formControlName="gender" id="gender" type="text" />
                                         <small *ngIf="isInvalidAndTouched('gender')" class="p-error">Provide Gender. </small>
                                     </div>
                                 </div>
@@ -58,7 +59,8 @@
                                     <div class="field flex-1">
                                         <div class="flex-column flex gap-2">
                                             <label>Religion<span class="text-red-700">*</span> </label>
-                                            <input pInputText formControlName="religion" id="religion" type="text" />
+                                            <p-dropdown *ngIf="usingDefaultData" [options]="dropdownItemReligion" optionLabel="religion" formControlName="religion" id="religion" placeholder="Select Religion"></p-dropdown>
+                                            <input *ngIf="!usingDefaultData" pInputText formControlName="religion" id="religion" type="text" />
                                             <small *ngIf="isInvalidAndTouched('religion')" class="p-error">Religion is Required.</small>
                                         </div>
                                     </div>
@@ -66,9 +68,11 @@
                                 <div class="field flex-1">
                                     <div class="flex-column flex gap-2">
                                         <label>Date of Birth<span class="text-red-700">*</span> </label>
-                                        <p-calendar formControlName="selectedDOB" dateFormat="dd.mm.yy" placeholder="" [showIcon]="true"></p-calendar>
-                                        <small *ngIf="isInvalidAndTouched('selectedDOB')" class="p-error">Date of Birth is required. </small>
+                                        <input *ngIf="!usingDefaultData" pInputText formControlName="selectedDOB" id="pfAcc" type="text" />
+                                        <p-calendar *ngIf="usingDefaultData" formControlName="selectedDOB" dateFormat="dd.mm.yy" placeholder="" [showIcon]="true"></p-calendar>
+                                        <small *ngIf="isInvalidAndTouched('selectedDOB')" class="p-error">Date of Birth is required.</small>
                                     </div>
+                                    
                                 </div>
                             </div>
                             <div class="flex justify-content-center gap-2 w-full">
@@ -89,7 +93,8 @@
                                 <div class="field flex-1">
                                     <div class="flex-column flex gap-2">
                                         <label>Marital Status<span class="text-red-700">*</span> </label>
-                                        <input pInputText formControlName="maritalStatus" id="maritalStatus" type="text" />
+                                        <p-dropdown *ngIf="usingDefaultData" [options]="dropdownItemMaritalStatus" optionLabel="marriagestatus" formControlName="maritalStatus" id="maritalStatus" placeholder="Select Marital Status"></p-dropdown>
+                                        <input *ngIf="!usingDefaultData" pInputText formControlName="maritalStatus" id="maritalStatus" type="text" />
                                         <small *ngIf="isInvalidAndTouched('maritalStatus')" class="p-error">Mention Marital Status.</small>
                                     </div>
                                 </div>
@@ -131,8 +136,10 @@
                                 <div class="field flex-1">
                                     <div class="flex-column flex gap-2">
                                         <label>Date of Joining in Service<span class="text-red-700">*</span> </label>
-                                        <p-calendar formControlName="selectedDOJ" dateFormat="dd.mm.yy" placeholder="" [showIcon]="true"></p-calendar>
+                                        <input *ngIf="!usingDefaultData" pInputText formControlName="selectedDOJ" id="pfAcc" type="text" />
+                                        <p-calendar  *ngIf="usingDefaultData" formControlName="selectedDOJ" dateFormat="dd.mm.yy" placeholder="" [showIcon]="true"></p-calendar>
                                         <small *ngIf="isInvalidAndTouched('selectedDOJ')" class="p-error">Approval No is Required.</small>
+                                       
                                     </div>
                                 </div>
                                 <div class="field flex-1">
@@ -147,14 +154,16 @@
                                 <div class="field flex-1">
                                     <div class="flex-column flex gap-2">
                                         <label>Approval Date of Appointment in present post<span class="text-red-700">*</span> </label>
-                                        <p-calendar formControlName="selectedApprovalDate" [maxDate]="maxDateValue" dateFormat="dd.mm.yy" placeholder="" [showIcon]="true"></p-calendar>
+                                        <input *ngIf="!usingDefaultData" pInputText formControlName="selectedApprovalDate" id="pfAcc" type="text" />
+                                        <p-calendar *ngIf="usingDefaultData" formControlName="selectedApprovalDate" [maxDate]="maxDateValue" dateFormat="dd.mm.yy" placeholder="" [showIcon]="true"></p-calendar>
                                         <small *ngIf="isInvalidAndTouched('selectedApprovalDate')" class="p-error"> W.E.F Date is required. </small>
                                     </div>
                                 </div>
                                 <div class="field flex-1">
                                     <div class="flex-column flex gap-2">
                                         <label>With Effect Date of Such Appointment<span class="text-red-700">*</span> </label>
-                                        <p-calendar formControlName="selectedEffecteDate" [maxDate]="maxDateValue" dateFormat="dd.mm.yy" placeholder="" [showIcon]="true"></p-calendar>
+                                        <input *ngIf="!usingDefaultData" pInputText formControlName="selectedEffecteDate" id="pfAcc" type="text" />
+                                        <p-calendar *ngIf="usingDefaultData" formControlName="selectedEffecteDate" [maxDate]="maxDateValue" dateFormat="dd.mm.yy" placeholder="" [showIcon]="true"></p-calendar>
                                         <small *ngIf="isInvalidAndTouched('selectedEffecteDate')" class="p-error">With Effect Date of Such Appointment Date is required. </small>
                                     </div>
                                 </div>
@@ -202,7 +211,8 @@
                                 <div class="field flex-1">
                                     <div class="flex-column flex gap-2">
                                         <label>Date of Retriment<span class="text-red-700">*</span> </label>
-                                        <p-calendar formControlName="selectedDOR" [maxDate]="maxDateValue" dateFormat="dd.mm.yy" placeholder="" [showIcon]="true"></p-calendar>
+                                        <input *ngIf="!usingDefaultData" pInputText formControlName="selectedDOR" id="pfAcc" type="text" />
+                                        <p-calendar  *ngIf="usingDefaultData" formControlName="selectedDOR" [maxDate]="maxDateValue" dateFormat="dd.mm.yy" placeholder="" [showIcon]="true"></p-calendar>
                                         <small *ngIf="isInvalidAndTouched('selectedDOR')" class="p-error"> As on/with effect From field is required.</small>
                                     </div>
                                 </div>
