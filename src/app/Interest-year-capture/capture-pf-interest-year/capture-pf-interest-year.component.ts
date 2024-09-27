@@ -25,6 +25,7 @@ export class CapturePfInterestYearComponent implements OnInit {
     dropdownItemHeadOfAccountId:CodeMasterList[] = [];
     HoadMasterList: CodeMasterList[] = [];
     TresuaryMasterList: CodeMasterList[] = [];
+    StatusMasterList: CodeMasterList[] = [];
     constructor(private fb: FormBuilder, private toastService: ToastService,private MasterService: MasterService, private CapturePFInterestYearService: CapturePFInterestYearService) {
   
         this.dropdownItemHeadOfAccountId = [
@@ -52,6 +53,7 @@ export class CapturePfInterestYearComponent implements OnInit {
             Status: ['', Validators.required],
             Year: [''],
         });
+        this.getStatusMaster(3);
     }
 
   
@@ -66,11 +68,13 @@ export class CapturePfInterestYearComponent implements OnInit {
         } else if (value === 'option2') {
             this.showTreasury = false;
             this.showHeadOfAccount = true;
+            this.getHOA();
             this.capturePfInterestYearForm.get('Treasury')?.clearValidators();
             this.capturePfInterestYearForm.get('HeadOfAccount')?.setValidators(Validators.required);
         } else {
             this.showTreasury = true;
             this.showHeadOfAccount = false;
+            this.getallTresury();
             this.capturePfInterestYearForm.get('Treasury')?.setValidators(Validators.required);
             this.capturePfInterestYearForm.get('HeadOfAccount')?.clearValidators();
         }
@@ -95,14 +99,12 @@ export class CapturePfInterestYearComponent implements OnInit {
 
     getHOA(): void {
         this.MasterService.getHoa().subscribe((response) => {
-            console.log('hoa', { response });
-            if ([0, 1, 3].includes(response.apiResponseStatus)) {
-                if (response.result) {
-                    response.result.map((item: any) => {
-                        item.hoaName = item.institutions + ' (' + '00-' + item.hoa + ')';
-                    });
-                    this.HoadMasterList = response.result;
-                }
+            if (response.apiResponseStatus == 0 || response.apiResponseStatus == 1 || response.apiResponseStatus == 3) {
+                response.result.map((item, index) => {
+                    item.Name = item.Name ;
+                    item.Code = item.Code;
+                });
+                this.HoadMasterList = response.result;
             }
         });
     }
@@ -124,8 +126,29 @@ export class CapturePfInterestYearComponent implements OnInit {
             }
         });
       }
+      getallTresury(): void {
+        this.MasterService.getallTresury().subscribe((response) => {
+            if (response.apiResponseStatus == 0 || response.apiResponseStatus == 1 || response.apiResponseStatus == 3) {
+                response.result.map((item, index) => {
+                    item.Name = item.treasuryName+' ('+item.treasuryCode+')';
+                    item.Code = item.intTreasuryId;
+                });
+                this.TresuaryMasterList = response.result;
+            }
+        });
+    }
 
-
+      getStatusMaster(masterType: number) {
+        this.MasterService.getStatusMaster(masterType).subscribe((response) => {
+            if (response.apiResponseStatus == 0 || response.apiResponseStatus == 1 || response.apiResponseStatus == 3) {
+                response.result.map((item, index) => {
+                    item.Name = item.Name ;
+                    item.Code = item.Code;
+                });
+                this.StatusMasterList = response.result;
+            }
+        });
+    }
   
 
 

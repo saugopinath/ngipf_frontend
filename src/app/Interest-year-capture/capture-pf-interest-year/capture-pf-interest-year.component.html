@@ -23,7 +23,7 @@
                             <label>Search By<span class="text-red-700">*</span></label>
                             <select pInputText formControlName="Search_By" id="Search_By">
                                 <option value="" disabled>Select</option>
-                                <option value="option1">Head Of Account & Treasury</option>
+                                <option value="option1" selected>Head Of Account & Treasury</option>
                                 <option value="option2">Head Of Account</option>
                                 <option value="option3">Treasury</option>
                             </select>
@@ -52,7 +52,7 @@
                         <div class="field flex-1">
                             <div class="flex-column flex gap-2">
                                 <label>Treasury<span class="text-red-700">*</span></label>
-                                <p-dropdown [options]="TresuaryMasterList" formControlName="Treasury" optionLabel="name" [filter]="true" filterBy="code" [showClear]="true"  placeholder="Select Treasury name"></p-dropdown>
+                                <p-dropdown [options]="TresuaryMasterList" formControlName="Treasury" optionValue="code"  optionLabel="name" [filter]="true" filterBy="code" [showClear]="true"  placeholder="Select Treasury name"></p-dropdown>
                                 <small *ngIf="isInvalidAndTouched('Treasury')" class="p-error"> Treasury is required. </small>
                             </div>
                         </div>
@@ -62,7 +62,7 @@
                 <div class="field flex-1">
                     <div class="flex-column flex gap-2">
                         <label>Status<span class="text-red-700">*</span></label>
-                       
+                        <p-dropdown [options]="StatusMasterList" formControlName="Status" optionValue="code"  optionLabel="name"  placeholder="Select Status"></p-dropdown>
                         <small *ngIf="isInvalidAndTouched('Status')" class="p-error"> Status is required. </small>
                     </div>
                 </div>

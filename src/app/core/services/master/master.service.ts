@@ -20,6 +20,14 @@ export class MasterService {
             })
         );
     }
+    getallTresury(): Observable<IapiResponce> {
+        return this.http.get<IapiResponce>(this.BaseURL + 'api/v1/Master/get-treasuries').pipe(
+            catchError((error) => {
+                //console.log(error);
+                throw this.toastService.showError(error.Message);
+            })
+        );
+    }
     getTresuryByHoa(hoa: number): Observable<IapiResponce> {
         return this.http.get<IapiResponce>(this.BaseURL + 'api/v1/Master/get-ngipf-treasuries?int_hoa_id=' + hoa).pipe(
             catchError((error) => {
@@ -36,7 +44,13 @@ export class MasterService {
             })
         );
     }
-
+    getStatusMaster(masterType: number): Observable<IapiResponce> {
+        return this.http.get<IapiResponce>(this.BaseURL + 'api/v1/Master/get-status-master?master_type_id=' + masterType).pipe(
+            catchError((error) => {
+                throw this.toastService.showError(error.Message);
+            })
+        );
+    }
        
 
  
