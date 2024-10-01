@@ -52,7 +52,7 @@
                         <div class="field flex-1">
                             <div class="flex-column flex gap-2">
                                 <label>Treasury<span class="text-red-700">*</span></label>
-                                <p-dropdown [options]="TresuaryMasterList" formControlName="Treasury" optionValue="code"  optionLabel="name" [filter]="true" filterBy="code" [showClear]="true"  placeholder="Select Treasury name"></p-dropdown>
+                                <p-dropdown [options]="TresuaryMasterList" formControlName="Treasury" optionValue="Code"  optionLabel="Name" [filter]="true" filterBy="code" [showClear]="true"  placeholder="Select Treasury name"></p-dropdown>
                                 <small *ngIf="isInvalidAndTouched('Treasury')" class="p-error"> Treasury is required. </small>
                             </div>
                         </div>

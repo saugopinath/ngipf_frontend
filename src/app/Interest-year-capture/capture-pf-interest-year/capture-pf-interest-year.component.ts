@@ -114,13 +114,14 @@ export class CapturePfInterestYearComponent implements OnInit {
     getTresuryByHoa(hoa: number) {
         this.MasterService.getTresuryByHoa(hoa).subscribe((response) => {
             if (response.apiResponseStatus == 0 || response.apiResponseStatus == 1 || response.apiResponseStatus == 3) {
+               // console.log(response.result);
                 response.result.map((item, index) => {
                   item.Name = item.treasuryName+' ('+item.treasuryCode+')';
                   item.Code = item.intTreasuryId;
                    
                 });
                 this.TresuaryMasterList = response.result;
-               // console.log(this.TresuaryMasterList);
+                //console.log(this.TresuaryMasterList);
                 
                 
             }
@@ -129,11 +130,13 @@ export class CapturePfInterestYearComponent implements OnInit {
       getallTresury(): void {
         this.MasterService.getallTresury().subscribe((response) => {
             if (response.apiResponseStatus == 0 || response.apiResponseStatus == 1 || response.apiResponseStatus == 3) {
+               // console.log(response.result);
                 response.result.map((item, index) => {
                     item.Name = item.treasuryName+' ('+item.treasuryCode+')';
                     item.Code = item.intTreasuryId;
                 });
                 this.TresuaryMasterList = response.result;
+                
             }
         });
     }
