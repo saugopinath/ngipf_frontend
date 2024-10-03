@@ -1,9 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToastService } from 'src/app/core/services/toast.service';
+import { MenuItem } from 'primeng/api';
+import { Subscription } from 'rxjs/internal/Subscription';
 import { CapturePFInterestYearService } from 'src/app/core/services/CapturePFInterestYearDetails/capture-pfinterest-year.service';
 import { MasterService } from 'src/app/core/services/master/master.service';
-
+import {
+    DynamicTable,
+    DynamicTableQueryParameters,
+    ActionButtonConfig,
+    FilterParameter,
+    SortParameter
+} from 'src/app/core/models/dynamic-table';
+import { InterestCreditedStatus } from 'src/app/core/models/interest';
 
 interface CodeMasterList {
     name: string;
@@ -26,7 +34,16 @@ export class CapturePfInterestYearComponent implements OnInit {
     HoadMasterList: CodeMasterList[] = [];
     TresuaryMasterList: CodeMasterList[] = [];
     StatusMasterList: CodeMasterList[] = [];
-    constructor(private fb: FormBuilder, private toastService: ToastService,private MasterService: MasterService, private CapturePFInterestYearService: CapturePFInterestYearService) {
+    filterParams: FilterParameter[] = [];
+    sortParams: SortParameter | any;
+    routeItems: MenuItem[] = [];
+    tableActionButton: ActionButtonConfig[] = [];
+    tableData:DynamicTable<InterestCreditedStatus>|any;
+    tableQueryParameters:DynamicTableQueryParameters|any;
+    private subscribtion: Subscription | any;
+    showTable: boolean = false;
+
+    constructor(private fb: FormBuilder, private MasterService: MasterService, private CapturePFInterestYearService: CapturePFInterestYearService) {
   
         this.dropdownItemHeadOfAccountId = [
             { name: '2049', code: 2049 },
@@ -45,11 +62,11 @@ export class CapturePfInterestYearComponent implements OnInit {
     initializeForm(): void {
         this.capturePfInterestYearForm = this.fb.group({
             DebitHeadOfAccount: [''],
-            HeadOfAccountId: ['', Validators.required],
+            HeadOfAccountId: [''],
             HeadOfAccount: [''],
             OperatorName: [''],
             Search_By: ['', Validators.required],
-            Treasury: [''],
+            Treasury: ['', Validators.required],
             Status: ['', Validators.required],
             Year: [''],
         });
@@ -154,9 +171,67 @@ export class CapturePfInterestYearComponent implements OnInit {
     }
   
 
+    onSearch(): void {
+        
+        if (this.capturePfInterestYearForm.valid) {
+            console.log(this.capturePfInterestYearForm);
+           const SortParameter = {
+                field: 'intOperatorId',
+                order: 'ASC'
+            };
+            const convertedFilters: FilterParameter[] = [];
+            /*convertedFilters.push({
+                field: this.getFilterField(key, this.headers),
+                value: filterObject.value.toString(),
+                operator: filterObject.matchMode,
+            });*/
+            const queryParameters: DynamicTableQueryParameters = {
+                pageSize: 10,
+                pageIndex: 1,
+                filterParameters: convertedFilters,
+                sortParameters: SortParameter,
+            };
+            this.tableQueryParameters =queryParameters;
+           
+            this.showTable = true; // Show the table when the form is valid and search button is clicked
+            this.subscribtion = this.CapturePFInterestYearService
+            .getActionButtonObservable()
+            .subscribe((data) => {
+                // this.setToBillCheck();
+            });
+        this.tableActionButton = [
+            {
+                buttonIdentifier: 'bill_checking',
+                class: '"p-button-raised p-button-rounded',
+                icon: 'pi pi-check-circle',
+                lable: 'Bill Checking',
+              },
+        ];
+        this.routeItems = [
+            { label: 'Bill Details', routerLink: 'personal' },
+            { label: 'List Of Objection', routerLink: 'role' },
+            // { label: 'BY Transfer', routerLink: 'confirmation' },
+            // { label: 'PL Transfer', routerLink: 'confirmation' },
+        ];
+        
+        //this.getTableData();
+        } else {
+            this.showTable = false; // Hide the table if form is invalid
+            Object.keys(this.capturePfInterestYearForm.controls).forEach((field) => {
+                const control = this.capturePfInterestYearForm.get(field);
+                control?.markAsTouched({ onlySelf: true });
+            });
+        }
+    }
 
-
-
+    getTableData(){
+        console.log(this.tableQueryParameters);
+        this.CapturePFInterestYearService.getList('Interest/interestCreditedStatus',this.tableQueryParameters).subscribe((response)=>{
+            if(response.apiResponseStatus==1){
+                this.tableData = response.result;
+            }
+        });
+    }
 
 
     

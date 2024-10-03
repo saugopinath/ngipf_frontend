@@ -12,7 +12,7 @@
                         <div class="flex-column flex gap-2">
                             <label>Debit Head Of Account</label>
 
-                            <p-dropdown [options]="dropdownItemHeadOfAccountId" formControlName="HeadOfAccountId" optionLabel="name" [autoDisplayFirst]="false" placeholder="2049"></p-dropdown>
+                            <p-dropdown [options]="dropdownItemHeadOfAccountId" formControlName="HeadOfAccountId" optionLabel="name" [autoDisplayFirst]="false" placeholder="2049" ></p-dropdown>
 
                             <small *ngIf="isInvalidAndTouched('DebitHeadOfAccount')" class="p-error"> Debit Head Of Account is required. </small>
                         </div>
@@ -21,7 +21,7 @@
                     <div class="field flex-1">
                         <div class="flex-column flex gap-2">
                             <label>Search By<span class="text-red-700">*</span></label>
-                            <select pInputText formControlName="Search_By" id="Search_By">
+                            <select pInputText formControlName="Search_By" id="Search_By" onChange="handQueryParameterChange($event)">
                                 <option value="" disabled>Select</option>
                                 <option value="option1" selected>Head Of Account & Treasury</option>
                                 <option value="option2">Head Of Account</option>
@@ -84,7 +84,7 @@
             <div class="flex flex-wrap gap-2 align-items-center justify-content-center">
                 <button pButton pRipple label="Back" onclick="history.back()"></button>
                 <p-button label="Reset" icon="pi pi-replay" styleClass="p-button-warning" ></p-button>
-                <p-button label="Search" icon="pi pi-search" styleClass="p-button-info" ></p-button>
+                <p-button label="Search" icon="pi pi-search" styleClass="p-button-info" (click)="onSearch()"></p-button>
             </div>
         </div>
     </div>
