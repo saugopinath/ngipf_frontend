@@ -174,23 +174,46 @@ export class CapturePfInterestYearComponent implements OnInit {
     onSearch(): void {
         
         if (this.capturePfInterestYearForm.valid) {
-            console.log(this.capturePfInterestYearForm);
+            
+           
+
+           
            const SortParameter = {
-                field: 'intOperatorId',
+                field: 'IntOperator.OperatorId',
                 order: 'ASC'
             };
             const convertedFilters: FilterParameter[] = [];
-            /*convertedFilters.push({
-                field: this.getFilterField(key, this.headers),
-                value: filterObject.value.toString(),
-                operator: filterObject.matchMode,
-            });*/
+            const treasury_id = this.capturePfInterestYearForm.get('Treasury').value;
+            if(treasury_id!== null){
+                convertedFilters.push({
+                    field: 'IntOperator.intTreasuryId',
+                    value: treasury_id,
+                    operator: 'eq',
+                });
+            }
+            const status_id = this.capturePfInterestYearForm.get('Status').value;
+            if(status_id!== null){
+                convertedFilters.push({
+                    field: 'Status',
+                    value: status_id,
+                    operator: 'eq',
+                });
+            }
+            const operator_id = this.capturePfInterestYearForm.get('OperatorName').value;
+            if(operator_id!== null){
+                convertedFilters.push({
+                    field: 'IntOperator.IntPlOperatorId',
+                    value: operator_id,
+                    operator: 'eq',
+                });
+            }
             const queryParameters: DynamicTableQueryParameters = {
                 pageSize: 10,
                 pageIndex: 1,
                 filterParameters: convertedFilters,
                 sortParameters: SortParameter,
             };
+            //console.log(queryParameters);
             this.tableQueryParameters =queryParameters;
            
             this.showTable = true; // Show the table when the form is valid and search button is clicked
@@ -214,7 +237,7 @@ export class CapturePfInterestYearComponent implements OnInit {
             // { label: 'PL Transfer', routerLink: 'confirmation' },
         ];
         
-        //this.getTableData();
+        this.getTableData();
         } else {
             this.showTable = false; // Hide the table if form is invalid
             Object.keys(this.capturePfInterestYearForm.controls).forEach((field) => {
@@ -225,7 +248,7 @@ export class CapturePfInterestYearComponent implements OnInit {
     }
 
     getTableData(){
-        console.log(this.tableQueryParameters);
+        //console.log(this.tableQueryParameters);
         this.CapturePFInterestYearService.getList('Interest/interestCreditedStatus',this.tableQueryParameters).subscribe((response)=>{
             if(response.apiResponseStatus==1){
                 this.tableData = response.result;
